@@ -1,0 +1,12 @@
+[Unit]
+Description=Kanata Service
+Requires=local-fs.target
+After=local-fs.target
+
+[Service]
+ExecStartPre=modprobe uinput
+ExecStart=/home/linuxbrew/.linuxbrew/bin/kanata -c /home/raf/.config/kanata-config/kanata-mad.kbd
+Restart=no
+
+[Install]
+WantedBy=sysinit.target

@@ -1,9 +1,3 @@
-[submodule "nushell"]
-	path = nushell
-	url = https://github.com/reathe/nushell
 [submodule "kickstart.nvim"]
 	path = kickstart.nvim
 	url = https://github.com/reathe/kickstart.nvim
-[submodule "kanata-config"]
-	path = kanata-config
-	url = https://github.com/reathe/kanata-config
