@@ -1,0 +1,24 @@
+packages:
+  linux:
+    - 'nixpkgs.jetbrains-mono'
+    - 'nixpkgs.nushell'
+    - 'nixpkgs.neovim'
+    - 'nixpkgs.git'
+    - 'nixpkgs.gnumake'
+    - 'nixpkgs.unzip'
+    - 'nixpkgs.gcc'
+    - 'nixpkgs.ripgrep'
+    - 'nixpkgs.carapace'
+    - 'nixpkgs.zoxide'
+    - 'nixpkgs.fzf'
+    - 'nixpkgs.tldr'
+    - 'nixpkgs.kanata'
+    - 'nixpkgs.starship'
+  windows:
+    winget:
+      - 'win32yank'
+    choco:
+      - 'make'
+      - 'ripgrep'
+      - 'unzip'
+      - 'gzip'

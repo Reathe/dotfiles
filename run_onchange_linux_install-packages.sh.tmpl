@@ -1,0 +1,9 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/bash
+
+# install nix
+sh <(curl -L https://nixos.org/nix/install) --daemon
+
+# install individual packages
+nix-env -iA {{ range .packages.linux -}}{{ . }} {{ end -}}
+{{ end -}}
