@@ -10,6 +10,7 @@ sudo apt install curl
 if ! command -v nix-env 2>&1 >/dev/null
 then
 	sh <(curl -L https://nixos.org/nix/install) --daemon
+	PATH=/nix/var/nix/profiles/default/bin:$PATH
 fi
 
 # install individual packages
