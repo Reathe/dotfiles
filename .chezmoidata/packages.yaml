@@ -5,6 +5,7 @@ packages:
     - 'nixpkgs.neovim'
     - 'nixpkgs.git'
     - 'nixpkgs.lazygit'
+    - 'nixpkgs.gh'
     - 'nixpkgs.gnumake'
     - 'nixpkgs.unzip'
     - 'nixpkgs.gcc'
