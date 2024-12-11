@@ -1,0 +1,9 @@
+
+{{ if eq .chezmoi.os "windows" -}}
+
+# install winget packages
+winget install {{ range .packages.windows.winget -}}{{ . }} {{ end -}}
+
+# install choco packages
+choco install {{ range .packages.windows.choco -}}{{ . }} {{ end -}}
+{{ end -}}

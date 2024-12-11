@@ -18,6 +18,7 @@ packages:
     - 'nixpkgs.starship'
   windows:
     winget:
+      - 'chocolatey'
       - 'win32yank'
       - 'JesseDuffield.lazygit'
     choco:
