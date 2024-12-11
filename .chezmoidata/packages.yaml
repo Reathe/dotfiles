@@ -1,6 +1,6 @@
 packages:
   linux:
-    - 'nixpkgs.jetbrains-mono'
+    - 'nixpkgs.nerd-fonts.jetbrains-mono'
     - 'nixpkgs.nushell'
     - 'nixpkgs.neovim'
     - 'nixpkgs.git'
@@ -20,6 +20,7 @@ packages:
       - 'win32yank'
       - 'JesseDuffield.lazygit'
     choco:
+      - 'nerd-fonts-jetbrainsmono'
       - 'make'
       - 'ripgrep'
       - 'unzip'
