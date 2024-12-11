@@ -12,6 +12,7 @@ packages:
     - 'nixpkgs.carapace'
     - 'nixpkgs.zoxide'
     - 'nixpkgs.fzf'
+    - 'nixpkgs.fd'
     - 'nixpkgs.tldr'
     - 'nixpkgs.kanata'
     - 'nixpkgs.starship'
@@ -25,3 +26,5 @@ packages:
       - 'ripgrep'
       - 'unzip'
       - 'gzip'
+      - 'fd'
+
