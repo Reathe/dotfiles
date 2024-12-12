@@ -1,0 +1,8 @@
+# Updates Vencord install
+export def "update vencord" [] {
+    cd ~/code/Vencord
+    git pull
+    pnpm build
+    pnpm inject
+}
+
