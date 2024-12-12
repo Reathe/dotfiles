@@ -897,8 +897,11 @@ $env.config = {
         }
     ]
 }
-let windows = $nu.os-info.name == "windows"
-let linux = $nu.os-info.name == "linux"
+
+{{ if eq .chezmoi.os "windows" -}}
+alias gcc = zig cc
+{{ end -}}
+alias cat = bat
 
 use ~/.cache/starship/init.nu
 source ~/.cache/carapace/init.nu
