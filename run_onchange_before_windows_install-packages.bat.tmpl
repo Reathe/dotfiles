@@ -6,5 +6,8 @@ setx XDG_CONFIG_HOME %userprofile%/.config
 winget install {{ range .packages.windows.winget -}}{{ . }} {{ end }}
 
 :: install choco packages
-"C:\ProgramData\chocolatey\choco.exe" install {{ range .packages.windows.choco -}}{{ . }} {{ end }}
+"C:\ProgramData\chocolatey\choco.exe" install -y {{ range .packages.windows.choco -}}{{ . }} {{ end }}
+
+:: refresh env
+refreshenv
 {{ end }}
