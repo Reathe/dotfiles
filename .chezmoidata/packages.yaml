@@ -18,6 +18,7 @@ packages:
     - 'nixpkgs.kanata'
     - 'nixpkgs.starship'
     - 'nixpkgs.bat'
+    - 'nixpkgs.bitwarden-cli'
   windows:
     winget:
       - 'chocolatey'
@@ -37,6 +38,7 @@ packages:
       - 'vscode'
       - 'zig.zig'
       - 'sharkdp.bat'
+      - 'Bitwarden.CLI'
     choco:
       - 'nerd-fonts-jetbrainsmono'
       - 'make'
