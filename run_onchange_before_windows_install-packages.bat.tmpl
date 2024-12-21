@@ -1,11 +1,10 @@
 {{ if eq .chezmoi.os "windows" -}}
+:: set xdg config home to .config
 setx XDG_CONFIG_HOME %userprofile%/.config 
+
 :: install winget packages
 winget install {{ range .packages.windows.winget -}}{{ . }} {{ end }}
 
 :: install choco packages
 "C:\ProgramData\chocolatey\choco.exe" install {{ range .packages.windows.choco -}}{{ . }} {{ end }}
-
-:: install kanata
-gh release download --pattern kanata_gui.exe --dir C:/Portable/Kanata --repo jtroo/kanata --clobber
 {{ end }}
