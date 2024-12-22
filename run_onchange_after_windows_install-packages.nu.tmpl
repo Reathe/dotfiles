@@ -1,4 +1,4 @@
 {{ if eq .chezmoi.os "windows" -}}
 # install kanata
-gh release download --pattern kanata_gui.exe --dir C:/Portable/Kanata --repo jtroo/kanata --clobber
+gh release download --pattern kanata_gui.exe --dir C:/Portable/Kanata --repo jtroo/kanata --skip-existing
 {{- end }}
