@@ -8,6 +8,6 @@ winget install {{ range .packages.windows.winget -}}{{ . }} {{ end }}
 :: install choco packages
 "C:\ProgramData\chocolatey\choco.exe" install -y {{ range .packages.windows.choco -}}{{ . }} {{ end }}
 
-:: refresh env
+:: refresh env from choco
 refreshenv
 {{ end }}
