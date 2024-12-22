@@ -1,0 +1,20 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/bash
+echo "Bitwarden login:"
+SESS=$(bw login {{ .email }} --raw)
+
+if [ $? -eq 0 ]; then
+  echo "Command succeeded. Set the BW_SESSION variable:"
+  echo ""
+  echo "bash:"
+  echo "    export BW_SESSION=$SESS"
+  echo "nushell:"
+  echo "    \$env.BW_SESSION = '$SESS'"
+  echo ""
+else
+  echo "if you need to unlock vault:"
+  echo "nushell:    bw-unlock"
+  echo "bash:       export BW_SESSION="\$\(bw unlock --raw\)""
+fi
+
+{{- end }}
