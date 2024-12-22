@@ -8,6 +8,7 @@ if defined SESSION_TOKEN (
   setx BW_SESSION "%SESSION_TOKEN%"
   echo Restart the shell
 ) else (
+  echo Already logged in.
   echo If you need to unlock vault:
   echo nushell:    bw-unlock
 )
