@@ -10,9 +10,8 @@ if [ $? -eq 0 ]; then
   echo "    export BW_SESSION=$SESS"
   echo "nushell:"
   echo "    \$env.BW_SESSION = '$SESS'"
-  echo "" 
+  echo ""
 else
-  echo "Already logged in."
   echo "if you need to unlock vault:"
   echo "nushell:    bw-unlock"
   echo "bash:       export BW_SESSION="\$\(bw unlock --raw\)""
