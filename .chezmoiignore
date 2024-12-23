@@ -4,4 +4,5 @@ AppData*
 {{- end }}
 {{- if eq .chezmoi.os "windows" }}
 .config/ghostty
+.config/kanata*
 {{- end }}
