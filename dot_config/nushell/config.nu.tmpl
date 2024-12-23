@@ -900,6 +900,7 @@ $env.config = {
 
 {{ if eq .chezmoi.os "windows" -}}
 alias gcc = zig cc
+alias kanata = {{ .kanataPath }}/{{ .kanataExe }}
 {{ end -}}
 {{ if eq .chezmoi.os "linux" -}}
 alias sudopath = sudo --preserve-env=PATH env
