@@ -1,0 +1,14 @@
+Host ubuntuServerTrueNAS
+  HostName 192.168.1.58
+  IdentityFile ~/.ssh/id_ed25519
+  User raf
+
+Host trueNAS
+  HostName truenas
+  User admin
+
+Host oracleVM
+  HostName 129.151.228.131
+  IdentityFile  ~/.ssh/id_ed25519
+  User ubuntu
+
