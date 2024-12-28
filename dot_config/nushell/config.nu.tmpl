@@ -901,6 +901,10 @@ $env.config = {
 {{ if eq .chezmoi.os "windows" -}}
 alias gcc = zig cc
 {{ end -}}
+{{ if eq .chezmoi.os "linux" -}}
+alias sudopath = sudo --preserve-env=PATH env
+{{ end -}}
+
 alias cat = bat
 alias cmoi = chezmoi
 
