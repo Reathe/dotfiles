@@ -2,3 +2,6 @@ README.md
 {{- if ne .chezmoi.os "windows" }}
 AppData*
 {{- end }}
+{{- if eq .chezmoi.os "windows" }}
+.config/ghostty
+{{- end }}
