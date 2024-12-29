@@ -3,7 +3,7 @@
 
 # install curl if needed
 {{ if contains "debian" .chezmoi.osRelease.idLike  }}
-sudo apt install curl build-essential
+sudo apt install curl git build-essential
 {{ end -}}
 
 # install brew if needed
