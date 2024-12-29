@@ -6,7 +6,6 @@ if wezterm.config_builder then
 end
 
 config.default_prog = { "nu" }
-config.font = wezterm.font("JetBrainsMono Nerd Font")
 config.color_scheme = "Catppuccin Mocha"
 config.window_background_opacity = 0.8
 config.win32_system_backdrop = "Acrylic"
