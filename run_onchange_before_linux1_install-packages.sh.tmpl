@@ -15,6 +15,8 @@ then
 	eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
+# install brew taps
+brew tap {{ range .packages.linux.brewtap -}}{{ . }} {{ end }}
 # install individual packages
-brew install {{ range .packages.linux.brew -}}{{ . }} {{ end -}}
-{{ end -}}
+brew install {{ range .packages.linux.brew -}}{{ . }} {{ end }}
+{{- end -}}
