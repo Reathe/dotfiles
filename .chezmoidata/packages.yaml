@@ -1,5 +1,7 @@
 packages:
   linux:
+    brewtap:
+      - 'wez/wezterm-linuxbrew'
     brew:
       - 'gcc'
       - 'nushell'
@@ -19,6 +21,8 @@ packages:
       - 'starship'
       - 'bat'
       - 'bitwarden-cli'
+      # install from taps
+      - 'wezterm'
 
   windows:
     winget:
@@ -40,6 +44,7 @@ packages:
       - 'zig.zig'
       - 'sharkdp.bat'
       - 'Bitwarden.CLI'
+      - 'wez.wezterm'
     choco:
       - 'nerd-fonts-jetbrainsmono'
       - 'make'
