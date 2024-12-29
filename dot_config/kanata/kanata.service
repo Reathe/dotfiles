@@ -5,7 +5,7 @@ After=local-fs.target
 
 [Service]
 ExecStartPre=modprobe uinput
-ExecStart=/home/raf/.nix-profile/bin/kanata -c /home/raf/.config/kanata-config/kanata.kbd
+ExecStart=/home/linuxbrew/.linuxbrew/bin/kanata -c /home/raf/.config/kanata-config/kanata.kbd
 Restart=no
 
 [Install]
