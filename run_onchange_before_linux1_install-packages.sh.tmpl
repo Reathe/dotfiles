@@ -3,16 +3,18 @@
 
 # install curl if needed
 {{ if contains "debian" .chezmoi.osRelease.idLike  }}
-sudo apt install curl
+sudo apt install curl build-essential
 {{ end -}}
 
-# install nix if needed
-if ! command -v nix-env 2>&1 >/dev/null
+# install brew if needed
+if ! command -v brew 2>&1 >/dev/null
 then
-	sh <(curl -L https://nixos.org/nix/install) --daemon
-	PATH=/nix/var/nix/profiles/default/bin:$PATH
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	echo >> ~/.bashrc
+	echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.bashrc
+	eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
 # install individual packages
-nix-env -iA {{ range .packages.linux -}}{{ . }} {{ end -}}
+brew install {{ range .packages.linux.brew -}}{{ . }} {{ end -}}
 {{ end -}}
