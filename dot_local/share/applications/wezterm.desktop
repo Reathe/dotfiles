@@ -1,0 +1,16 @@
+[Desktop Entry]
+Name=Wezterm
+Type=Application
+Comment=A terminal emulator
+Exec=wezterm
+Icon=com.mitchellh.ghostty
+Categories=System;TerminalEmulator;
+Keywords=terminal;tty;pty;
+StartupNotify=true
+Terminal=false
+Actions=new-window;
+X-GNOME-UsesNotifications=true
+
+[Desktop Action new-window]
+Name=New Window
+Exec=wezterm
