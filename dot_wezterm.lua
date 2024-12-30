@@ -16,23 +16,23 @@ config.use_dead_keys = false
 local act = wezterm.action
 config.keys = {
 	{
-		key = "H",
-		mods = "CTRL|SHIFT",
+		key = "h",
+		mods = "ALT",
 		action = act.ActivatePaneDirection("Left"),
 	},
 	{
-		key = "L",
-		mods = "CTRL|SHIFT",
+		key = "l",
+		mods = "ALT",
 		action = act.ActivatePaneDirection("Right"),
 	},
 	{
-		key = "K",
-		mods = "CTRL|SHIFT",
+		key = "k",
+		mods = "ALT",
 		action = act.ActivatePaneDirection("Up"),
 	},
 	{
-		key = "J",
-		mods = "CTRL|SHIFT",
+		key = "j",
+		mods = "ALT",
 		action = act.ActivatePaneDirection("Down"),
 	},
 	{
@@ -52,20 +52,39 @@ config.keys = {
 		action = act.AdjustPaneSize({ "Right", 5 }),
 	},
 	{
-		key = "_",
+		key = "h",
 		mods = "CTRL|SHIFT",
-		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
+		action = act.SplitPane({ direction = "Left" }),
 	},
-
 	{
-		key = "+",
+		key = "j",
 		mods = "CTRL|SHIFT",
-		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
+		action = act.SplitPane({ direction = "Down" }),
+	},
+	{
+		key = "k",
+		mods = "CTRL|SHIFT",
+		action = act.SplitPane({ direction = "Up" }),
+	},
+	{
+		key = "l",
+		mods = "CTRL|SHIFT",
+		action = act.SplitPane({ direction = "Right" }),
 	},
 	{
 		key = "w",
 		mods = "CTRL",
 		action = act.CloseCurrentPane({ confirm = true }),
+	},
+	{
+		key = "Enter",
+		mods = "CTRL",
+		action = act.ToggleFullScreen,
+	},
+	{
+		key = "Enter",
+		mods = "ALT|SHIFT",
+		action = act.TogglePaneZoomState,
 	},
 }
 
