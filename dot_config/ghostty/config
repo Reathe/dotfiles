@@ -1,2 +1,33 @@
 command = nu
 theme = catppuccin-mocha
+
+confirm-close-surface = false
+background-opacity = 0.9
+window-padding-x = 5
+window-padding-balance = true
+window-decoration = false
+
+keybind = alt+enter=toggle_window_decorations
+
+# move between split
+keybind = alt+h=goto_split:left
+keybind = alt+l=goto_split:right
+keybind = alt+j=goto_split:bottom
+keybind = alt+k=goto_split:top
+
+# new split
+keybind = ctrl+shift+h=new_split:left
+keybind = ctrl+shift+l=new_split:right
+keybind = ctrl+shift+j=new_split:down
+keybind = ctrl+shift+k=new_split:up
+
+# resize split
+keybind = alt+shift+enter=toggle_split_zoom
+keybind = alt+shift+h=resize_split:left,10
+keybind = alt+shift+l=resize_split:right,10
+keybind = alt+shift+j=resize_split:down,10
+keybind = alt+shift+k=resize_split:up,10
+
+# quick terminal
+keybind = global:ctrl+equal=toggle_quick_terminal
+
