@@ -1,8 +1,10 @@
 README.md
 {{- if ne .chezmoi.os "windows" }}
 AppData*
+*.bat
 {{- end }}
 {{- if eq .chezmoi.os "windows" }}
 .config/ghostty
 .config/kanata*
+*.sh
 {{- end }}
