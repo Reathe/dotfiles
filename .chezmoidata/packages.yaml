@@ -40,11 +40,13 @@ packages:
       - 'junegunn.fzf'
       - 'tldr-pages.tlrc'
       - 'Starship.Starship'
-      - 'vscode'
       - 'zig.zig'
       - 'sharkdp.bat'
       - 'Bitwarden.CLI'
       - 'wez.wezterm'
+      # ui apps
+      - 'vscode'
+      - 'Zen-Team.Zen-Browser'
     choco:
       - 'nerd-fonts-jetbrainsmono'
       - 'make'
