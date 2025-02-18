@@ -2,6 +2,7 @@
 export def "update vencord" [] {
     cd ~/code/Vencord
     git pull
+    pnpm i
     pnpm build
     pnpm inject
 }
