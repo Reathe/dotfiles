@@ -52,4 +52,5 @@ packages:
       - 'unzip'
       - 'gzip'
       - 'fd'
+      - 'anaconda3'
 
