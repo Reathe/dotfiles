@@ -1,13 +1,17 @@
 {{ if eq .chezmoi.os "windows" -}}
-:: set xdg config home to .config
+@echo off
+echo set xdg_config_home to .config
 setx XDG_CONFIG_HOME %userprofile%/.config 
 
-:: install winget packages
+:: Enable sudo
+sudo echo Sudo is enabled, you can just press enter.
+echo You can also run the program as Administrator
+pause
+
+echo install winget packages
 winget install {{ range .packages.windows.winget -}}{{ . }} {{ end }}
 
-:: install choco packages
-"C:\ProgramData\chocolatey\choco.exe" install -y {{ range .packages.windows.choco -}}{{ . }} {{ end }}
-
-:: refresh env from choco
-refreshenv
+echo install choco packages
+sudo "C:\ProgramData\chocolatey\choco.exe" install -y {{ range .packages.windows.choco -}}{{ . }} {{ end }}
+echo %errorlevel%
 {{ end }}
