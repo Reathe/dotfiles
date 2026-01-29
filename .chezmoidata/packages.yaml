@@ -31,7 +31,6 @@ packages:
       - 'JesseDuffield.lazygit'
       - 'GitHub.cli'
       - 'Neovim.Neovim'
-      - 'BurntSushi.ripgrep.MSVC'
       - 'win32yank'
       - 'ezwinports.make'
       - 'Nushell.Nushell'
