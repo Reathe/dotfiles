@@ -26,6 +26,7 @@ packages:
 
   windows:
     winget:
+      - 'jtroo.kanata_gui'
       - 'Chocolatey.Chocolatey'
       - 'git.git'
       - 'JesseDuffield.lazygit'

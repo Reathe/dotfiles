@@ -1,11 +1,7 @@
 {{ if eq .chezmoi.os "windows" -}}
-print "Downloading Kanata... Accept the elevated prompt to run Kanata on startup"
-
-# install kanata
-gh release download --pattern {{ .kanataExe }} --dir {{ .kanataPath }} --repo jtroo/kanata --skip-existing
-
+print "Setting up Kanata to run on startup"
 # Making kanata run on startup by placing link to its .exe in startup folder
 let startupFolder = ($env.APPDATA | path join "Microsoft\\Windows\\Start Menu\\Programs\\Startup\\Kanata")
-let kanataExePath = ("{{ .kanataPath }}/{{ .kanataExe }}" | str replace -a "/" "\\")
-sudo cmd /c mklink $startupFolder $kanataExePath
+let kanataPath = which {{ .kanataExe }} | get path | get 0 | str replace -a \ \\
+sudo cmd /c mklink $startupFolder $kanataPath
 {{- end }}
