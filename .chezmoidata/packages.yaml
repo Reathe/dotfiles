@@ -26,12 +26,12 @@ packages:
 
   windows:
     winget:
-      - 'chocolatey'
+      - 'Chocolatey.Chocolatey'
       - 'git.git'
       - 'JesseDuffield.lazygit'
       - 'GitHub.cli'
       - 'Neovim.Neovim'
-      - 'win32yank'
+      - 'equalsraf.win32yank'
       - 'ezwinports.make'
       - 'Nushell.Nushell'
       - 'rsteube.Carapace'
@@ -44,7 +44,7 @@ packages:
       - 'Bitwarden.CLI'
       - 'wez.wezterm'
       # ui apps
-      - 'vscode'
+      - 'Microsoft.VisualStudioCode'
       - 'Zen-Team.Zen-Browser'
     choco:
       - 'nerd-fonts-jetbrainsmono'
