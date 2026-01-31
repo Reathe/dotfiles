@@ -11,7 +11,7 @@ echo install winget packages
 
 @echo on
 {{ range .packages.windows.winget -}}
-winget install --accept-package-agreements {{ . }}
+winget install --source winget --accept-package-agreements {{ . }}
 {{ end }}
 @echo off
 
