@@ -5,6 +5,8 @@
 # - Nushell syntax errors (let assignment, run-external usage)
 # - Tested with Mamba 2.1.0 / Conda (implicitly via Mamba) / Nushell 0.103.0
 
+export-env { $env.CONDA_NO_PROMPT = true }
+
 # Loads conda info once per session and caches in $env.CONDA_INFO
 def --env load-conda-info-env [] {
     # Check only once per session if CONDA_INFO is already loaded
