@@ -55,4 +55,6 @@ packages:
       - 'gzip'
       - 'fd'
       - 'anaconda3'
+      - 'tree-sitter'
+      - 'visualstudio2022buildtools'
 
