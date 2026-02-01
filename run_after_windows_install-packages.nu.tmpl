@@ -1,8 +1,13 @@
 {{ if eq .chezmoi.os "windows" -}}
-print "Setting up Kanata to run on startup"
+print "Checking if Kanata is set to run on startup"
 # Making kanata run on startup by placing link to its .exe in startup folder
 let startupFolder = ($env.APPDATA | path join "Microsoft\\Windows\\Start Menu\\Programs\\Startup\\Kanata")
-let kanataPath = which {{ .kanataExe }} | get path | get 0 | str replace -a \ \\
-print $kanataPath
-sudo cmd /c mklink $startupFolder $kanataPath
+let alreadyCreated = $startupFolder | path exists
+if not $alreadyCreated {
+	let kanataPath = which {{ .kanataExe }} | get path | get 0 | str replace -a \ \\
+	print "setting kanata in startup folder" $kanataPath
+	sudo cmd /c mklink $startupFolder $kanataPath
+} else {
+	print "Kanata link already in startup folder"
+}
 {{- end }}
