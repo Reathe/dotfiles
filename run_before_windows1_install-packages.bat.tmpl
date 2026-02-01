@@ -10,9 +10,8 @@ pause
 echo install winget packages
 
 @echo on
-{{ range .packages.windows.winget -}}
-winget install -s winget --accept-package-agreements {{ . }}
-{{ end }}
+
+sudo winget install {{ range .packages.windows.winget -}}{{ . }} {{ end }} -s winget --accept-package-agreements --accept-source-agreements -h
 @echo off
 
 echo install choco packages
