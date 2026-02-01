@@ -9,10 +9,11 @@ snap install chezmoi --classic
 ```
 With winget (windows)
 ```bash
-winget install twpayne.chezmoi -s winget --accept-package-agreements
+winget install twpayne.chezmoi Bitwaden.CLI -s winget --accept-package-agreements --accept-source-agreements -h
 ```
-### Copy config
+### Copy config powershell
 ```bash
+
 chezmoi init --apply reathe
 ```
 
