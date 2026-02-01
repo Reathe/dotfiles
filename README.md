@@ -9,7 +9,7 @@ snap install chezmoi --classic
 ```
 With winget (windows)
 ```bash
-winget install chezmoi
+winget install twpayne.chezmoi -s winget --accept-package-agreements
 ```
 ### Copy config
 ```bash
