@@ -47,6 +47,8 @@ packages:
       # ui apps
       - 'Microsoft.VisualStudioCode'
       - 'Zen-Team.Zen-Browser'
+    wingetArgs:
+      - 'Microsoft.VisualStudio.BuildTools --override "--quiet --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64"'
     choco:
       - 'nerd-fonts-jetbrainsmono'
       - 'make'
