@@ -13,7 +13,8 @@ winget install twpayne.chezmoi Bitwaden.CLI -s winget --accept-package-agreement
 ```
 ### Copy config powershell
 ```bash
-
+bw login bachourian@gmail.com
+$env:BW_SESSION = bw unlock --raw
 chezmoi init --apply reathe
 ```
 
