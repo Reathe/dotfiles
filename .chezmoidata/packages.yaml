@@ -45,6 +45,8 @@ packages:
       - 'Bitwarden.CLI'
       - 'wez.wezterm'
       # ui apps
+      - 'AntibodySoftware.WizTree'
+      - 'voidtools.Everything'
       - 'Microsoft.VisualStudioCode'
       - 'Zen-Team.Zen-Browser'
     wingetArgs:
@@ -58,5 +60,4 @@ packages:
       - 'fd'
       - 'anaconda3'
       - 'tree-sitter'
-      - 'visualstudio2022buildtools'
 
