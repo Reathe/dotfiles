@@ -44,6 +44,7 @@ packages:
       - 'sharkdp.bat'
       - 'Bitwarden.CLI'
       - 'wez.wezterm'
+      - 'OpenJS.NodeJS'
       # ui apps
       - 'AntibodySoftware.WizTree'
       - 'voidtools.Everything'
