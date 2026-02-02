@@ -50,7 +50,7 @@ packages:
       - 'Microsoft.VisualStudioCode'
       - 'Zen-Team.Zen-Browser'
     wingetArgs:
-      - 'Microsoft.VisualStudio.BuildTools --override "--quiet --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64"'
+      - 'Microsoft.VisualStudio.BuildTools --override "--quiet --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows11SDK.26100"'
     choco:
       - 'nerd-fonts-jetbrainsmono'
       - 'make'
