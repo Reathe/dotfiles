@@ -97,18 +97,7 @@ $env.NU_PLUGIN_DIRS = [
 # path add ($env.HOME | path join ".local" "bin")
 # $env.PATH = ($env.PATH | uniq)
 
-use std/util "path add"
-{{ if eq .chezmoi.os "linux" -}}
-path add /home/linuxbrew/.linuxbrew/bin
-path add /home/linuxbrew/.linuxbrew/sbin
-{{ end -}}
-{{ if eq .chezmoi.os "windows" -}}
-path add C:/tools/Anaconda3/condabin
-path add C:/tools/Anaconda3/Scripts
-path add C:/tools/Anaconda3/Library/bin
-path add "C:/Program Files (x86)/Microsoft Visual Studio/18/BuildTools/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64"
-path add "C:/Program Files (x86)/Windows Kits/10/bin/10.0.26100.0/x64"
-{{ end -}}
+source add_to_path.nu
 
 # To load from a custom file you can use:
 # source ($nu.default-config-dir | path join 'custom.nu')

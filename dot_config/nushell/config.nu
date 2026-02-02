@@ -893,17 +893,7 @@ $env.config = {
     ]
 }
 
-{{ if eq .chezmoi.os "windows" -}}
-alias gcc = zig cc
-alias kanata = {{ .kanataExe }}
-{{ end -}}
-{{ if eq .chezmoi.os "linux" -}}
-alias sudopath = sudo --preserve-env=PATH env
-{{ end -}}
-
-alias vim = nvim
-alias cat = bat
-alias cmoi = chezmoi
+source add_alias.nu
 
 mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")

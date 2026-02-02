@@ -1,0 +1,14 @@
+alias vim = nvim
+alias cat = bat
+alias cmoi = chezmoi
+
+{{- /* For platform specific aliases to add */ -}}
+
+{{- if eq .chezmoi.os "windows" }}
+alias gcc = zig cc
+alias kanata = {{ .kanataExe }}
+{{ end -}}
+
+{{ if eq .chezmoi.os "linux" -}}
+alias sudopath = sudo --preserve-env=PATH env
+{{ end -}}
