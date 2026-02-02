@@ -15,7 +15,7 @@ sudo winget install {{ range .packages.windows.winget -}}{{ . }} {{ end }} -s wi
 
 {{ range .packages.windows.wingetArgs -}}
 sudo winget install {{ . }} -s winget --accept-package-agreements --accept-source-agreements -h --disable-interactivity
-{{- end }}
+{{ end }}
 @echo off
 
 echo install choco packages

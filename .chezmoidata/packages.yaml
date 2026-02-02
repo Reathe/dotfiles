@@ -27,7 +27,6 @@ packages:
   windows:
     winget:
       - 'jtroo.kanata_gui'
-      - 'Chocolatey.Chocolatey'
       - 'git.git'
       - 'JesseDuffield.lazygit'
       - 'GitHub.cli'
@@ -51,6 +50,7 @@ packages:
       - 'Microsoft.VisualStudioCode'
       - 'Zen-Team.Zen-Browser'
     wingetArgs:
+      - 'Chocolatey.Chocolatey'
       - 'Microsoft.VisualStudio.BuildTools --override "--quiet --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows11SDK.26100"'
     choco:
       - 'nerd-fonts-jetbrainsmono'
