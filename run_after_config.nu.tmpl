@@ -1,4 +1,8 @@
 #!/usr/bin/env nu
 
 # login to gh
-{{ (bitwarden "item" "7723714a-f879-4694-bfd5-b24d0111c3d4").login.password | quote }} | gh auth login -p ssh -h github.com --with-token
+{{ (bitwardenSecrets
+     "90a30c12-3351-49be-9e4c-b3e400e715ef"
+     (env "BWS_ACCESS_TOKEN" | default "")
+).value | quote }} | gh auth login -p ssh -h github.com --with-token
+

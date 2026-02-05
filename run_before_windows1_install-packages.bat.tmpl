@@ -10,7 +10,6 @@ pause
 echo install winget packages
 
 @echo on
-
 sudo winget install {{ range .packages.windows.winget -}}{{ . }} {{ end }} -s winget --accept-package-agreements --accept-source-agreements -h --disable-interactivity
 
 {{ range .packages.windows.wingetArgs -}}
@@ -21,6 +20,10 @@ sudo winget install {{ . }} -s winget --accept-package-agreements --accept-sourc
 echo install choco packages
 @echo on
 sudo "C:\ProgramData\chocolatey\choco.exe" install -y {{ range .packages.windows.choco -}}{{ . }} {{ end }}
+
+{{ range .packages.windows.custom -}}
+{{ . }}
+{{ end }}
 @echo off
 
 echo %errorlevel%

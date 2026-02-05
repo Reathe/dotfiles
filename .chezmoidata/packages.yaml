@@ -20,7 +20,6 @@ packages:
       - 'kanata'
       - 'starship'
       - 'bat'
-      - 'bitwarden-cli'
       # install from taps
       - 'wezterm'
 
@@ -41,7 +40,6 @@ packages:
       - 'Starship.Starship'
       - 'zig.zig'
       - 'sharkdp.bat'
-      - 'Bitwarden.CLI'
       - 'wez.wezterm'
       - 'OpenJS.NodeJS'
       # ui apps
@@ -61,4 +59,6 @@ packages:
       - 'fd'
       - 'anaconda3'
       - 'tree-sitter'
+    custom:
+      - 'sudo powershell -NoProfile -ExecutionPolicy Bypass -File %userprofile%\.local\share\chezmoi\.install-pw-manager.ps1'
 
