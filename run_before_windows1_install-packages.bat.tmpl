@@ -3,23 +3,20 @@ setx XDG_CONFIG_HOME %userprofile%\.config
 
 @echo off
 :: Enable sudo
-sudo echo Sudo is enabled, you can just press enter.
-echo You can also run the program as Administrator
-pause
-
+echo You should run the program as Administrator
 echo install winget packages
 
 @echo on
-sudo winget install {{ range .packages.windows.winget -}}{{ . }} {{ end }} -s winget --accept-package-agreements --accept-source-agreements -h --disable-interactivity
+winget install {{ range .packages.windows.winget -}}{{ . }} {{ end }} -s winget --accept-package-agreements --accept-source-agreements -h --disable-interactivity
 
 {{ range .packages.windows.wingetArgs -}}
-sudo winget install {{ . }} -s winget --accept-package-agreements --accept-source-agreements -h --disable-interactivity
+winget install {{ . }} -s winget --accept-package-agreements --accept-source-agreements -h --disable-interactivity
 {{ end }}
 @echo off
 
 echo install choco packages
 @echo on
-sudo "C:\ProgramData\chocolatey\choco.exe" install -y {{ range .packages.windows.choco -}}{{ . }} {{ end }}
+"C:\ProgramData\chocolatey\choco.exe" install -y {{ range .packages.windows.choco -}}{{ . }} {{ end }}
 
 {{ range .packages.windows.custom -}}
 {{ . }}

@@ -60,5 +60,5 @@ packages:
       - 'anaconda3'
       - 'tree-sitter'
     custom:
-      - 'sudo powershell -NoProfile -ExecutionPolicy Bypass -File %userprofile%\.local\share\chezmoi\.install-pw-manager.ps1'
+      - 'powershell -NoProfile -ExecutionPolicy Bypass -File %userprofile%\.local\share\chezmoi\.install-pw-manager.ps1'
 
