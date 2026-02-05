@@ -31,6 +31,3 @@ if ($env:SHOW_INSTALLER -eq "true") {
 Invoke-Expression $script
 Write-Host "bws installed safely without adding to PATH."
 
-
-
-
