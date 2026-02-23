@@ -188,7 +188,32 @@
     "newTabMenu": 
     [
         {
-            "type": "remainingProfiles"
+            "icon": null,
+            "profile": "{47302f9c-1ac4-566c-aa3e-8cf29889d6ab}",
+            "type": "profile"
+        },
+        {
+            "icon": null,
+            "profile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+            "type": "profile"
+        },
+        {
+            "icon": null,
+            "profile": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+            "type": "profile"
+        },
+        {
+            "allowEmpty": false,
+            "entries": 
+            [
+                {
+                    "type": "remainingProfiles"
+                }
+            ],
+            "icon": null,
+            "inline": "never",
+            "name": "Other",
+            "type": "folder"
         }
     ],
     "profiles": 
@@ -201,6 +226,7 @@
                 "face": "JetBrainsMono Nerd Font"
             },
             "opacity": 80,
+            "scrollbarState": "visible",
             "useAcrylic": true
         },
         "list": 
@@ -243,18 +269,6 @@
                 "hidden": false,
                 "name": "PowerShell",
                 "source": "Windows.Terminal.PowershellCore"
-            },
-            {
-                "guid": "{625d1f39-5925-5e03-9254-db72a1379b3e}",
-                "hidden": false,
-                "name": "Developer Command Prompt for VS 18",
-                "source": "Windows.Terminal.VisualStudio"
-            },
-            {
-                "guid": "{47dc87cd-aea1-52a3-8032-aefa7ec64206}",
-                "hidden": false,
-                "name": "Developer PowerShell for VS 18",
-                "source": "Windows.Terminal.VisualStudio"
             },
             {
                 "guid": "{c5c12485-09e6-5e08-8d1d-17b9e2a2a9fb}",
