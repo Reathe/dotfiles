@@ -2,6 +2,10 @@
 #
 # version = "0.100.0"
 
+
+$env.EDITOR = "nvim"
+$env.GIT_SSH = (which ssh | get path | get 0)
+
 def create_left_prompt [] {
     let dir = match (do --ignore-errors { $env.PWD | path relative-to $nu.home-path }) {
         null => $env.PWD
@@ -109,5 +113,3 @@ carapace _carapace nushell | save --force $"($nu.cache-dir)/carapace.nu"
 
 # zoxide better cd
 zoxide init --cmd cd nushell | save -f ~/.zoxide.nu
-
-$env.EDITOR = "nvim"
