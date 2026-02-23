@@ -12,10 +12,6 @@
             "id": "User.copy.644BA8F2"
         },
         {
-            "command": "paste",
-            "id": "User.paste"
-        },
-        {
             "command": 
             {
                 "action": "moveFocus",
@@ -24,13 +20,8 @@
             "id": "User.moveFocus.87C324ED"
         },
         {
-            "command": 
-            {
-                "action": "splitPane",
-                "split": "auto",
-                "splitMode": "duplicate"
-            },
-            "id": "User.splitPane.A6751878"
+            "command": "paste",
+            "id": "User.paste"
         },
         {
             "command": "toggleFullscreen",
@@ -51,10 +42,11 @@
         {
             "command": 
             {
-                "action": "moveFocus",
-                "direction": "up"
+                "action": "splitPane",
+                "split": "auto",
+                "splitMode": "duplicate"
             },
-            "id": "User.moveFocus.6CD791B"
+            "id": "User.splitPane.A6751878"
         },
         {
             "command": 
@@ -64,6 +56,14 @@
                 "splitMode": "duplicate"
             },
             "id": "User.splitPane.10B260D2"
+        },
+        {
+            "command": 
+            {
+                "action": "moveFocus",
+                "direction": "up"
+            },
+            "id": "User.moveFocus.6CD791B"
         },
         {
             "command": 
@@ -105,28 +105,28 @@
             "keys": "ctrl+c"
         },
         {
-            "id": "User.find",
-            "keys": "ctrl+shift+f"
+            "id": "User.closeTab.0",
+            "keys": "ctrl+shift+w"
         },
         {
             "id": "User.paste",
             "keys": "ctrl+v"
         },
         {
-            "id": "User.closeTab.0",
-            "keys": "ctrl+shift+w"
+            "id": "User.find",
+            "keys": "ctrl+shift+f"
         },
         {
-            "id": "User.splitPane.A6751878",
-            "keys": "alt+shift+d"
+            "id": "User.moveFocus.87C324ED",
+            "keys": "alt+l"
         },
         {
             "id": "User.splitPane.10B260D2",
             "keys": "ctrl+shift+j"
         },
         {
-            "id": "User.moveFocus.87C324ED",
-            "keys": "alt+l"
+            "id": "User.splitPane.A6751878",
+            "keys": "alt+shift+d"
         },
         {
             "id": "User.splitPane.FEF0D40B",
@@ -208,6 +208,7 @@
             {
                 "guid": "{47302f9c-1ac4-566c-aa3e-8cf29889d6ab}",
                 "hidden": false,
+                "icon": "C:\\Users\\Raf\\AppData\\Local\\Programs\\nu\\nu.ico",
                 "name": "Nushell",
                 "source": "nu"
             },
@@ -230,12 +231,6 @@
                 "source": "Windows.Terminal.Azure"
             },
             {
-                "guid": "{2ece5bfe-50ed-5f3a-ab87-5cd4baafed2b}",
-                "hidden": false,
-                "name": "Git Bash",
-                "source": "Git"
-            },
-            {
                 "commandline": "ssh raf-vm",
                 "guid": "{d10571b7-2e73-4abc-98e7-a2694a8ead37}",
                 "hidden": false,
@@ -248,6 +243,30 @@
                 "hidden": false,
                 "name": "PowerShell",
                 "source": "Windows.Terminal.PowershellCore"
+            },
+            {
+                "guid": "{625d1f39-5925-5e03-9254-db72a1379b3e}",
+                "hidden": false,
+                "name": "Developer Command Prompt for VS 18",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{47dc87cd-aea1-52a3-8032-aefa7ec64206}",
+                "hidden": false,
+                "name": "Developer PowerShell for VS 18",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{c5c12485-09e6-5e08-8d1d-17b9e2a2a9fb}",
+                "hidden": false,
+                "name": "Developer Command Prompt for VS 18",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{a9a1c275-9dbb-5b51-8046-6256c4a4dc96}",
+                "hidden": false,
+                "name": "Developer PowerShell for VS 18",
+                "source": "Windows.Terminal.VisualStudio"
             }
         ]
     },
