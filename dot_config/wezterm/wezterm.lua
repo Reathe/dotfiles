@@ -13,10 +13,19 @@ config.win32_system_backdrop = "Acrylic"
 config.window_decorations = "RESIZE"
 config.use_dead_keys = false
 config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
+
 local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
-local options = {}
-tabline.setup(options)
+tabline.setup({
+	options = {},
+	sections = {
+		tabline_x = {
+			{ "cpu", use_pwsh = true },
+			{ "ram", use_pwsh = true },
+		},
+	},
+})
 tabline.apply_to_config(config)
+
 local act = wezterm.action
 config.keys = {
 	{
