@@ -8,11 +8,15 @@ end
 config.default_prog = { "nu" }
 config.color_scheme = "Catppuccin Mocha"
 config.window_background_opacity = 0.8
+config.win32_acrylic_accent_color = "#cba6f7"
 config.win32_system_backdrop = "Acrylic"
-config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
-config.use_fancy_tab_bar = false
+config.window_decorations = "RESIZE"
 config.use_dead_keys = false
-
+config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
+local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
+local options = {}
+tabline.setup(options)
+tabline.apply_to_config(config)
 local act = wezterm.action
 config.keys = {
 	{
@@ -85,19 +89,6 @@ config.keys = {
 		key = "Enter",
 		mods = "ALT|SHIFT",
 		action = act.TogglePaneZoomState,
-	},
-}
-
-config.window_background_gradient = {
-	interpolation = "Linear",
-
-	orientation = "Vertical",
-
-	blend = "Rgb",
-
-	colors = {
-		"#11111b",
-		"#181825",
 	},
 }
 
