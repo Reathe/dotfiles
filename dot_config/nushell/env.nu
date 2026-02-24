@@ -2,10 +2,6 @@
 #
 # version = "0.100.0"
 
-
-$env.EDITOR = "nvim"
-$env.GIT_SSH = (which ssh | get path | get 0)
-
 def create_left_prompt [] {
     let dir = match (do --ignore-errors { $env.PWD | path relative-to $nu.home-path }) {
         null => $env.PWD
@@ -101,10 +97,12 @@ $env.NU_PLUGIN_DIRS = [
 # path add ($env.HOME | path join ".local" "bin")
 # $env.PATH = ($env.PATH | uniq)
 
-source add_to_path.nu
-
 # To load from a custom file you can use:
 # source ($nu.default-config-dir | path join 'custom.nu')
+source ($nu.default-config-dir | path join 'add_to_path.nu')
+
+$env.EDITOR = "nvim"
+$env.GIT_SSH = (which ssh | get path | get 0)
 
 # Carapace autocompletion
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
