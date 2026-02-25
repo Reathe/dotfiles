@@ -2,6 +2,12 @@
 setx XDG_CONFIG_HOME %userprofile%\.config 
 
 @echo off
+
+if /I "%INSTALL_PACKAGES%"=="false" (
+    echo Package installation is disabled: INSTALL_PACKAGES = 'false'
+    goto :eof
+)
+
 :: Enable sudo
 echo You should run the program as Administrator
 echo install winget packages
@@ -23,5 +29,5 @@ echo install choco packages
 {{ end }}
 @echo off
 
-echo %errorlevel%
+echo Install done: errorlevel=%errorlevel%
 {{ end }}
