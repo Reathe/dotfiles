@@ -38,7 +38,7 @@ if ($env:SHOW_INSTALLER -eq "true") {
     Write-Host "Running patched installer... SHOW_INSTALLER=true, printing the script"
     Write-Host $script
 }else{
-    Write-Host "Running patched installer... set SHOW_INSTALLER=true print the script"
+    Write-Host "Running patched installer... set SHOW_INSTALLER=true to print the script"
 }
 
 Invoke-Expression $script
