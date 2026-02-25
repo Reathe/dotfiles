@@ -1,0 +1,4 @@
+[".config/nvim"]
+    type = "git-repo"
+    url = "https://github.com/Reathe/kickstart.nvim"
+    refreshPeriod = "1s"

@@ -1,4 +1,0 @@
-[submodule "dot_config/external_nvim"]
-	path = dot_config/external_nvim
-	url = https://github.com/reathe/kickstart.nvim
-	branch = master
