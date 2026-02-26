@@ -26,15 +26,15 @@ $script = $script -replace '  Write-Host "Please restart your shell to use bws"\
 
 # change asking to replace when already installed by environment variable
 $script = $script -replace '(?s)\$userInput\s*=\s*Read-Host\s+"bws is already installed.*?\(Y/N\)"\s*if\s*\(\s*\$userInput\s*-ne\s*"Y"\s*\)\s*\{\s*Write-Host\s+"Installation cancelled by user\."\s*exit\s*\}', @'
-if (-not $env:BWS_REINSTALL) {
+if ($env:BWS_REINSTALL -ne 'true') {
     Write-Host "bws is already installed at $($existingBws.Source), skipping. (set BWS_REINSTALL=true to overwrite it)"
     exit
   }
   Write-Host "bws is already installed at $($existingBws.Source), reinstalling because BWS_REINSTALL=true..."
 '@
 
-# check if SHOW_INSTALLER is true
-if ($env:SHOW_INSTALLER -eq "true") {
+# check if BWS_SHOW_INSTALLER is true
+if ($env:BWS_SHOW_INSTALLER -eq "true") {
     Write-Host "Running patched installer... SHOW_INSTALLER=true, printing the script"
     Write-Host $script
 }else{
