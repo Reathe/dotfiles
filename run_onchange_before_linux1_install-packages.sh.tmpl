@@ -1,5 +1,9 @@
 {{ if eq .chezmoi.os "linux" -}}
 #!/bin/bash
+# Package List Hash {{ include ".chezmoidata/packages.yaml" | sha256sum }}
+{{ if eq .FORCE_RUN_ONCHANGE "true" -}}
+# random string to force run the script {{ randAlphaNum 50 }}
+{{- end }}
 
 # install curl if needed
 {{ if contains "debian" .chezmoi.osRelease.idLike  }}

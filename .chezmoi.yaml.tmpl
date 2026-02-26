@@ -1,0 +1,21 @@
+scriptEnv:
+  INSTALL_PACKAGES: "true"
+  # BitwardenSecrets
+  BWS_REINSTALL: "false"
+  BWS_SHOW_INSTALLER: "false"
+
+data:
+  FORCE_RUN_ONCHANGE: "false"
+
+hooks:
+  read-source-state:
+    pre:
+      command: "pwsh.exe"
+      args:
+        [
+          "-NoProfile",
+          "-ExecutionPolicy",
+          "Bypass",
+          "-File",
+          "{{ .chezmoi.sourceDir }}/.install-pw-manager.ps1",
+        ]
