@@ -1,10 +1,10 @@
 $existingBws = Get-Command bws -ErrorAction SilentlyContinue
 if ($null -ne  $existingBws) {
   if ($env:BWS_REINSTALL -ne 'true') {
-    Write-Host "bws is already installed at $($existingBws.Source), skipping. (set BWS_REINSTALL=true to overwrite it)"
+    # Write-Host "bws is already installed at $($existingBws.Source), skipping. (set BWS_REINSTALL=true to overwrite it)"
     exit
   }
-  Write-Host "bws is already installed at $($existingBws.Source), reinstalling because BWS_REINSTALL=true..."
+  # Write-Host "bws is already installed at $($existingBws.Source), reinstalling because BWS_REINSTALL=true..."
 }
 
 
