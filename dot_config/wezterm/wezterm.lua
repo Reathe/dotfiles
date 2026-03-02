@@ -1,6 +1,5 @@
----@type Wezterm
-local wezterm = require("wezterm")
-local config = {}
+local wezterm = require("wezterm") ---@type Wezterm
+local config = {} ---@type Config
 
 if wezterm.config_builder then
 	config = wezterm.config_builder()
@@ -16,8 +15,8 @@ config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
 config.use_dead_keys = false
 config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
 
-local workspace_switcher = wezterm.plugin.require("https://github.com/MLFlexer/smart_workspace_switcher.wezterm")
-local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
+local workspace_switcher = wezterm.plugin.require("https://github.com/MLFlexer/smart_workspace_switcher.wezterm") ---@type SWS
+local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez") ---@type TablineWez
 
 local act = wezterm.action
 config.keys = {
