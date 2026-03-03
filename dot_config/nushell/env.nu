@@ -1,5 +1,4 @@
 # Nushell Environment Config File
-#
 # version = "0.100.0"
 
 def create_left_prompt [] {
@@ -102,7 +101,7 @@ $env.NU_PLUGIN_DIRS = [
 source ($nu.default-config-dir | path join 'add_to_path.nu')
 
 $env.EDITOR = "nvim"
-$env.GIT_SSH = (which ssh | get path | get 0)
+$env.GIT_SSH = (which ssh | get path | get -o 0)
 
 # Carapace autocompletion
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
