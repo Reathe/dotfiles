@@ -39,6 +39,21 @@ config.keys = {
 	{ key = "w", mods = "CTRL", action = act.CloseCurrentPane({ confirm = true }) },
 	{ key = "Enter", mods = "CTRL", action = act.ToggleFullScreen },
 	{ key = "Enter", mods = "ALT|SHIFT", action = act.TogglePaneZoomState },
+	-- Smart Copy: If text is selected, copy it. If not, send SIGINT (Ctrl+C)
+	{
+		key = "c",
+		mods = "CTRL",
+		action = wezterm.action_callback(function(window, pane)
+			local selection = window:get_selection_text_for_pane(pane)
+			if selection == "" then
+				window:perform_action(act.SendKey({ key = "c", mods = "CTRL" }), pane)
+			else
+				window:perform_action(act.CopyTo("Clipboard"), pane)
+				window:perform_action(act.ClearSelection, pane)
+			end
+		end),
+	},
+	{ key = "v", mods = "CTRL", action = act.PasteFrom("Clipboard") },
 }
 
 tabline.setup({
