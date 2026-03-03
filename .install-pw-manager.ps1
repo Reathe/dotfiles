@@ -1,14 +1,15 @@
 $existingBws = Get-Command bws -ErrorAction SilentlyContinue
 if ($null -ne  $existingBws) {
+  Write-Information "bws is already installed at $($existingBws.Source)"
   if ($env:BWS_REINSTALL -ne 'true') {
-    # Write-Host "bws is already installed at $($existingBws.Source), skipping. (set BWS_REINSTALL=true to overwrite it)"
+    Write-Information "Skipping install (set BWS_REINSTALL=true to overwrite it)"
     exit
   }
-  # Write-Host "bws is already installed at $($existingBws.Source), reinstalling because BWS_REINSTALL=true..."
+  Write-Warning "Reinstalling because BWS_REINSTALL=true..."
 }
 
 
-Write-Host "Downloading Bitwarden Secrets Manager installer..."
+Write-Information "Downloading Bitwarden Secrets Manager installer..."
 
 $script = [System.Text.Encoding]::UTF8.GetString((Invoke-WebRequest https://bws.bitwarden.com/install -UseBasicParsing).Content)
 
@@ -17,7 +18,7 @@ if ($script -is [System.Array]) {
   $script = $script -join "`n"
 }
 
-Write-Host "Patching installer to avoid setx PATH..."
+Write-Information "Patching installer to avoid setx PATH..."
 
 # Fix to the setx on path by the installer
 $script = $script -replace 'setx PATH "\$env:PATH;\$installDir"', 
@@ -45,10 +46,10 @@ if ($env:BWS_REINSTALL -ne 'true') {
 
 # check if BWS_SHOW_INSTALLER is true
 if ($env:BWS_SHOW_INSTALLER -eq "true") {
-  Write-Host "Running patched installer... SHOW_INSTALLER=true, printing the script"
-  Write-Host $script
+  Write-Warning "Running patched installer... SHOW_INSTALLER=true, printing the script"
+  Write-Warning $script
 } else {
-  Write-Host "Running patched installer... set SHOW_INSTALLER=true to print the script"
+  Write-Information "Running patched installer... set SHOW_INSTALLER=true to print the script"
 }
 
 Invoke-Expression $script

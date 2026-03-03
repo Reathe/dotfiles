@@ -7,6 +7,7 @@ scriptEnv:
 data:
   FORCE_RUN_ONCHANGE: "false"
 
+{{ if eq .chezmoi.os "windows" -}}
 hooks:
   read-source-state:
     pre:
@@ -19,3 +20,10 @@ hooks:
           "-File",
           "{{ .chezmoi.sourceDir }}/.install-pw-manager.ps1",
         ]
+{{ end -}}
+{{ if eq .chezmoi.os "linux" -}}
+hooks:
+  read-source-state:
+    pre:
+      command: "sh {{ .chezmoi.sourceDir }}/.install-pw-manager.sh"
+{{ end -}}
