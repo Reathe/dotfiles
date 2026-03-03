@@ -1,3 +1,4 @@
+# vim: ft=yaml:
 .config/nvim:
   type: git-repo
   url: https://github.com/Reathe/kickstart.nvim

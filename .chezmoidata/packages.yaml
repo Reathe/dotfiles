@@ -1,64 +1,64 @@
+# vim: ft=yaml:
 packages:
   linux:
     brewtap:
-      - 'wez/wezterm-linuxbrew'
+      - "wez/wezterm-linuxbrew"
     brew:
-      - 'gcc'
-      - 'nushell'
-      - 'neovim'
-      - 'git'
-      - 'lazygit'
-      - 'gh'
-      - 'make'
-      - 'unzip'
-      - 'ripgrep'
-      - 'carapace'
-      - 'zoxide'
-      - 'fzf'
-      - 'fd'
-      - 'tldr'
-      - 'kanata'
-      - 'starship'
-      - 'bat'
+      - "gcc"
+      - "nushell"
+      - "neovim"
+      - "git"
+      - "lazygit"
+      - "gh"
+      - "make"
+      - "unzip"
+      - "ripgrep"
+      - "carapace"
+      - "zoxide"
+      - "fzf"
+      - "fd"
+      - "tldr"
+      - "kanata"
+      - "starship"
+      - "bat"
       # install from taps
-      - 'wezterm'
+      - "wezterm"
 
   windows:
     winget:
-      - 'jtroo.kanata_gui'
-      - 'git.git'
-      - 'JesseDuffield.lazygit'
-      - 'GitHub.cli'
-      - 'Neovim.Neovim'
-      - 'equalsraf.win32yank'
-      - 'ezwinports.make'
-      - 'Nushell.Nushell'
-      - 'rsteube.Carapace'
-      - 'ajeetdsouza.zoxide'
-      - 'junegunn.fzf'
-      - 'tldr-pages.tlrc'
-      - 'Starship.Starship'
-      - 'zig.zig'
-      - 'sharkdp.bat'
-      - 'wez.wezterm'
-      - 'OpenJS.NodeJS'
+      - "jtroo.kanata_gui"
+      - "git.git"
+      - "JesseDuffield.lazygit"
+      - "GitHub.cli"
+      - "Neovim.Neovim"
+      - "equalsraf.win32yank"
+      - "ezwinports.make"
+      - "Nushell.Nushell"
+      - "rsteube.Carapace"
+      - "ajeetdsouza.zoxide"
+      - "junegunn.fzf"
+      - "tldr-pages.tlrc"
+      - "Starship.Starship"
+      - "zig.zig"
+      - "sharkdp.bat"
+      - "wez.wezterm"
+      - "OpenJS.NodeJS"
       # ui apps
-      - 'AntibodySoftware.WizTree'
-      - 'voidtools.Everything'
-      - 'Microsoft.VisualStudioCode'
-      - 'Zen-Team.Zen-Browser'
+      - "AntibodySoftware.WizTree"
+      - "voidtools.Everything"
+      - "Microsoft.VisualStudioCode"
+      - "Zen-Team.Zen-Browser"
     wingetArgs:
-      - 'Chocolatey.Chocolatey'
+      - "Chocolatey.Chocolatey"
       - 'Microsoft.VisualStudio.BuildTools --override "--quiet --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows11SDK.26100"'
     choco:
-      - 'nerd-fonts-jetbrainsmono'
-      - 'make'
-      - 'ripgrep'
-      - 'unzip'
-      - 'gzip'
-      - 'fd'
-      - 'anaconda3'
-      - 'tree-sitter'
+      - "nerd-fonts-jetbrainsmono"
+      - "make"
+      - "ripgrep"
+      - "unzip"
+      - "gzip"
+      - "fd"
+      - "anaconda3"
+      - "tree-sitter"
     custom:
-      - ''
-
+      - ""
