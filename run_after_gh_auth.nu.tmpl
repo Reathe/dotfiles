@@ -1,8 +1,18 @@
 #!/usr/bin/env nu
+# vim: ft=nu:
 
-# login to gh
-{{ (bitwardenSecrets
-     "90a30c12-3351-49be-9e4c-b3e400e715ef"
-     (env "BWS_ACCESS_TOKEN" | default "")
-).value | quote }} | gh auth login -p ssh -h github.com --with-token
+# Define the result outside or capture the output of the try block
+let res = try {
+    '{{ (bitwardenSecrets "90a30c12-3351-49be-9e4c-b3e400e715ef" (env "BWS_ACCESS_TOKEN" | default "")).value }}' 
+    | gh auth login --with-token -p ssh -h github.com 
+    | complete
+} catch { |err| 
+  # Fallback if the command fails to execute at all
+  { stderr: $"Command failed: ($err)" } 
+}
 
+# Use string interpolation for a cleaner log entry
+let timestamp = (date now | format date "%Y-%m-%dT%H:%M:%S")
+let log_entry = $"($timestamp)|INFO|gh_auth|exit_code=($res.exit_code)|($res.stderr | str trim)\n"
+# Save the log
+$log_entry | save --append .config/chezmoi/chezmoi.log
