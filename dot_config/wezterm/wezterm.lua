@@ -5,6 +5,7 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
+config.prefer_egl = true
 config.default_prog = { "nu" }
 config.color_scheme = "Catppuccin Mocha"
 config.window_background_opacity = 0.8
