@@ -827,7 +827,7 @@ $env.config = {
     ]
 }
 
-source add_alias.nu
+source ($nu.default-config-dir | path join 'add_alias.nu')
 
 mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
@@ -835,5 +835,3 @@ starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.n
 source $"($nu.cache-dir)/carapace.nu"
 source ~/.zoxide.nu
 use ~/.config/nushell/custom-commands.nu *
-use ~/.config/nushell/conda.nu
-conda activate

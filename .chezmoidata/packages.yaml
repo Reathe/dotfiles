@@ -23,6 +23,7 @@ packages:
       - "bat"
       # install from taps
       - "wezterm"
+      # TODO: uv
 
   windows:
     winget:
@@ -43,6 +44,7 @@ packages:
       - "sharkdp.bat"
       - "wez.wezterm"
       - "OpenJS.NodeJS"
+      - "astral-sh.uv"
       # ui apps
       - "AntibodySoftware.WizTree"
       - "voidtools.Everything"
@@ -58,7 +60,6 @@ packages:
       - "unzip"
       - "gzip"
       - "fd"
-      - "anaconda3"
       - "tree-sitter"
     custom:
-      - ""
+      - "uv python install --default --preview"
