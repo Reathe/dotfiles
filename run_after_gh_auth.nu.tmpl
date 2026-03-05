@@ -13,11 +13,11 @@ let res = try {
     | complete
 } catch { |err| 
   # Fallback if the command fails to execute at all
-  { stderr: $"Command failed: ($err)" } 
+  { exit_code: 1, stderr: $err.rendered, stdout: $err.msg }
 }
 
 # Use string interpolation for a cleaner log entry
 let timestamp = (date now | format date "%Y-%m-%dT%H:%M:%S")
-let log_entry = $"($timestamp)|INFO|gh_auth|exit_code=($res.exit_code)|($res.stderr | str trim)\n"
+let log_entry = $"($timestamp)|INFO|gh_auth.nu|($res)\n"
 # Save the log
 $log_entry | save --append .config/chezmoi/chezmoi.log
