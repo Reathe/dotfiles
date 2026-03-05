@@ -23,28 +23,26 @@ packages:
       - "bat"
       # install from taps
       - "wezterm"
-      # TODO: uv
+      # TODO: uv tldr>tlrc
 
   windows:
     winget:
-      - "jtroo.kanata_gui"
+      - "jtroo.kanata_gui" # kanata keyboard homerow
       - "git.git"
-      - "JesseDuffield.lazygit"
-      - "GitHub.cli"
-      - "Neovim.Neovim"
-      - "equalsraf.win32yank"
-      - "ezwinports.make"
-      - "Nushell.Nushell"
-      - "rsteube.Carapace"
-      - "ajeetdsouza.zoxide"
-      - "junegunn.fzf"
-      - "tldr-pages.tlrc"
-      - "Starship.Starship"
-      - "zig.zig"
-      - "sharkdp.bat"
-      - "wez.wezterm"
-      - "OpenJS.NodeJS"
-      - "astral-sh.uv"
+      - "GitHub.cli" # gh command for auth
+      - "JesseDuffield.lazygit" # git gui
+      - "Neovim.Neovim" # nvim editor
+      - "Nushell.Nushell" # best shell
+      - "rsteube.Carapace" # autocompletion
+      - "ajeetdsouza.zoxide" # better cd
+      - "tldr-pages.tlrc" # tldr command manual
+      - "Starship.Starship" # pretty prompt
+      - "wez.wezterm" # terminal
+      - "sharkdp.bat" # pretty cat command
+      - "BurntSushi.ripgrep.MSVC" # for fiding files fast (find files with ␣␣ in nvim)
+      - "BrechtSanders.WinLibs.POSIX.UCRT" # C compiler for tree-sitter
+      - "astral-sh.uv" # Python manager and more
+      - "OpenJS.NodeJS" # Needed for installing different mason tools
       # ui apps
       - "AntibodySoftware.WizTree"
       - "voidtools.Everything"
@@ -52,14 +50,8 @@ packages:
       - "Zen-Team.Zen-Browser"
     wingetArgs:
       - "Chocolatey.Chocolatey"
-      - 'Microsoft.VisualStudio.BuildTools --override "--quiet --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows11SDK.26100"'
     choco:
       - "nerd-fonts-jetbrainsmono"
-      - "make"
-      - "ripgrep"
-      - "unzip"
-      - "gzip"
-      - "fd"
-      - "tree-sitter"
+      - "tree-sitter" # parser for nvim shit
     custom:
-      - "uv python install --default --preview"
+      - "uv python install --default --preview" # install python

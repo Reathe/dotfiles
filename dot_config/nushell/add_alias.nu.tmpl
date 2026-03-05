@@ -6,7 +6,6 @@ alias cmoi = chezmoi
 {{- /* For platform specific aliases to add */ -}}
 
 {{- if eq .chezmoi.os "windows" }}
-alias gcc = zig cc
 alias kanata = {{ .kanataExe }}
 {{ end -}}
 
