@@ -6,17 +6,16 @@
 {{- end }}
 
 # install curl if needed
-{{ if contains "debian" .chezmoi.osRelease.idLike  }}
+{{ if contains "debian" .chezmoi.osRelease.idLike }}
 sudo apt install curl git build-essential
 {{ end -}}
 
 # install brew if needed
-if ! command -v brew 2>&1 >/dev/null
-then
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-	echo >> ~/.bashrc
-	echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.bashrc
-	eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if ! command -v brew 2>&1 >/dev/null; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  echo >>~/.bashrc
+  echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>~/.bashrc
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
 # install brew taps
