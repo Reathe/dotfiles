@@ -1,6 +1,11 @@
 #!/usr/bin/env nu
 # vim: ft=nu:
 
+{{ if eq .chezmoi.os "windows" -}}
+use ~/.config/nushell/custom-commands.nu refreshpath
+refreshpath
+{{ end -}}
+
 # Define the result outside or capture the output of the try block
 let res = try {
     '{{ (bitwardenSecrets "90a30c12-3351-49be-9e4c-b3e400e715ef" (env "BWS_ACCESS_TOKEN" | default "")).value }}' 

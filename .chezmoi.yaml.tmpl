@@ -20,6 +20,11 @@ hooks:
           "-File",
           "{{ .chezmoi.sourceDir }}/.install-pw-manager.ps1",
         ]
+
+interpreters:
+  nu:
+    command: "{{ .chezmoi.homeDir }}/AppData/Local/Programs/nu/bin/nu.exe"
+
 {{ end -}}
 {{ if eq .chezmoi.os "linux" -}}
 hooks:
