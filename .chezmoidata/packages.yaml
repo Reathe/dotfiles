@@ -43,7 +43,7 @@ packages:
       - "BrechtSanders.WinLibs.POSIX.UCRT" # C compiler for tree-sitter
       - "astral-sh.uv" # Python manager and more
       - "OpenJS.NodeJS" # Needed for installing different mason tools
-      # ui apps
+    wingetExtras:
       - "AntibodySoftware.WizTree"
       - "voidtools.Everything"
       - "Microsoft.VisualStudioCode"

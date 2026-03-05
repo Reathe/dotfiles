@@ -19,6 +19,10 @@ echo install winget packages
 @echo on
 winget install {{ range .packages.windows.winget -}}{{ . }} {{ end }} -s winget --accept-package-agreements --accept-source-agreements -h --disable-interactivity
 
+{{ if eq .INSTALL_EXTRAS "true" -}}
+winget install {{ range .packages.windows.wingetExtras -}}{{ . }} {{ end }} -s winget --accept-package-agreements --accept-source-agreements -h --disable-interactivity
+{{ end -}}
+
 {{ range .packages.windows.wingetArgs -}}
 winget install {{ . }} -s winget --accept-package-agreements --accept-source-agreements -h --disable-interactivity
 {{ end }}
