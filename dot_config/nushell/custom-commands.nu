@@ -7,9 +7,3 @@ export def "update vencord" [] {
     pnpm build
     pnpm inject
 }
-
-# unlock bitwarden for this session
-export def --env bw-unlock [] {
-    $env.BW_SESSION = (bw unlock --raw)
-}
-
