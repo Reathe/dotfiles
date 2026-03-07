@@ -16,3 +16,6 @@ export def --env refreshpath [] {
   $env.PATH = ($machine_path | append $user_path | append $env.PATH | uniq -i)
 }
 
+export def fd [...args] {
+    rg --files | rg ...$args
+}
