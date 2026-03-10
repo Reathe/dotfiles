@@ -1,10 +1,11 @@
 {{- /* For platform specific paths that need to be added to path */ -}}
 use std/util "path add"
 
-{{ if eq .chezmoi.os "linux" -}}
+{{ if eq .chezmoi.osRelease.name "NixOS" -}}
+{{- else if eq .chezmoi.os "linux" -}}
 path add /home/linuxbrew/.linuxbrew/bin
 path add /home/linuxbrew/.linuxbrew/sbin
-{{ end -}}
+{{- end }}
 {{ if eq .chezmoi.os "windows" -}}
 {{ end -}}
 

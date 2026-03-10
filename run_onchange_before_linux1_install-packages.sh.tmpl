@@ -1,10 +1,18 @@
 {{ if eq .chezmoi.os "linux" -}}
+
 #!{{ lookPath "bash" }}
-# Package List Hash {{ include ".chezmoidata/packages.yaml" | sha256sum }}
 {{ if eq .FORCE_RUN_ONCHANGE "true" -}}
 # random string to force run the script {{ randAlphaNum 50 }}
 {{- end }}
 
+{{- if eq .chezmoi.osRelease.name "NixOS" }}
+# nix files hash: {{ include ".nix/hardware-configuration.nix" | sha256sum }}
+# nix files hash: {{ include ".nix/configuration.nix" | sha256sum }}
+# nix files hash: {{ include ".nix/flake.lock" | sha256sum }}
+# nix files hash: {{ include ".nix/flake.nix" | sha256sum }}
+sudo nixos-rebuild switch --flake ~/.local/share/chezmoi/.nix#nixos
+{{- else -}}
+# Package List Hash {{ include ".chezmoidata/packages.yaml" | sha256sum }}
 # install curl if needed
 {{ if contains "debian" .chezmoi.osRelease.idLike }}
 sudo apt install curl git build-essential
@@ -22,4 +30,6 @@ fi
 brew tap {{ range .packages.linux.brewtap -}}{{ . }} {{ end }}
 # install individual packages
 brew install {{ range .packages.linux.brew -}}{{ . }} {{ end }}
+{{- end -}}
+
 {{- end -}}

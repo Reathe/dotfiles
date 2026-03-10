@@ -27,9 +27,13 @@ interpreters:
     command: "{{ .chezmoi.homeDir }}/AppData/Local/Programs/nu/bin/nu.exe"
 
 {{ end -}}
-{{ if eq .chezmoi.os "linux" -}}
+{{ if and (eq .chezmoi.os "linux") (ne .chezmoi.osRelease.name "NixOS") -}}
 hooks:
   read-source-state:
     pre:
-      command: "sh {{ .chezmoi.sourceDir }}/.install-pw-manager.sh"
+      command: "sh"
+      args:
+        [
+          "{{ .chezmoi.sourceDir }}/.install-pw-manager.sh"
+        ]
 {{ end -}}
