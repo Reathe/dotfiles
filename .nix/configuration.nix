@@ -123,12 +123,25 @@
       fd
       unzip
       cargo
+      statix
+      nixfmt
     ];
   };
-  environment.localBinInPath = true;
-  environment.sessionVariables = {
-    XDG_CONFIG_HOME = "~/.config";
-    BWS_ACCESS_TOKEN = ""; # TODO: PUT BWS TOKEN HERE
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      # Add any missing dynamic libraries for unpackaged programs
+      # here, NOT in environment.systemPackages
+      stylua
+    ];
+  };
+
+  environment = {
+    localBinInPath = true;
+    sessionVariables = {
+      XDG_CONFIG_HOME = "$HOME/.config";
+      BWS_ACCESS_TOKEN = ""; # TODO: PUT BWS TOKEN HERE
+    };
   };
 
   # Install firefox.
