@@ -9,6 +9,7 @@ alias cmoi = chezmoi
 alias kanata = {{ .kanataExe }}
 {{ end -}}
 
-{{ if eq .chezmoi.os "linux" -}}
+{{- if eq .chezmoi.os "linux" }}
+alias kanata = sudo kanata --cfg {{ .chezmoi.sourceDir }}/.chezmoitemplates/kanata.kbd
 alias sudopath = sudo --preserve-env=PATH env
 {{ end -}}
