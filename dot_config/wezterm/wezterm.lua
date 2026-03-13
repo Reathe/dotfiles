@@ -10,7 +10,7 @@ config.default_prog = { "nu" }
 config.color_scheme = "Catppuccin Mocha"
 config.window_background_opacity = 0.8
 config.win32_system_backdrop = "Acrylic"
-config.window_decorations = "RESIZE"
+config.window_decorations = "NONE"
 config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
 
 config.use_dead_keys = false
