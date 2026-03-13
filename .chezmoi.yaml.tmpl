@@ -1,12 +1,18 @@
+{{- $BWS_ACCESS_TOKEN := env "BWS_ACCESS_TOKEN" -}}
+{{- if not $BWS_ACCESS_TOKEN -}}
+{{-   $BWS_ACCESS_TOKEN = promptStringOnce . "BWS_ACCESS_TOKEN" "Write your BWS_ACCESS_TOKEN" -}}
+{{- end -}}
 scriptEnv:
   INSTALL_PACKAGES: "true"
   # BitwardenSecrets
   BWS_REINSTALL: "false"
   BWS_SHOW_INSTALLER: "false"
+  BWS_ACCESS_TOKEN: {{ $BWS_ACCESS_TOKEN | quote }}
 
 data:
   FORCE_RUN_ONCHANGE: "false"
   INSTALL_EXTRAS: "false"
+  BWS_ACCESS_TOKEN: {{ $BWS_ACCESS_TOKEN | quote }}
 
 {{ if eq .chezmoi.os "windows" -}}
 hooks:

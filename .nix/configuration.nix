@@ -140,7 +140,6 @@
     localBinInPath = true;
     sessionVariables = {
       XDG_CONFIG_HOME = "$HOME/.config";
-      BWS_ACCESS_TOKEN = ""; # TODO: PUT BWS TOKEN HERE
     };
   };
 
