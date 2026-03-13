@@ -17,5 +17,9 @@ export def --env refreshpath [] {
 }
 
 export def fd [...args] {
+  try {
+    ^fd ...$args
+  } catch {|err|
     rg --files | rg ...$args
+  }
 }
