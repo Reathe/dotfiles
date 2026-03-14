@@ -5,10 +5,10 @@ log debug "Checking if Kanata is set to run on startup"
 let startupFolder = ($env.APPDATA | path join "Microsoft\\Windows\\Start Menu\\Programs\\Startup\\Kanata")
 let alreadyCreated = $startupFolder | path exists
 if not $alreadyCreated {
-	let kanataPath = which {{ .kanataExe }} | get path | get 0 | str replace -a \ \\
-	log info "setting kanata in startup folder $kanataPath"
-	cmd /c mklink $startupFolder $kanataPath
+  let kanataPath = which kanataExe | get path | get 0 | str replace -a \ \\
+  log info "setting kanata in startup folder $kanataPath"
+  cmd /c mklink $startupFolder $kanataPath
 } else {
-	log debug "Kanata link already in startup folder"
+  log debug "Kanata link already in startup folder"
 }
 {{- end }}

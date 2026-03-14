@@ -1,19 +1,19 @@
-#!/usr/bin/env nu
+#!{{ lookPath "nu" }}
 # vim: ft=nu:
 
-{{ if eq .chezmoi.os "windows" -}}
+#{{- if eq .chezmoi.os "windows" }}
 use ~/.config/nushell/custom-commands.nu refreshpath
 refreshpath
-{{ end -}}
+#{{ end }}
 
 # Define the result outside or capture the output of the try block
 let res = try {
-    '{{ (bitwardenSecrets "90a30c12-3351-49be-9e4c-b3e400e715ef" (env "BWS_ACCESS_TOKEN" | default "")).value }}' 
-    | gh auth login --with-token -p ssh -h github.com 
-    | complete
-} catch { |err| 
+  '{{ (bitwardenSecrets "90a30c12-3351-49be-9e4c-b3e400e715ef" (env "BWS_ACCESS_TOKEN" | default "")).value }}'
+  | gh auth login --with-token -p ssh -h github.com
+  | complete
+} catch {|err|
   # Fallback if the command fails to execute at all
-  { exit_code: 1, stderr: $err.rendered, stdout: $err.msg }
+  {exit_code: 1 stderr: $err.rendered stdout: $err.msg}
 }
 
 # Use string interpolation for a cleaner log entry
