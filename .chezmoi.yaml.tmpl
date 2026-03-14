@@ -30,7 +30,7 @@ hooks:
 
 interpreters:
   nu:
-    command: "C:/Program Files/nu/bin/nu.exe"
+    command: "{{ .chezmoi.homeDir }}/AppData/Local/Programs/nu/bin/nu.exe"
 
 {{ else if and (eq .chezmoi.os "linux") (ne .chezmoi.osRelease.name "NixOS") -}}
 hooks:
