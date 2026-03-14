@@ -12,3 +12,7 @@ Host oracleVM
   IdentityFile  ~/.ssh/id_ed25519
   User ubuntu
 
+Host nixvm
+  HostName nixos.mshome.net
+  IdentityFile  ~/.ssh/id_ed25519
+  User raf

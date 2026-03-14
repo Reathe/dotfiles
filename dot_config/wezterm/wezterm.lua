@@ -5,6 +5,9 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
+if wezterm.target_triple == "x86_64-pc-windows-msvc" then
+	config.mux_enable_ssh_agent = false
+end
 config.prefer_egl = true
 config.default_prog = { "nu" }
 config.color_scheme = "Catppuccin Mocha"
