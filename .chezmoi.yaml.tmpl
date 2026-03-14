@@ -30,10 +30,9 @@ hooks:
 
 interpreters:
   nu:
-    command: "{{ .chezmoi.homeDir }}/AppData/Local/Programs/nu/bin/nu.exe"
+    command: "C:/Program Files/nu/bin/nu.exe"
 
-{{ end -}}
-{{ if and (eq .chezmoi.os "linux") (ne .chezmoi.osRelease.name "NixOS") -}}
+{{ else if and (eq .chezmoi.os "linux") (ne .chezmoi.osRelease.name "NixOS") -}}
 hooks:
   read-source-state:
     pre:

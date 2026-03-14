@@ -5,7 +5,7 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
-if wezterm.target_triple == "x86_64-pc-windows-msvc" then
+if wezterm.target_triple == "x86_64-pc-windows-msvc" and wezterm.version ~= "20240203-110809-5046fc22" then
 	config.mux_enable_ssh_agent = false
 end
 config.prefer_egl = true

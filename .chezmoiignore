@@ -2,8 +2,7 @@ README.md
 {{- if ne .chezmoi.os "windows" }}
 AppData*
 *.bat
-{{- end }}
-{{- if eq .chezmoi.os "windows" }}
+{{ else }}
 .config/ghostty
 .config/kanata*
 *.sh
