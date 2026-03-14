@@ -37,12 +37,13 @@ packages:
       - "ajeetdsouza.zoxide" # better cd
       - "tldr-pages.tlrc" # tldr command manual
       - "Starship.Starship" # pretty prompt
-      - "wez.wezterm" # terminal
+      - "wez.wezterm.nightly" # terminal
       - "sharkdp.bat" # pretty cat command
       - "BurntSushi.ripgrep.MSVC" # for fiding files fast (find files with ␣␣ in nvim)
       - "BrechtSanders.WinLibs.POSIX.UCRT" # C compiler for tree-sitter
       - "astral-sh.uv" # Python manager and more
       - "OpenJS.NodeJS" # Needed for installing different mason tools
+      - "ImageMagick.ImageMagick.Q8" # converting png to other format for snacks.image
     wingetExtras:
       - "AntibodySoftware.WizTree"
       - "voidtools.Everything"
