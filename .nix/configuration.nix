@@ -125,6 +125,7 @@
       cargo
       statix
       nixfmt
+      topiary
     ];
   };
   programs.nix-ld = {
