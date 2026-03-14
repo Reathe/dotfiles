@@ -113,4 +113,4 @@ mkdir $"($nu.cache-dir)"
 carapace _carapace nushell | save --force $"($nu.cache-dir)/carapace.nu"
 
 # zoxide better cd
-zoxide init --cmd cd nushell | save -f ~/.zoxide.nu
+zoxide init --cmd cd nushell | save -f $"($nu.cache-dir)/.zoxide.nu"
