@@ -20,6 +20,9 @@ config.use_dead_keys = false
 config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
 
 local workspace_switcher = wezterm.plugin.require("https://github.com/MLFlexer/smart_workspace_switcher.wezterm") ---@type SWS
+local domains = require("domains_sws")
+domains.patch_workspace_switcher(workspace_switcher)
+
 local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez") ---@type TablineWez
 
 local act = wezterm.action
