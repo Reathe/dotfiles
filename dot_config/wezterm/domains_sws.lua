@@ -33,6 +33,8 @@ function M.patch_workspace_switcher(workspace_switcher)
 							return
 						end
 
+						wezterm.emit("smart_workspace_switcher.workspace_switcher.selected", window, id, label)
+
 						-- SSH domain: create workspace connected to remote domain
 						if id:find("^domain:ssh:") then
 							---@type string
@@ -49,8 +51,6 @@ function M.patch_workspace_switcher(workspace_switcher)
 							)
 							return
 						end
-
-						wezterm.emit("smart_workspace_switcher.workspace_switcher.selected", window, id, label)
 
 						-- Check if an existing workspace was selected
 						local is_workspace = false
