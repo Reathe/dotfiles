@@ -81,6 +81,7 @@
   users.users.raf = {
     isNormalUser = true;
     description = "raf";
+    shell = pkgs.nushell;
     extraGroups = [
       "networkmanager"
       "wheel"
