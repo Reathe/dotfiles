@@ -9,6 +9,7 @@ local M = {}
 function M.patch_workspace_switcher(workspace_switcher)
 	workspace_switcher.switch_workspace = function(opts)
 		return wezterm.action_callback(function(window, pane)
+			wezterm.emit("smart_workspace_switcher.workspace_switcher.start", window, pane)
 			local choices = workspace_switcher.get_choices(opts)
 
 			for _, domain in ipairs(wezterm.default_ssh_domains()) do
@@ -30,6 +31,7 @@ function M.patch_workspace_switcher(workspace_switcher)
 					fuzzy = true,
 					action = wezterm.action_callback(function(inner_window, inner_pane, id, label)
 						if not id or not label then
+							wezterm.emit("smart_workspace_switcher.workspace_switcher.canceled", window, pane)
 							return
 						end
 
