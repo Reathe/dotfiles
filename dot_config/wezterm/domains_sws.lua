@@ -69,7 +69,11 @@ function M.patch_workspace_switcher(workspace_switcher)
 							inner_window:perform_action(
 								act.SwitchToWorkspace({
 									name = label,
-									spawn = { label = "Workspace: " .. label, cwd = id },
+									spawn = {
+										label = "Workspace: " .. label,
+										domain = { DomainName = "local" },
+										cwd = id,
+									},
 								}),
 								inner_pane
 							)
