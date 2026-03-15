@@ -13,14 +13,20 @@ snap install chezmoi --classic
 With winget (windows)
 
 ```bash
-winget install twpayne.chezmoi Bitwaden.CLI -s winget --accept-package-agreements --accept-source-agreements -h
+winget install twpayne.chezmoi -s winget --accept-package-agreements --accept-source-agreements -h
 ```
 
-### Copy config powershell
+With Nix (spawning a shell with chezmoi)
 
 ```bash
-bw login bachourian@gmail.com
-$env:BW_SESSION = bw unlock --raw
+nix-shell -p chezmoi
+```
+
+### Copy the config
+
+`BWS_ACCESS_TOKEN` will be asked the first time if the environment variable is not set
+
+```bash
 chezmoi init --apply reathe
 ```
 
