@@ -4,6 +4,8 @@ local mux = wezterm.mux
 
 local M = {}
 
+---Patch the workspace switcher to add SSH domain support.
+---SSH entries create a new workspace connected to the domain instead of a local path.
 function M.patch_workspace_switcher(workspace_switcher)
 	workspace_switcher.switch_workspace = function(opts)
 		return wezterm.action_callback(function(window, pane)
@@ -31,7 +33,9 @@ function M.patch_workspace_switcher(workspace_switcher)
 							return
 						end
 
+						-- SSH domain: create workspace connected to remote domain
 						if id:find("^domain:ssh:") then
+							---@type string
 							local domain_name = id:gsub("^domain:ssh:", "")
 							inner_window:perform_action(
 								act.SwitchToWorkspace({
@@ -47,6 +51,8 @@ function M.patch_workspace_switcher(workspace_switcher)
 						end
 
 						wezterm.emit("smart_workspace_switcher.workspace_switcher.selected", window, id, label)
+
+						-- Check if an existing workspace was selected
 						local is_workspace = false
 						for _, w in ipairs(mux.get_workspace_names()) do
 							if w == id then
@@ -56,8 +62,10 @@ function M.patch_workspace_switcher(workspace_switcher)
 						end
 
 						if is_workspace then
+							-- Switch to existing workspace
 							inner_window:perform_action(act.SwitchToWorkspace({ name = id }), inner_pane)
 						else
+							-- Zoxide path: create workspace at that cwd
 							inner_window:perform_action(
 								act.SwitchToWorkspace({
 									name = label,
