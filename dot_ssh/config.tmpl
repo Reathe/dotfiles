@@ -12,7 +12,14 @@ Host oracleVM
   IdentityFile  ~/.ssh/id_ed25519
   User ubuntu
 
+{{ if ne .chezmoi.hostname "pc-raf" -}}
+Host pc-raf
+  HostName pc-raf
+  IdentityFile ~/.ssh/id_ed25519
+  User Raf
+{{ else }}
 Host nixvm
   HostName nixos.mshome.net
   IdentityFile  ~/.ssh/id_ed25519
   User raf
+{{ end }}
