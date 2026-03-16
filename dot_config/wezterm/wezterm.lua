@@ -19,10 +19,7 @@ config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
 config.use_dead_keys = false
 config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
 
-local workspace_switcher = wezterm.plugin.require("https://github.com/MLFlexer/smart_workspace_switcher.wezterm") ---@type SWS
-local domains = require("domains_sws")
-domains.patch_workspace_switcher(workspace_switcher)
-
+local workspace_switcher = wezterm.plugin.require("https://github.com/Reathe/smart_workspace_switcher.wezterm") ---@type SWS
 local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez") ---@type TablineWez
 
 local act = wezterm.action
