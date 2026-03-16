@@ -77,6 +77,12 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  # Enable kanata
+  services.kanata = {
+    enable = true;
+    keyboards.vm.configFile = ../.chezmoitemplates/kanata.kbd;
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.raf = {
     isNormalUser = true;
@@ -106,7 +112,6 @@
       tree-sitter
       nerd-fonts.jetbrains-mono
       nodejs_24
-      kanata
       bws
       chezmoi
       gcc
