@@ -6,6 +6,7 @@ AppData*
 .config/kanata
 {{ end -}}
 {{ else }}
+.config/zellij
 .config/ghostty
 .config/kanata*
 *.sh
