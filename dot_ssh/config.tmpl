@@ -17,9 +17,9 @@ Host pc-raf
   HostName pc-raf
   IdentityFile ~/.ssh/id_ed25519
   User Raf
-{{ else }}
+{{- else -}}
 Host nixvm
   HostName nixos.mshome.net
   IdentityFile  ~/.ssh/id_ed25519
   User raf
-{{ end }}
+{{- end }}
