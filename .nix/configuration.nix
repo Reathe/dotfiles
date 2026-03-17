@@ -125,6 +125,7 @@
       topiary
       zellij
       jujutsu
+      fzf
     ];
   };
   programs.nix-ld = {

@@ -834,3 +834,10 @@ starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.n
 source $"($nu.cache-dir)/carapace.nu"
 source $"($nu.cache-dir)/.zoxide.nu"
 use ~/.config/nushell/custom-commands.nu *
+
+if $env.ZELLIJ? == null {
+  zjz
+  if ($env.ZELLIJ_AUTO_EXIT? == "true") {
+    exit
+  }
+}

@@ -23,3 +23,13 @@ export def fd [...args] {
     rg --files | rg ...$args
   }
 }
+
+export def zjz [] {
+  # TODO: linux only / check for zellij + fzf
+  let session = (zellij ls | fzf --ansi -1 | split row ' ' | get 0?)
+  if ($session | is-not-empty) {
+    zellij a $session
+  } else {
+    zellij -l welcome a welcome -c
+  }
+}
