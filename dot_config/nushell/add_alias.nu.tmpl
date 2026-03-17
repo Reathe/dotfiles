@@ -1,7 +1,8 @@
 alias vim = nvim
 alias vi = vim
 alias cat = bat
-alias cmoi = chezmoi
+alias cm = chezmoi
+alias cma = cm apply --init
 
 {{- /* For platform specific aliases to add */ -}}
 
@@ -10,5 +11,7 @@ alias kanata = {{ .kanataExe }}
 {{ end -}}
 
 {{- if eq .chezmoi.os "linux" }}
+alias zj = zellij
+alias zjc = zj a config
 alias sudopath = sudo --preserve-env=PATH env
 {{ end -}}
