@@ -3,6 +3,7 @@ use std/util "path add"
 
 {{- if eq .chezmoi.os "windows" }}
 {{ else if eq .chezmoi.osRelease.name "NixOS" }}
+$env.PATH ++= [(uv python dir --bin)]
 {{ else if eq .chezmoi.os "linux" }}
 path add /home/linuxbrew/.linuxbrew/bin
 path add /home/linuxbrew/.linuxbrew/sbin

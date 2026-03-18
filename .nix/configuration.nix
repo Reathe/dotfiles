@@ -138,7 +138,7 @@
   };
 
   environment = {
-    localBinInPath = true;
+    # localBinInPath = true; # doesnt work with nu
     sessionVariables = {
       XDG_CONFIG_HOME = "$HOME/.config";
       EDITOR = "nvim";
