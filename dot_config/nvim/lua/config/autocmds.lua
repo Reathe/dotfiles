@@ -7,7 +7,7 @@
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
--- remove shada temp files on startup
+-- remove shada temp files on startup TODO: DOESNT WORK
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     local shada_dir = vim.fn.stdpath("data") .. "/shada"
