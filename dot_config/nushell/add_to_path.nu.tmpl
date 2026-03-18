@@ -6,12 +6,6 @@ use std/util "path add"
 {{ else if eq .chezmoi.os "linux" }}
 path add /home/linuxbrew/.linuxbrew/bin
 path add /home/linuxbrew/.linuxbrew/sbin
+$env.PATH ++= [(uv python dir --bin)]
 {{ end -}}
-
-if not (which uv | is-empty) {
-  let uv_python_bin = (uv python dir --bin)
-  if ($uv_python_bin not-in $env.PATH) {
-    uv python update-shell
-    path add $uv_python_bin
-  }
-}
+$env.PATH = ($env.PATH | uniq -i)

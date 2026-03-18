@@ -4,6 +4,14 @@
 #{{- if eq .chezmoi.os "windows" }}
 use ~/.config/nushell/custom-commands.nu refreshpath
 refreshpath
+
+# adds uv python to user PATH on windows
+if not (which uv | is-empty) {
+  let uv_python_bin = (uv python dir --bin)
+  if ($uv_python_bin not-in $env.PATH) {
+    uv python update-shell
+  }
+}
 #{{ end }}
 
 # Define the result outside or capture the output of the try block
