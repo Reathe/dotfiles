@@ -25,11 +25,15 @@ export def fd [...args] {
 }
 
 export def zjz [] {
-  # TODO: linux only / check for zellij + fzf
-  let session = (zellij ls | fzf --ansi -1 | split row ' ' | get 0?)
+  let session = try {
+    # doing it in a separate line to avoid printing the zellij broken pipe error message when leaving everything
+    let zellij_sessions = (zellij ls)
+    (zellij ls | fzf --ansi -1 | split row ' ' | get 0?)
+  }
+
   if ($session | is-not-empty) {
-    zellij a $session
+    zellij attach $session
   } else {
-    zellij -l welcome a welcome -c
+    zellij --layout welcome attach --create welcome
   }
 }
