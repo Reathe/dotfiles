@@ -17,3 +17,4 @@ vim.keymap.set({ "n", "t" }, "<C-/>", function()
 end, { desc = "Toggle Terminal (Root Dir)" })
 -- needed on windows
 vim.keymap.set({ "n", "t" }, "<C-_>", "<C-/>", { desc = "Toggle Terminal (Root Dir)", remap = true })
+vim.keymap.set({ "n", "x" }, "<leader>y", '"+y', { desc = "Yank to system clipboard" })

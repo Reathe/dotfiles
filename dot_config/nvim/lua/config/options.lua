@@ -37,3 +37,7 @@ if vim.fn.executable("nu") == 1 then
   vim.o.shellpipe =
     "| complete | update stderr { ansi strip } | tee { get stderr | save --force --raw %s } | into record"
 end
+
+-- for zellij clipboard
+-- also need to ignore register + in yanky
+vim.g.clipboard = "osc52"
