@@ -12,6 +12,7 @@ return {
         },
       },
       scroll = { enabled = false },
+      image = { enabled = true },
     },
   },
   {
