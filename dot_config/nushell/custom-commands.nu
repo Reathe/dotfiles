@@ -10,7 +10,10 @@ export def "update vencord" [] {
 
 # refreshenv
 export def --env refreshpath [] {
-  # TODO: don't execute the command for non windows hosts
+  if $nu.os-info.name != "windows" {
+    error make {msg: "Windows only command"}
+  }
+
   let machine_path = (powershell -command "[Environment]::GetEnvironmentVariable('PATH', 'Machine')" | str trim | split row ";")
   let user_path = (powershell -command "[Environment]::GetEnvironmentVariable('PATH', 'User')" | str trim | split row ";")
   $env.PATH = ($machine_path | append $user_path | append $env.PATH | uniq -i)
