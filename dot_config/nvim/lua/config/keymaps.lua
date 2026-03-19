@@ -12,6 +12,7 @@ vim.keymap.set({ "n", "t" }, "<C-/>", function()
   -- what buffer is focused when the keymap fires.
   local root = vim.bo.buftype == "terminal" and vim.g._snacks_term_root -- reuse last known root
     or LazyVim.root()
+    or vim.uv.cwd()
   vim.g._snacks_term_root = root
   Snacks.terminal.toggle(nil, { cwd = root, id = "main_" .. root })
 end, { desc = "Toggle Terminal (Root Dir)" })
