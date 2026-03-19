@@ -25,11 +25,8 @@ export def fd [...args] {
 }
 
 export def zjz [] {
-  let session = try {
-    # doing it in a separate line to avoid printing the zellij broken pipe error message when leaving everything
-    let zellij_sessions = (zellij ls)
-    (zellij ls | fzf --ansi -1 | split row ' ' | get 0?)
-  }
+  let all_sessions = zellij ls
+  let session = try { $all_sessions | fzf --ansi -1 | split row ' ' | get 0? }
 
   if ($session | is-not-empty) {
     zellij attach $session
