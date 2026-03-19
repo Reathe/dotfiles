@@ -13,6 +13,7 @@ return {
           files = { hidden = true },
           grep = { hidden = true },
         },
+        matcher = { frecency = true },
       },
       scroll = { enabled = false },
       image = { enabled = true },
