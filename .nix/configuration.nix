@@ -126,6 +126,8 @@
       zellij
       jujutsu
       fzf
+      gemini-cli
+      opencode
     ];
   };
   programs.nix-ld = {
