@@ -6,11 +6,23 @@
 {{- end }}
 
 {{- if eq .chezmoi.osRelease.name "NixOS" }}
-# nix files hash: {{ include ".nix/hardware-configuration.nix" | sha256sum }}
-# nix files hash: {{ include ".nix/configuration.nix" | sha256sum }}
 # nix files hash: {{ include ".nix/flake.lock" | sha256sum }}
 # nix files hash: {{ include ".nix/flake.nix" | sha256sum }}
-sudo nixos-rebuild switch --flake ~/.local/share/chezmoi/.nix#nixos
+# nix files hash: {{ include ".nix/modules/common.nix" | sha256sum }}
+# nix files hash: {{ include ".nix/modules/raf-user.nix" | sha256sum }}
+# nix files hash: {{ include ".nix/modules/unstable-overlay.nix" | sha256sum }}
+# nix files hash: {{ include ".nix/hosts/vm/default.nix" | sha256sum }}
+# nix files hash: {{ include ".nix/hosts/vm/hardware-configuration.nix" | sha256sum }}
+# nix files hash: {{ include ".nix/hosts/wsl/default.nix" | sha256sum }}
+flake_host="$(hostname)"
+if grep -qi microsoft /proc/sys/kernel/osrelease 2>/dev/null; then
+  flake_host="nixos-wsl"
+fi
+case "$flake_host" in
+nixos | nixos-wsl) ;;
+*) flake_host="nixos" ;;
+esac
+sudo nixos-rebuild switch --flake ~/.local/share/chezmoi/.nix#"$flake_host"
 {{- else -}}
 # Package List Hash {{ include ".chezmoidata/packages.yaml" | sha256sum }}
 # install curl if needed
