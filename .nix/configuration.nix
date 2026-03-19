@@ -129,6 +129,7 @@
       fzf
       gemini-cli
       opencode
+      codex
     ];
   };
   programs.nix-ld = {

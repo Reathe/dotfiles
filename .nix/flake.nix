@@ -12,7 +12,14 @@
           ./configuration.nix
           {
             nixpkgs.overlays = [
-              (final: prev: { inherit (nixpkgs-unstable.legacyPackages.${final.system}) lazygit; })
+              (final: prev: {
+                inherit (nixpkgs-unstable.legacyPackages.${final.system})
+                  lazygit
+                  gemini-cli
+                  opencode
+                  codex
+                  ;
+              })
             ];
           }
         ];
