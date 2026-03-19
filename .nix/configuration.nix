@@ -125,6 +125,7 @@
       topiary
       zellij
       jujutsu
+      lazyjj
       fzf
       gemini-cli
       opencode
