@@ -6,7 +6,10 @@ return {
     opts = {
       picker = {
         sources = {
-          explorer = { hidden = true },
+          explorer = {
+            auto_close = true,
+            hidden = true,
+          },
           files = { hidden = true },
           grep = { hidden = true },
         },
