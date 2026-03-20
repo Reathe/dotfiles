@@ -1,11 +1,9 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": 
-    [
+    "actions": [
         {
-            "command": 
-            {
+            "command": {
                 "action": "copy",
                 "singleLine": false
             },
@@ -16,16 +14,14 @@
             "id": "User.paste"
         },
         {
-            "command": 
-            {
+            "command": {
                 "action": "moveFocus",
                 "direction": "right"
             },
             "id": "User.moveFocus.87C324ED"
         },
         {
-            "command": 
-            {
+            "command": {
                 "action": "splitPane",
                 "split": "auto",
                 "splitMode": "duplicate"
@@ -37,8 +33,7 @@
             "id": "User.toggleFullscreen"
         },
         {
-            "command": 
-            {
+            "command": {
                 "action": "moveFocus",
                 "direction": "down"
             },
@@ -49,16 +44,14 @@
             "id": "User.find"
         },
         {
-            "command": 
-            {
+            "command": {
                 "action": "moveFocus",
                 "direction": "up"
             },
             "id": "User.moveFocus.6CD791B"
         },
         {
-            "command": 
-            {
+            "command": {
                 "action": "splitPane",
                 "split": "down",
                 "splitMode": "duplicate"
@@ -66,15 +59,13 @@
             "id": "User.splitPane.10B260D2"
         },
         {
-            "command": 
-            {
+            "command": {
                 "action": "closeTab"
             },
             "id": "User.closeTab.0"
         },
         {
-            "command": 
-            {
+            "command": {
                 "action": "splitPane",
                 "split": "right",
                 "splitMode": "duplicate"
@@ -82,8 +73,7 @@
             "id": "User.splitPane.FEF0D40B"
         },
         {
-            "command": 
-            {
+            "command": {
                 "action": "moveFocus",
                 "direction": "left"
             },
@@ -98,8 +88,7 @@
     "copyFormatting": "none",
     "copyOnSelect": true,
     "defaultProfile": "{47302f9c-1ac4-566c-aa3e-8cf29889d6ab}",
-    "keybindings": 
-    [
+    "keybindings": [
         {
             "id": "User.copy.644BA8F2",
             "keys": "ctrl+c"
@@ -185,24 +174,24 @@
             "keys": "alt+shift+down"
         }
     ],
-    "newTabMenu": 
-    [
+    "newTabMenu": [
+        {
+            "icon": null,
+            "profile": "{94252100-8e3f-5ea5-b0ee-b9a2e871c006}",
+            "type": "profile"
+        },
         {
             "icon": null,
             "profile": "{47302f9c-1ac4-566c-aa3e-8cf29889d6ab}",
             "type": "profile"
         },
         {
-            "icon": null,
-            "profile": "{b76e976c-c895-4d87-8a25-b85968aa470d}",
-            "type": "profile"
-        },
-        {
             "allowEmpty": false,
-            "entries": 
-            [
+            "entries": [
                 {
-                    "type": "remainingProfiles"
+                    "icon": null,
+                    "profile": "{b76e976c-c895-4d87-8a25-b85968aa470d}",
+                    "type": "profile"
                 },
                 {
                     "icon": null,
@@ -218,6 +207,9 @@
                     "icon": null,
                     "profile": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                     "type": "profile"
+                },
+                {
+                    "type": "remainingProfiles"
                 }
             ],
             "icon": null,
@@ -226,21 +218,23 @@
             "type": "folder"
         }
     ],
-    "profiles": 
-    {
-        "defaults": 
-        {
+    "profiles": {
+        "defaults": {
             "colorScheme": "Catppuccin Mocha",
-            "font": 
-            {
+            "font": {
                 "face": "JetBrainsMono Nerd Font"
             },
             "opacity": 80,
             "scrollbarState": "visible",
             "useAcrylic": true
         },
-        "list": 
-        [
+        "list": [
+            {
+                "guid": "{94252100-8e3f-5ea5-b0ee-b9a2e871c006}",
+                "hidden": false,
+                "name": "NixOS",
+                "source": "Microsoft.WSL"
+            },
             {
                 "guid": "{47302f9c-1ac4-566c-aa3e-8cf29889d6ab}",
                 "hidden": false,
@@ -277,8 +271,7 @@
             }
         ]
     },
-    "schemes": 
-    [
+    "schemes": [
         {
             "background": "#1E1E2E",
             "black": "#45475A",
@@ -303,24 +296,20 @@
             "yellow": "#F9E2AF"
         }
     ],
-    "themes": 
-    [
+    "themes": [
         {
             "name": "Catppuccin Mocha",
-            "tab": 
-            {
+            "tab": {
                 "background": "#1E1E2EFF",
                 "iconStyle": "default",
                 "showCloseButton": "always",
                 "unfocusedBackground": null
             },
-            "tabRow": 
-            {
+            "tabRow": {
                 "background": "#181825FF",
                 "unfocusedBackground": "#11111BFF"
             },
-            "window": 
-            {
+            "window": {
                 "applicationTheme": "dark",
                 "experimental.rainbowFrame": false,
                 "frame": null,
