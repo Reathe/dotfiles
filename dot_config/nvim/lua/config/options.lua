@@ -38,7 +38,5 @@ if vim.fn.executable("nu") == 1 then
     "| complete | update stderr { ansi strip } | tee { get stderr | save --force --raw %s } | into record"
 end
 
--- TODO: need set only if zellij variable not set
--- for zellij clipboard
--- also need to ignore register + in yanky
-vim.g.clipboard = "osc52"
+-- needed because is set to unnamedplus by LazyVim
+vim.o.clipboard = ""
