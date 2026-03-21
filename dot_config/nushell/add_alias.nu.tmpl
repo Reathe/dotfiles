@@ -12,6 +12,6 @@ alias kanata = {{ .kanataExe }}
 
 {{- if eq .chezmoi.os "linux" }}
 alias zj = zellij
-alias zjc = zj a config
+alias zjc = zj --layout chezmoi attach --create --force-run-commands chezmoi
 alias sudopath = sudo --preserve-env=PATH env
 {{ end -}}
