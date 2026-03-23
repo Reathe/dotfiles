@@ -26,3 +26,21 @@ vim.api.nvim_create_autocmd("TermOpen", {
     end
   end,
 })
+
+-- run nushell scripts with <leader>r
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "nu",
+  callback = function(event)
+    vim.keymap.set("n", "<leader>r", function()
+      if vim.bo[event.buf].modified then
+        vim.cmd.write()
+      end
+
+      local path = vim.api.nvim_buf_get_name(event.buf)
+      Snacks.terminal.open(
+        { "nu", path },
+        { cwd = vim.fn.fnamemodify(path, ":p:h"), interactive = true, auto_close = false }
+      )
+    end, { buffer = event.buf, desc = "Run Nushell Script" })
+  end,
+})
