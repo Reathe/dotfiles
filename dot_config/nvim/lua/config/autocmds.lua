@@ -16,3 +16,13 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end
   end,
 })
+
+-- auto insert mode for uv.nvim run python
+vim.api.nvim_create_autocmd("TermOpen", {
+  callback = function(event)
+    local name = vim.api.nvim_buf_get_name(event.buf)
+    if name:match("uv run python") then
+      vim.cmd.startinsert()
+    end
+  end,
+})
