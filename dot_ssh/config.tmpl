@@ -12,6 +12,16 @@ Host oracleVM
   IdentityFile  ~/.ssh/id_ed25519
   User ubuntu
 
+Host oracleMicro
+  HostName 84.235.235.187
+  IdentityFile  ~/.ssh/id_ed25519
+  User ubuntu
+
+Host oracleMicro2
+  HostName 129.151.245.56
+  IdentityFile  ~/.ssh/id_ed25519
+  User ubuntu
+
 {{ if ne .chezmoi.hostname "pc-raf" -}}
 Host pc-raf
   HostName pc-raf
