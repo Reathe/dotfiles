@@ -47,6 +47,7 @@ packages:
       - "Cretezy.lazyjj"
       - "ZelliJ.ZelliJ" # Terminal multiplexer
       - "junegunn.fzf" # Fuzzy finder
+      - "glzr-io.glazewm" # window manager
     wingetExtras:
       - "AntibodySoftware.WizTree"
       - "voidtools.Everything"
