@@ -1,39 +1,35 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": [
+    "actions": 
+    [
         {
-            "command": {
+            "command": 
+            {
                 "action": "copy",
                 "singleLine": false
             },
             "id": "User.copy.644BA8F2"
         },
         {
-            "command": "paste",
-            "id": "User.paste"
-        },
-        {
-            "command": {
+            "command": 
+            {
                 "action": "moveFocus",
                 "direction": "right"
             },
             "id": "User.moveFocus.87C324ED"
         },
         {
-            "command": {
-                "action": "splitPane",
-                "split": "auto",
-                "splitMode": "duplicate"
-            },
-            "id": "User.splitPane.A6751878"
+            "command": "paste",
+            "id": "User.paste"
         },
         {
             "command": "toggleFullscreen",
             "id": "User.toggleFullscreen"
         },
         {
-            "command": {
+            "command": 
+            {
                 "action": "moveFocus",
                 "direction": "down"
             },
@@ -44,14 +40,17 @@
             "id": "User.find"
         },
         {
-            "command": {
-                "action": "moveFocus",
-                "direction": "up"
+            "command": 
+            {
+                "action": "splitPane",
+                "split": "auto",
+                "splitMode": "duplicate"
             },
-            "id": "User.moveFocus.6CD791B"
+            "id": "User.splitPane.A6751878"
         },
         {
-            "command": {
+            "command": 
+            {
                 "action": "splitPane",
                 "split": "down",
                 "splitMode": "duplicate"
@@ -59,13 +58,23 @@
             "id": "User.splitPane.10B260D2"
         },
         {
-            "command": {
+            "command": 
+            {
+                "action": "moveFocus",
+                "direction": "up"
+            },
+            "id": "User.moveFocus.6CD791B"
+        },
+        {
+            "command": 
+            {
                 "action": "closeTab"
             },
             "id": "User.closeTab.0"
         },
         {
-            "command": {
+            "command": 
+            {
                 "action": "splitPane",
                 "split": "right",
                 "splitMode": "duplicate"
@@ -73,7 +82,8 @@
             "id": "User.splitPane.FEF0D40B"
         },
         {
-            "command": {
+            "command": 
+            {
                 "action": "moveFocus",
                 "direction": "left"
             },
@@ -88,34 +98,35 @@
     "copyFormatting": "none",
     "copyOnSelect": true,
     "defaultProfile": "{47302f9c-1ac4-566c-aa3e-8cf29889d6ab}",
-    "keybindings": [
+    "keybindings": 
+    [
         {
             "id": "User.copy.644BA8F2",
             "keys": "ctrl+c"
-        },
-        {
-            "id": "User.find",
-            "keys": "ctrl+shift+f"
-        },
-        {
-            "id": "User.paste",
-            "keys": "ctrl+v"
         },
         {
             "id": "User.closeTab.0",
             "keys": "ctrl+shift+w"
         },
         {
-            "id": "User.splitPane.A6751878",
-            "keys": "alt+shift+d"
+            "id": "User.paste",
+            "keys": "ctrl+v"
+        },
+        {
+            "id": "User.find",
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "id": "User.moveFocus.87C324ED",
+            "keys": "alt+l"
         },
         {
             "id": "User.splitPane.10B260D2",
             "keys": "ctrl+shift+j"
         },
         {
-            "id": "User.moveFocus.87C324ED",
-            "keys": "alt+l"
+            "id": "User.splitPane.A6751878",
+            "keys": "alt+shift+d"
         },
         {
             "id": "User.splitPane.FEF0D40B",
@@ -174,7 +185,8 @@
             "keys": "alt+shift+down"
         }
     ],
-    "newTabMenu": [
+    "newTabMenu": 
+    [
         {
             "icon": null,
             "profile": "{94252100-8e3f-5ea5-b0ee-b9a2e871c006}",
@@ -187,7 +199,8 @@
         },
         {
             "allowEmpty": false,
-            "entries": [
+            "entries": 
+            [
                 {
                     "icon": null,
                     "profile": "{b76e976c-c895-4d87-8a25-b85968aa470d}",
@@ -218,17 +231,21 @@
             "type": "folder"
         }
     ],
-    "profiles": {
-        "defaults": {
+    "profiles": 
+    {
+        "defaults": 
+        {
             "colorScheme": "Catppuccin Mocha",
-            "font": {
+            "font": 
+            {
                 "face": "JetBrainsMono Nerd Font"
             },
             "opacity": 80,
             "scrollbarState": "visible",
             "useAcrylic": true
         },
-        "list": [
+        "list": 
+        [
             {
                 "guid": "{94252100-8e3f-5ea5-b0ee-b9a2e871c006}",
                 "hidden": false,
@@ -271,7 +288,8 @@
             }
         ]
     },
-    "schemes": [
+    "schemes": 
+    [
         {
             "background": "#1E1E2E",
             "black": "#45475A",
@@ -296,20 +314,24 @@
             "yellow": "#F9E2AF"
         }
     ],
-    "themes": [
+    "themes": 
+    [
         {
             "name": "Catppuccin Mocha",
-            "tab": {
+            "tab": 
+            {
                 "background": "#1E1E2EFF",
                 "iconStyle": "default",
                 "showCloseButton": "always",
                 "unfocusedBackground": null
             },
-            "tabRow": {
+            "tabRow": 
+            {
                 "background": "#181825FF",
                 "unfocusedBackground": "#11111BFF"
             },
-            "window": {
+            "window": 
+            {
                 "applicationTheme": "dark",
                 "experimental.rainbowFrame": false,
                 "frame": null,
