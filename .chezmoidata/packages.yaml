@@ -43,6 +43,10 @@ packages:
       - "BrechtSanders.WinLibs.POSIX.UCRT" # C compiler for tree-sitter
       - "astral-sh.uv" # Python manager and more
       - "OpenJS.NodeJS" # Needed for installing different mason tools
+      - "jj-vcs.jj" # jj version control
+      - "Cretezy.lazyjj"
+      - "ZelliJ.ZelliJ" # Terminal multiplexer
+      - "junegunn.fzf" # Fuzzy finder
     wingetExtras:
       - "AntibodySoftware.WizTree"
       - "voidtools.Everything"

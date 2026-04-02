@@ -249,7 +249,7 @@ keybinds clear-defaults=true {
 // changing these requires a restart to take effect
 plugins {
     about location="zellij:about"
-    autolock location="https://github.com/fresh2dev/zellij-autolock/releases/download/0.2.2/zellij-autolock.wasm" {
+    autolock location="file:~/.config/zellij/plugins/zellij-autolock.wasm" {
         is_enabled true
         triggers "nvim|vim|fzf|git|jj|lazyjj|lazygit"
         reaction_seconds "0.3"

@@ -2,16 +2,17 @@ alias vim = nvim
 alias vi = vim
 alias cat = bat
 alias cm = chezmoi
-alias cma = cm apply --init
+alias zj = zellij
+alias zjc = zj --layout chezmoi attach --create --force-run-commands chezmoi
 
 {{- /* For platform specific aliases to add */ -}}
 
 {{- if eq .chezmoi.os "windows" }}
+alias cma = sudo chezmoi apply --init
 alias kanata = {{ .kanataExe }}
 {{ end -}}
 
 {{- if eq .chezmoi.os "linux" }}
-alias zj = zellij
-alias zjc = zj --layout chezmoi attach --create --force-run-commands chezmoi
+alias cma = chezmoi apply --init
 alias sudopath = sudo --preserve-env=PATH env
 {{ end -}}

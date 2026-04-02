@@ -835,11 +835,9 @@ source $"($nu.cache-dir)/carapace.nu"
 source $"($nu.cache-dir)/.zoxide.nu"
 use ~/.config/nushell/custom-commands.nu *
 
-{{ if ne .chezmoi.os "windows" -}}
 if $env.ZELLIJ? == null {
   zjz
   if ($env.ZELLIJ_AUTO_EXIT? == "true") {
     exit
   }
 }
-{{- end }}
