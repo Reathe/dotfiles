@@ -121,9 +121,9 @@ window_behavior:
       shown_on_top: false
 
 workspaces:
-  - name: "1"
-  - name: "2"
-  - name: "3"
+  - name: "terminal"
+  - name: "zen"
+  - name: "desktop"
   - name: "4"
   - name: "5"
   - name: "6"
@@ -274,11 +274,11 @@ binding_modes:
         bindings: ["q"]
 
       # Change focus to a workspace defined in `workspaces` config.
-      - commands: ["focus --workspace 1"]
+      - commands: ["focus --workspace terminal"]
         bindings: ["1"]
-      - commands: ["focus --workspace 2"]
+      - commands: ["focus --workspace zen"]
         bindings: ["2"]
-      - commands: ["focus --workspace 3"]
+      - commands: ["focus --workspace desktop"]
         bindings: ["3"]
       - commands: ["focus --workspace 4"]
         bindings: ["4"]
@@ -305,11 +305,11 @@ binding_modes:
         bindings: ["shift+s"]
 
       # Move focused window to a workspace defined in `workspaces` config.
-      - commands: ["move --workspace 1", "focus --workspace 1"]
+      - commands: ["move --workspace terminal", "focus --workspace terminal"]
         bindings: ["shift+1"]
-      - commands: ["move --workspace 2", "focus --workspace 2"]
+      - commands: ["move --workspace zen", "focus --workspace zen"]
         bindings: ["shift+2"]
-      - commands: ["move --workspace 3", "focus --workspace 3"]
+      - commands: ["move --workspace desktop", "focus --workspace desktop"]
         bindings: ["shift+3"]
       - commands: ["move --workspace 4", "focus --workspace 4"]
         bindings: ["shift+4"]
