@@ -43,6 +43,7 @@
       gemini-cli
       opencode
       codex
+      direnv
     ];
   };
 
