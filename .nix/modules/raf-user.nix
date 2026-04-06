@@ -36,10 +36,10 @@
       statix
       nixfmt
       topiary
-      zellij
       jujutsu
       lazyjj
       fzf
+      zellij
       gemini-cli
       opencode
       codex
