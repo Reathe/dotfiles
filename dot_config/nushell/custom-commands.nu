@@ -26,14 +26,3 @@ export def fd [...args] {
     rg --files | rg ...$args
   }
 }
-
-export def zjz [] {
-  let all_sessions = try { zellij ls }
-  let session = try { $all_sessions | fzf --ansi --select-1 --exit-0 | split row ' ' | get 0? }
-
-  if ($session | is-not-empty) {
-    zellij attach $session
-  } else {
-    zellij --layout welcome attach --create welcome
-  }
-}
