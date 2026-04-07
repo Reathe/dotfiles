@@ -1,5 +1,5 @@
 layout {
-  cwd "/home/raf/.local/share/chezmoi"
+  cwd "~/.local/share/chezmoi"
 
   tab name="chezmoi" focus=true hide_floating_panes=true {
     pane size=1 borderless=true {
@@ -15,7 +15,7 @@ layout {
     }
     pane stacked=true {
       pane name="nvim" command="nvim" expanded=true
-      pane cwd="/home/raf/.config"
+      pane cwd="~/.config"
     }
     pane size=1 borderless=true {
       plugin location="status-bar"
