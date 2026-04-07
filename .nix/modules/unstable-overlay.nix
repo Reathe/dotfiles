@@ -3,6 +3,7 @@
   nixpkgs.overlays = [
     (final: _prev: {
       inherit (nixpkgs-unstable.legacyPackages.${final.stdenv.hostPlatform.system})
+        neovim
         lazygit
         gemini-cli
         opencode
