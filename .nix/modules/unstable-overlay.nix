@@ -9,6 +9,7 @@
         opencode
         codex
         zellij
+        nushell
         ;
     })
   ];
