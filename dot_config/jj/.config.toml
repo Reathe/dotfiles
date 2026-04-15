@@ -3,3 +3,6 @@
 [user]
 name = "Reathe"
 email = "bachourian@gmail.com"
+
+[working-copy]
+eol-conversion = "input-output"
