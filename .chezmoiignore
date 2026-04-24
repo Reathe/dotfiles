@@ -4,7 +4,7 @@ AGENTS.md
 AppData*
 *.bat
 .glzr
-{{- if eq .chezmoi.osRelease.name "NixOS"}}
+{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.name "NixOS")}}
 .config/kanata
 {{ end -}}
 {{ else }}
