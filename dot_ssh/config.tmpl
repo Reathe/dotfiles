@@ -1,35 +1,37 @@
 Host ubuntuServerTrueNAS
   HostName 192.168.1.76
-  IdentityFile ~/.ssh/id_ed25519
   User raf
+  RequestTTY yes 
+  RemoteCommand tmux -u new -A -s ssh_tmux
 
-Host trueNAS
+Host TrueNAS
   HostName truenas
   User admin
+  RequestTTY yes 
+  RemoteCommand tmux -u new -A -s ssh_tmux
 
-Host oracleVM
+Host portainerOracle
   HostName 129.151.228.131
-  IdentityFile  ~/.ssh/id_ed25519
   User ubuntu
+  RequestTTY yes 
+  RemoteCommand tmux -u new -A -s ssh_tmux
 
-Host oracleMicro
+Host microOracle
   HostName 84.235.235.187
-  IdentityFile  ~/.ssh/id_ed25519
   User ubuntu
 
-Host oracleMicro2
+Host micro2Oracle
   HostName 129.151.245.56
-  IdentityFile  ~/.ssh/id_ed25519
   User ubuntu
+  RequestTTY yes 
+  RemoteCommand tmux -u new -A -s ssh_tmux
 
 {{ if ne .chezmoi.hostname "pc-raf" -}}
 Host pc-raf
   HostName pc-raf
-  IdentityFile ~/.ssh/id_ed25519
   User Raf
 {{- else -}}
 Host nixvm
   HostName nixos.mshome.net
-  IdentityFile  ~/.ssh/id_ed25519
   User raf
 {{- end }}
