@@ -130,6 +130,7 @@ workspaces:
   - name: "7"
   - name: "8"
   - name: "9"
+  - name: "rscreen"
 
 window_rules:
   - commands: ["ignore"]
@@ -292,6 +293,8 @@ binding_modes:
         bindings: ["8"]
       - commands: ["focus --workspace 9"]
         bindings: ["9"]
+      - commands: ["focus --workspace rscreen"]
+        bindings: ["0"]
 
       # Move the focused window's parent workspace to a monitor in a given
       # direction.
@@ -323,6 +326,8 @@ binding_modes:
         bindings: ["shift+8"]
       - commands: ["move --workspace 9", "focus --workspace 9"]
         bindings: ["shift+9"]
+      - commands: ["move --workspace rscreen", "focus --workspace rscreen"]
+        bindings: ["shift+rscreen"]
 
       - commands: ["wm-disable-binding-mode --name normal"]
         bindings: ["escape"]
