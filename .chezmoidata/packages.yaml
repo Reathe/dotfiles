@@ -47,7 +47,8 @@ packages:
       - "Cretezy.lazyjj"
       - "ZelliJ.ZelliJ" # Terminal multiplexer
       - "junegunn.fzf" # Fuzzy finder
-      - "glzr-io.glazewm" # window manager
+      - "LGUG2Z.komorebi" # window manager
+      - "LGUG2Z.whkd" # hotkey deamon for komorebi
     wingetExtras:
       - "AntibodySoftware.WizTree"
       - "voidtools.Everything"

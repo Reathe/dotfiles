@@ -31,7 +31,7 @@
   j (tap-hold $tap-time $hold-time j rctl)
   k (tap-hold $tap-time $hold-time k rsft)
   l (tap-hold $tap-time $long-hold-time l ralt)
-  ; (tap-hold $tap-time $long-hold-time ; rmet)
+  ; (tap-hold $tap-time $long-hold-time ; lmet)
 )
 
 (deflayer (homerow icon "./icons/homerow.png")

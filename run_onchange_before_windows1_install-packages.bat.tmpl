@@ -5,6 +5,7 @@
 :: random string to force run the script {{ randAlphaNum 50 }}
 {{- end }}
 setx XDG_CONFIG_HOME %userprofile%\.config 
+setx KOMOREBI_CONFIG_HOME %userprofile%\.config\komorebi
 @echo off
 
 if /I "%INSTALL_PACKAGES%"=="false" (
