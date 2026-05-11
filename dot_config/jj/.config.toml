@@ -6,3 +6,27 @@ email = "bachourian@gmail.com"
 
 [working-copy]
 eol-conversion = "input"
+
+[ui]
+editor = "nvim"
+# Use merge-tools.meld.merge-args
+merge-editor = "nvim" # Or "vscode" or "vscodium" or "kdiff3" or "vimdiff"
+
+[merge-tools.nvim]
+merge-args = [
+  "-f",
+  "-d",
+  "$output",
+  "-M",
+  "$left",
+  "$base",
+  "$right",
+  "-c",
+  "wincmd J",
+  "-c",
+  "set modifiable",
+  "-c",
+  "set write",
+]
+program = "nvim"
+merge-tool-edits-conflict-markers = true # See below for an explanation
