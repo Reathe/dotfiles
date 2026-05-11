@@ -10,6 +10,7 @@
         codex
         zellij
         nushell
+        amnezia-vpn
         ;
     })
   ];

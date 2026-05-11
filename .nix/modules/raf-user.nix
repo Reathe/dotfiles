@@ -16,7 +16,6 @@
       ghostty
       nushell
       lazygit
-      wezterm
       carapace
       zoxide
       starship
@@ -45,7 +44,15 @@
       direnv
       discord
       jjui
+      amnezia-vpn
+      plex-desktop
     ];
+  };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    xdgOpenUsePortal = true;
   };
 
   services.tailscale = {
