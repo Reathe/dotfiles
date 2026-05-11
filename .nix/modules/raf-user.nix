@@ -4,7 +4,6 @@
   users.users.raf = {
     isNormalUser = true;
     description = "raf";
-    shell = pkgs.nushell;
     extraGroups = [ "wheel" ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINoK0Yz0b6ktXjUpbt9gtMwFI5jDHNrXfhUWzKekBvar bachourian@gmail.com"
@@ -60,6 +59,16 @@
     # Enable tailscale at startup
     # use tailscale login
   };
+
+  environment.shells = [
+    pkgs.nushell
+  ];
+
+  programs.bash.interactiveShellInit = ''
+    if ! [ "$TERM" = "dumb" ] && [ -z "$BASH_EXECUTION_STRING" ]; then
+      exec nu
+    fi
+  '';
 
   environment.systemPackages = with pkgs; [
     git
