@@ -11,6 +11,7 @@
         zellij
         nushell
         amnezia-vpn
+        noctalia-shell
         ;
     })
   ];

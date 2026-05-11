@@ -67,8 +67,6 @@
   programs.niri.enable = true;
   security.polkit.enable = true; # polkit
   services.gnome.gnome-keyring.enable = true; # secret service
-  security.pam.services.swaylock = { };
-  programs.waybar.enable = true; # top bar
 
   programs.bash.interactiveShellInit = ''
     if ! [ "$TERM" = "dumb" ] && [ -z "$BASH_EXECUTION_STRING" ]; then
@@ -82,10 +80,8 @@
     uv
     ghostty
     fuzzel
-    swaylock
-    mako
-    swayidle
     xwayland-satellite # xwayland support
+    noctalia-shell
   ];
 
   programs.nix-ld.libraries = with pkgs; [
