@@ -64,6 +64,12 @@
     pkgs.nushell
   ];
 
+  programs.niri.enable = true;
+  security.polkit.enable = true; # polkit
+  services.gnome.gnome-keyring.enable = true; # secret service
+  security.pam.services.swaylock = { };
+  programs.waybar.enable = true; # top bar
+
   programs.bash.interactiveShellInit = ''
     if ! [ "$TERM" = "dumb" ] && [ -z "$BASH_EXECUTION_STRING" ]; then
       exec nu
@@ -74,6 +80,12 @@
     git
     neovim
     uv
+    ghostty
+    fuzzel
+    swaylock
+    mako
+    swayidle
+    xwayland-satellite # xwayland support
   ];
 
   programs.nix-ld.libraries = with pkgs; [
