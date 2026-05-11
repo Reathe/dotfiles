@@ -24,14 +24,19 @@
     {
       nixosConfigurations = {
         nixos = mkHost [
-          ./modules/unstable-overlay.nix
-          ./hosts/vm
+          ./.nix/modules/unstable-overlay.nix
+          ./.nix/hosts/desktop
+        ];
+
+        nixos-vm = mkHost [
+          ./.nix/modules/unstable-overlay.nix
+          ./.nix/hosts/vm
         ];
 
         nixos-wsl = mkHost [
-          ./modules/unstable-overlay.nix
+          ./.nix/modules/unstable-overlay.nix
           nixos-wsl.nixosModules.default
-          ./hosts/wsl
+          ./.nix/hosts/wsl
         ];
       };
     };

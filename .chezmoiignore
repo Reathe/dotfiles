@@ -1,5 +1,7 @@
 README.md
 AGENTS.md
+flake.nix
+flake.lock
 {{- if ne .chezmoi.os "windows" }}
 AppData*
 *.bat

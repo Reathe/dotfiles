@@ -14,7 +14,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Define your hostname.
-  networking.hostName = "nixos";
+  networking.hostName = "nixos-vm";
 
   # Enable networking
   networking.networkmanager.enable = true;
