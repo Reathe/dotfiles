@@ -6,6 +6,8 @@ flake.lock
 AppData*
 *.bat
 .glzr
+.config/komorebi
+.config/whkdrc
 {{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.name "NixOS")}}
 .config/kanata
 {{ end -}}
