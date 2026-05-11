@@ -37,14 +37,21 @@
       nixfmt
       topiary
       jujutsu
-      lazyjj
       fzf
       zellij
       gemini-cli
       opencode
       codex
       direnv
+      discord
+      jjui
     ];
+  };
+
+  services.tailscale = {
+    enable = true;
+    # Enable tailscale at startup
+    # use tailscale login
   };
 
   environment.systemPackages = with pkgs; [
