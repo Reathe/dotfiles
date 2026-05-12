@@ -61,9 +61,14 @@
     # use tailscale login
   };
 
-  environment.shells = [
-    pkgs.nushell
-  ];
+  environment = {
+    variables = {
+      QT_QPA_PLATFORMTHEME = "gtk3";
+    };
+    shells = [
+      pkgs.nushell
+    ];
+  };
 
   programs.niri.enable = true;
   security.polkit.enable = true; # polkit
