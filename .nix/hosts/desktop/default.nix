@@ -1,9 +1,18 @@
-{ lib, ... }:
+{
+  lib,
+  inputs,
+  pkgs,
+  ...
+}:
+let
+  spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+in
 {
   imports = [
     ../../modules/common.nix
     ../../modules/raf-user.nix
     ./hardware-configuration.nix
+    inputs.spicetify-nix.nixosModules.default
   ];
 
   # Define your hostname.
@@ -51,6 +60,15 @@
 
   # Install firefox.
   programs.firefox.enable = true;
+
+  programs.spicetify = {
+    enable = true;
+    wayland = true;
+    enabledExtensions = with spicePkgs.extensions; [
+      adblockify
+      shuffle
+    ];
+  };
 
   # Keep the state version explicit per host.
   system.stateVersion = "25.11";
