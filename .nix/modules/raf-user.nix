@@ -41,10 +41,11 @@
       opencode
       codex
       direnv
-      discord
+      vesktop
       jjui
       amnezia-vpn
       plex-desktop
+      telegram-desktop
     ];
   };
 
