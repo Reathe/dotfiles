@@ -46,6 +46,7 @@
       amnezia-vpn
       plex-desktop
       telegram-desktop
+      anydesk
     ];
   };
 
