@@ -47,8 +47,11 @@
       plex-desktop
       telegram-desktop
       anydesk
+      piper
     ];
   };
+
+  services.ratbagd.enable = true;
 
   xdg.portal = {
     enable = true;
