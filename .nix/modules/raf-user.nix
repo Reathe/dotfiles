@@ -51,21 +51,43 @@
     ];
   };
 
-  services.ratbagd.enable = true;
+  programs = {
+    niri.enable = true;
+    nix-ld.libraries = with pkgs; [
+      # Add any missing dynamic libraries for unpackaged programs
+      # here, NOT in environment.systemPackages
+      stylua
+    ];
+    bash.interactiveShellInit = ''
+      if ! [ "$TERM" = "dumb" ] && [ -z "$BASH_EXECUTION_STRING" ]; then
+        exec nu
+      fi
+    '';
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    xdgOpenUsePortal = true;
   };
 
-  services.tailscale = {
-    enable = true;
-    # Enable tailscale at startup
-    # use tailscale login
+  services = {
+    ratbagd.enable = true; # for logitech mouse
+    tailscale = {
+      enable = true;
+      # Enable tailscale at startup
+      # use tailscale login
+    };
+
+    gnome.gnome-keyring.enable = true; # secret service
   };
 
   environment = {
+    systemPackages = with pkgs; [
+      git
+      neovim
+      uv
+      ghostty
+      fuzzel
+      xwayland-satellite # xwayland support
+      noctalia-shell
+    ];
+
     variables = {
       QT_QPA_PLATFORMTHEME = "gtk3";
     };
@@ -74,29 +96,11 @@
     ];
   };
 
-  programs.niri.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    xdgOpenUsePortal = true;
+  };
+
   security.polkit.enable = true; # polkit
-  services.gnome.gnome-keyring.enable = true; # secret service
-
-  programs.bash.interactiveShellInit = ''
-    if ! [ "$TERM" = "dumb" ] && [ -z "$BASH_EXECUTION_STRING" ]; then
-      exec nu
-    fi
-  '';
-
-  environment.systemPackages = with pkgs; [
-    git
-    neovim
-    uv
-    ghostty
-    fuzzel
-    xwayland-satellite # xwayland support
-    noctalia-shell
-  ];
-
-  programs.nix-ld.libraries = with pkgs; [
-    # Add any missing dynamic libraries for unpackaged programs
-    # here, NOT in environment.systemPackages
-    stylua
-  ];
 }
