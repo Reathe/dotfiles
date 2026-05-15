@@ -53,6 +53,12 @@
 
   programs = {
     niri.enable = true;
+    steam = {
+      enable = true;
+      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+      localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+    };
     nix-ld.libraries = with pkgs; [
       # Add any missing dynamic libraries for unpackaged programs
       # here, NOT in environment.systemPackages
@@ -73,7 +79,6 @@
       # Enable tailscale at startup
       # use tailscale login
     };
-
     gnome.gnome-keyring.enable = true; # secret service
   };
 

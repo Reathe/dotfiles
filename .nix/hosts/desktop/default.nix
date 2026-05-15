@@ -38,6 +38,7 @@ in
   hardware.nvidia.modesetting.enable = true;
   hardware.nvidia.open = false;
   hardware.graphics.enable = true;
+  hardware.xone.enable = true; # support for the xbox controller USB dongle
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
