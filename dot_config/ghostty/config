@@ -1,6 +1,7 @@
 command = nu
 theme = "Catppuccin Mocha"
 
+shell-integration-features = ssh-env,ssh-terminfo
 background-opacity = 0.9
 window-padding-x = 0
 window-padding-balance = true
