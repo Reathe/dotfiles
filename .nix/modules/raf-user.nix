@@ -1,10 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   # Define a user account. Don't forget to set a password with `passwd`.
   users.users.raf = {
     isNormalUser = true;
     description = "raf";
-    extraGroups = [ "wheel" ];
+    extraGroups = [
+      "wheel"
+    ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINoK0Yz0b6ktXjUpbt9gtMwFI5jDHNrXfhUWzKekBvar bachourian@gmail.com"
     ];
@@ -70,6 +72,22 @@
       fi
     '';
 
+    dms-shell = {
+      enable = true;
+
+      systemd = {
+        enable = true; # Systemd service for auto-start
+        restartIfChanged = true; # Auto-restart dms.service when dms-shell changes
+      };
+
+      # Core features
+      enableSystemMonitoring = true; # System monitoring widgets (dgop)
+      enableVPN = true; # VPN management widget
+      enableDynamicTheming = true; # Wallpaper-based theming (matugen)
+      enableAudioWavelength = true; # Audio visualizer (cava)
+      enableCalendarEvents = true; # Calendar integration (khal)
+      enableClipboardPaste = true; # Pasting from the clipboard history (wtype)
+    };
   };
 
   services = {
@@ -80,6 +98,12 @@
       # use tailscale login
     };
     gnome.gnome-keyring.enable = true; # secret service
+    displayManager.dms-greeter = {
+      enable = true;
+      compositor.name = "niri"; # Or "hyprland" or "sway"
+      # Sync your user's DankMaterialShell theme with the greeter. You'll probably want this
+      configHome = "/home/raf";
+    };
   };
 
   environment = {
@@ -88,13 +112,12 @@
       neovim
       uv
       ghostty
-      fuzzel
       xwayland-satellite # xwayland support
-      noctalia-shell
+      papirus-icon-theme
+      phinger-cursors
     ];
 
     variables = {
-      QT_QPA_PLATFORMTHEME = "gtk3";
     };
     shells = [
       pkgs.nushell
@@ -103,9 +126,11 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    xdgOpenUsePortal = true;
+    #xdgOpenUsePortal = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-gnome
+    ];
   };
-
   security.polkit.enable = true; # polkit
 }

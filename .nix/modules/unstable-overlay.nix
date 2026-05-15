@@ -11,7 +11,9 @@
         zellij
         nushell
         amnezia-vpn
-        noctalia-shell
+        dms-shell
+        dgop
+        quickshell
         ;
     })
   ];
