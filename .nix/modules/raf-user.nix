@@ -43,7 +43,6 @@
       direnv
       vesktop
       jjui
-      amnezia-vpn
       plex-desktop
       telegram-desktop
       anydesk
@@ -53,6 +52,7 @@
 
   programs = {
     niri.enable = true;
+    amnezia-vpn.enable = true;
     steam = {
       enable = true;
       remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
