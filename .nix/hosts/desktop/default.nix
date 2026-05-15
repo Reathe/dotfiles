@@ -35,8 +35,12 @@ in
   services.desktopManager.plasma6.enable = lib.mkForce true;
 
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.modesetting.enable = true;
-  hardware.nvidia.open = false;
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = false;
+    open = true;
+    nvidiaSettings = true;
+  };
   hardware.graphics.enable = true;
   hardware.bluetooth = {
     enable = true;
@@ -54,6 +58,12 @@ in
     };
   };
   hardware.xone.enable = true; # support for the xbox controller USB dongle
+
+  # Dependencies for noctalia power managment
+  services = {
+    upower.enable = true;
+    power-profiles-daemon.enable = true;
+  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
