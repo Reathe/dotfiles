@@ -1,5 +1,4 @@
 {
-  lib,
   inputs,
   pkgs,
   ...
@@ -29,19 +28,17 @@ in
     "networkmanager"
   ];
 
-  # Enable the graphical desktop on the physical machine.
-  services.xserver.enable = lib.mkForce true;
-  services.displayManager.sddm.enable = lib.mkForce true;
-  services.desktopManager.plasma6.enable = lib.mkForce true;
+  # Ensure X11 is disabled.
+  services.xserver.enable = false;
+  services.xserver.videoDrivers = [ "nvidia" ]; # Required for NVIDIA kernel modules
 
-  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true;
-    powerManagement.enable = false;
-    open = true;
-    nvidiaSettings = true;
+    powerManagement.enable = true;
+    open = false;
   };
   hardware.graphics.enable = true;
+
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
@@ -58,12 +55,6 @@ in
     };
   };
   hardware.xone.enable = true; # support for the xbox controller USB dongle
-
-  # Dependencies for noctalia power managment
-  services = {
-    upower.enable = true;
-    power-profiles-daemon.enable = true;
-  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -84,6 +75,10 @@ in
     keyboards.desktop.configFile = ../../../.chezmoitemplates/kanata.kbd;
   };
 
+  # fix slow gtk apps startup #TODO: confirm
+  programs.dconf.enable = true;
+  services.gnome.at-spi2-core.enable = true;
+  environment.sessionVariables.NO_AT_BRIDGE = "1";
   # Install firefox.
   programs.firefox.enable = true;
 

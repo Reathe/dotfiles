@@ -14,15 +14,9 @@
 # nix files hash: {{ include ".nix/modules/unstable-overlay.nix" | sha256sum }}
 # nix files hash: {{ include ".nix/hosts/desktop/default.nix" | sha256sum }}
 # nix files hash: {{ include ".nix/hosts/desktop/hardware-configuration.nix" | sha256sum }}
-# nix files hash: {{ include ".nix/hosts/vm/default.nix" | sha256sum }}
-# nix files hash: {{ include ".nix/hosts/vm/hardware-configuration.nix" | sha256sum }}
-# nix files hash: {{ include ".nix/hosts/wsl/default.nix" | sha256sum }}
 flake_host="$(hostname)"
-if grep -qi microsoft /proc/sys/kernel/osrelease 2>/dev/null; then
-  flake_host="nixos-wsl"
-fi
 case "$flake_host" in
-nixos | nixos-vm | nixos-wsl) ;;
+nixos) ;;
 *) flake_host="nixos" ;;
 esac
 sudo nixos-rebuild switch --flake path:{{ .chezmoi.sourceDir }}#"$flake_host"
