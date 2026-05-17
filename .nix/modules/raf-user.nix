@@ -49,6 +49,7 @@
       telegram-desktop
       anydesk
       piper
+      proton-vpn
     ];
   };
 
