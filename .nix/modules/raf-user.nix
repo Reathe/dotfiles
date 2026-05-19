@@ -101,7 +101,21 @@
     gnome.gnome-keyring.enable = true; # secret service
     displayManager.dms-greeter = {
       enable = true;
-      compositor.name = "niri"; # Or "hyprland" or "sway"
+      compositor = {
+        name = "niri"; # Or "hyprland" or "sway"
+        customConfig = ''
+          output "DP-6" {
+              mode "1920x1080@60"
+              focus-at-startup
+              scale 1
+              transform "normal"
+              position x=0 y=0
+          }
+          hotkey-overlay {
+              skip-at-startup
+          }
+        '';
+      };
       # Sync your user's DankMaterialShell theme with the greeter. You'll probably want this
       configHome = "/home/raf";
     };
