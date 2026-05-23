@@ -50,6 +50,8 @@
       anydesk
       piper
       proton-vpn
+      ollama-cuda
+      lmstudio
     ];
   };
 
