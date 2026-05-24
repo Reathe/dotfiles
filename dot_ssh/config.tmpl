@@ -1,18 +1,21 @@
 Host ubuntuServerTrueNAS
   HostName 192.168.1.76
   User raf
+  SetEnv TERM=xterm-256color
   RequestTTY yes 
   RemoteCommand tmux -u new -A -s ssh_tmux
 
 Host TrueNAS
   HostName truenas
   User admin
+  SetEnv TERM=xterm-256color
   RequestTTY yes 
   RemoteCommand tmux -u new -A -s ssh_tmux
 
 Host portainerOracle
   HostName 129.151.228.131
   User ubuntu
+  SetEnv TERM=xterm-256color
   RequestTTY yes 
   RemoteCommand tmux -u new -A -s ssh_tmux
 
@@ -23,6 +26,7 @@ Host microOracle
 Host micro2Oracle
   HostName 129.151.245.56
   User ubuntu
+  SetEnv TERM=xterm-256color
   RequestTTY yes 
   RemoteCommand tmux -u new -A -s ssh_tmux
 
