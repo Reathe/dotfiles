@@ -52,6 +52,7 @@
       proton-vpn
       ollama-cuda
       lmstudio
+      libreoffice
     ];
   };
 
