@@ -53,6 +53,7 @@
       ollama-cuda
       lmstudio
       libreoffice
+      yazi
     ];
   };
 
