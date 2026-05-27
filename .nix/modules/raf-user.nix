@@ -133,6 +133,7 @@
       xwayland-satellite # xwayland support
       papirus-icon-theme
       phinger-cursors
+      inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
 
     variables = {
