@@ -6,6 +6,7 @@
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-software-center.url = "github:snowfallorg/nix-software-center";
   };
 
   outputs =
