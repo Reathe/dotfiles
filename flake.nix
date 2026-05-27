@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs.url = "nixpkgs/nixos-26.05";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
