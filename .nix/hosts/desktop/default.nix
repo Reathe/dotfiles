@@ -75,10 +75,6 @@ in
     keyboards.desktop.configFile = ../../../.chezmoitemplates/kanata.kbd;
   };
 
-  # fix slow gtk apps startup #TODO: confirm
-  programs.dconf.enable = true;
-  services.gnome.at-spi2-core.enable = true;
-  environment.sessionVariables.NO_AT_BRIDGE = "1";
   # Install firefox.
   programs.firefox.enable = true;
 
