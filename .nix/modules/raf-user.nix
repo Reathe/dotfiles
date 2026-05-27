@@ -149,7 +149,6 @@
     #xdgOpenUsePortal = true;
     extraPortals = [
       pkgs.xdg-desktop-portal-gtk
-      pkgs.xdg-desktop-portal-gnome
     ];
   };
   security.polkit.enable = true; # polkit
