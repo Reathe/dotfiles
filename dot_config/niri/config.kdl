@@ -72,7 +72,7 @@ output "HDMI-A-2" {
 
 gestures {
     hot-corners {
-        off
+      top-left
     }
 }
 
