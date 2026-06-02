@@ -46,6 +46,7 @@ keybind = shift+enter=text:\n
 
 # Rando stuff
 gtk-single-instance = true
+mouse-scroll-multiplier = 0.3
 
 # Dank color generation
 theme = dankcolors
