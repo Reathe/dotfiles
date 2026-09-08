@@ -26,3 +26,22 @@ export def fd [...args] {
     rg --files | rg ...$args
   }
 }
+
+{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.name "NixOS") }}
+export def nsh [...packages: string] {
+  let refs = $packages | each {|package| $"nixpkgs/nixos-unstable#($package)" }
+  with-env { NIXPKGS_ALLOW_UNFREE: "1" } {
+    ^nix shell --impure ...$refs
+  }
+}
+
+export def nshi [...packages: string] {
+  let refs = $packages | each {|package| $"nixpkgs/nixos-unstable#($package)" }
+  with-env {
+    NIXPKGS_ALLOW_UNFREE: "1"
+    NIXPKGS_ALLOW_INSECURE: "1"
+  } {
+    ^nix shell --impure ...$refs
+  }
+}
+{{- end }}
