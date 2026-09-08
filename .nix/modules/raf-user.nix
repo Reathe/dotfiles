@@ -137,14 +137,22 @@
       papirus-icon-theme
       phinger-cursors
       inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+      kdePackages.qtsvg
     ];
 
     variables = {
+      TERMINAL = "ghostty";
     };
+
     shells = [
       pkgs.nushell
     ];
   };
+
+  environment.etc."xdg/kdeglobals".text = ''
+    [General]
+    TerminalApplication=ghostty
+  '';
 
   xdg.portal = {
     enable = true;
