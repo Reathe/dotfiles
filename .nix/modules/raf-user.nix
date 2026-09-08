@@ -54,6 +54,7 @@
       lmstudio
       libreoffice
       yazi
+      kdePackages.dolphin
       inputs.nix-software-center.packages.${system}.nix-software-center
     ];
   };
