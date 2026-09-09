@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  unstable,
+  ...
+}:
 {
   # Define a user account. Don't forget to set a password with `passwd`.
   users.users.raf = {
@@ -10,53 +15,57 @@
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINoK0Yz0b6ktXjUpbt9gtMwFI5jDHNrXfhUWzKekBvar bachourian@gmail.com"
     ];
-    packages = with pkgs; [
-      # TODO: use packages template
-      git
-      neovim
-      ghostty
-      nushell
-      lazygit
-      carapace
-      zoxide
-      starship
-      tlrc
-      bat
-      tree-sitter
-      nerd-fonts.jetbrains-mono
-      nodejs_24
-      bws
-      chezmoi
-      gcc
-      gh
-      ripgrep
-      fd
-      unzip
-      cargo
-      statix
-      nixfmt
-      topiary
-      jujutsu
-      fzf
-      zellij
-      gemini-cli
-      opencode
-      codex
-      direnv
-      vesktop
-      jjui
-      plex-desktop
-      telegram-desktop
-      anydesk
-      piper
-      proton-vpn
-      ollama-cuda
-      lmstudio
-      libreoffice
-      yazi
-      kdePackages.dolphin
-      inputs.nix-software-center.packages.${pkgs.stdenv.hostPlatform.system}.nix-software-center
-    ];
+    packages =
+      (with pkgs; [
+        # NixOS 26.05 (stable). Move a package to the unstable block below to use nixos-unstable instead.
+        git
+        ghostty
+        carapace
+        zoxide
+        starship
+        tlrc
+        bat
+        tree-sitter
+        nerd-fonts.jetbrains-mono
+        nodejs_24
+        bws
+        chezmoi
+        gcc
+        gh
+        ripgrep
+        fd
+        unzip
+        cargo
+        statix
+        nixfmt
+        topiary
+        jujutsu
+        fzf
+        direnv
+        vesktop
+        jjui
+        plex-desktop
+        telegram-desktop
+        anydesk
+        piper
+        proton-vpn
+        ollama-cuda
+        lmstudio
+        libreoffice
+        yazi
+        kdePackages.dolphin
+        inputs.nix-software-center.packages.${pkgs.stdenv.hostPlatform.system}.nix-software-center
+      ])
+      ++ (with unstable; [
+        # nixos-unstable. Move a package here to get the unstable version instead of 26.05.
+        neovim
+        nushell
+        lazygit
+        zellij
+        gemini-cli
+        opencode
+        codex
+      ]);
   };
 
   programs = {
@@ -128,17 +137,19 @@
   };
 
   environment = {
-    systemPackages = with pkgs; [
-      git
-      neovim
-      uv
-      ghostty
-      xwayland-satellite # xwayland support
-      papirus-icon-theme
-      phinger-cursors
-      inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
-      kdePackages.qtsvg
-    ];
+    systemPackages =
+      (with pkgs; [
+        git
+        neovim
+        uv
+        ghostty
+        xwayland-satellite # xwayland support
+        papirus-icon-theme
+        phinger-cursors
+        inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+        kdePackages.qtsvg
+      ])
+      ++ (with unstable; [ ]);
 
     variables = {
       TERMINAL = "ghostty";
