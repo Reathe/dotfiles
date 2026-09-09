@@ -62,7 +62,8 @@
         nushell
         lazygit
         zellij
-        gemini-cli
+        antigravity-ide
+        antigravity-cli
         opencode
         codex
       ]);
