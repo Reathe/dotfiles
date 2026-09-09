@@ -49,7 +49,7 @@
         anydesk
         piper
         proton-vpn
-        ollama-cuda
+        open-webui
         lmstudio
         libreoffice
         yazi
@@ -134,6 +134,12 @@
       };
       # Sync your user's DankMaterialShell theme with the greeter. You'll probably want this
       configHome = "/home/raf";
+    };
+    ollama = {
+      enable = true;
+      package = unstable.ollama-cuda.override {
+        cudaArches = [ "86" ];
+      };
     };
   };
 

@@ -10,6 +10,8 @@ AppData*
 .config/whkdrc
 {{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.name "NixOS")}}
 .config/kanata
+{{ else }}
+.config/opencode
 {{ end -}}
 {{ else }}
 .config/jj
