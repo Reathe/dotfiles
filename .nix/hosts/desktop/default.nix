@@ -27,6 +27,11 @@ in
       efi   /EFI/limine/limine.efi
       sort-key 10
     '';
+    "revios.conf" = ''
+      title ReviOS
+      efi   /EFI/Microsoft/Boot/bootmgfw.efi
+      sort-key 05
+    '';
   };
   boot.loader.systemd-boot.extraFiles = {
     "EFI/limine/limine.efi" = "${pkgs.limine}/share/limine/BOOTX64.EFI";
