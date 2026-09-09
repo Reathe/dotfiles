@@ -21,6 +21,23 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 10;
+  boot.loader.systemd-boot.extraEntries = {
+    "omarchy.conf" = ''
+      title Omarchy (Limine)
+      efi   /EFI/limine/limine.efi
+      sort-key 10
+    '';
+  };
+  boot.loader.systemd-boot.extraFiles = {
+    "EFI/limine/limine.efi" = "${pkgs.limine}/share/limine/BOOTX64.EFI";
+    "EFI/limine/limine.conf" = pkgs.writeText "limine.conf" ''
+      timeout: 0
+
+      /Omarchy
+          protocol: efi_chainload
+          image_path: fslabel(OMARCHY_EFI):/EFI/limine/limine_x64.efi
+    '';
+  };
   nix.gc = {
     automatic = true;
     dates = "weekly";
