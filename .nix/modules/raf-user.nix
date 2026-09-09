@@ -55,7 +55,7 @@
       libreoffice
       yazi
       kdePackages.dolphin
-      inputs.nix-software-center.packages.${system}.nix-software-center
+      inputs.nix-software-center.packages.${pkgs.stdenv.hostPlatform.system}.nix-software-center
     ];
   };
 
@@ -137,14 +137,22 @@
       papirus-icon-theme
       phinger-cursors
       inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+      kdePackages.qtsvg
     ];
 
     variables = {
+      TERMINAL = "ghostty";
     };
+
     shells = [
       pkgs.nushell
     ];
   };
+
+  environment.etc."xdg/kdeglobals".text = ''
+    [General]
+    TerminalApplication=ghostty
+  '';
 
   xdg.portal = {
     enable = true;

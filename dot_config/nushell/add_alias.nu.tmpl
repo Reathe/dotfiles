@@ -16,4 +16,7 @@ alias kanata = {{ .kanataExe }}
 {{- if eq .chezmoi.os "linux" }}
 alias cma = chezmoi apply --init
 alias sudopath = sudo --preserve-env=PATH env
+{{- if eq .chezmoi.osRelease.name "NixOS" }}
+alias nrs = sudo nixos-rebuild switch --flake /home/raf/.local/share/chezmoi#nixos
+{{- end }}
 {{ end -}}
