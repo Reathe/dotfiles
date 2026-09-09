@@ -55,7 +55,7 @@
       libreoffice
       yazi
       kdePackages.dolphin
-      inputs.nix-software-center.packages.${system}.nix-software-center
+      inputs.nix-software-center.packages.${pkgs.stdenv.hostPlatform.system}.nix-software-center
     ];
   };
 
