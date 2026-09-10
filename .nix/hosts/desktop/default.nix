@@ -103,6 +103,10 @@ in
     enable = true;
     keyboards.desktop.configFile = ../../../.chezmoitemplates/kanata.kbd;
   };
+  systemd.services.kanata-desktop.serviceConfig = {
+    Restart = "on-failure";
+    RestartSec = "5s";
+  };
 
   # Install firefox.
   programs.firefox.enable = true;
