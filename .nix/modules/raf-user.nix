@@ -66,10 +66,18 @@
         antigravity-cli
         opencode
         codex
+        claude-code
+        claude-monitor
+        chromium
+        google-chrome
       ]);
   };
 
   programs = {
+    claude-desktop = {
+      enable = true;
+      cowork.kvmUsers = [ "raf" ]; # /dev/kvm access for Cowork's micro-VM
+    };
     niri.enable = true;
     amnezia-vpn.enable = true;
     steam = {
@@ -180,4 +188,5 @@
     ];
   };
   security.polkit.enable = true; # polkit
+  security.pam.services.greetd.enableGnomeKeyring = true; # unlock keyring on login (greetd, not dms-greeter, does the actual user auth)
 }

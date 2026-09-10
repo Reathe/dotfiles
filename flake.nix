@@ -8,6 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-software-center.url = "github:snowfallorg/nix-software-center";
+    claude-desktop.url = "github:nmcbride/claude-desktop-nix";
   };
 
   outputs =
@@ -42,6 +43,7 @@
     {
       nixosConfigurations = {
         nixos = mkHost [
+          inputs.claude-desktop.nixosModules.default
           ./.nix/hosts/desktop
         ];
       };
