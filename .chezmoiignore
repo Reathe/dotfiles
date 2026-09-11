@@ -1,5 +1,6 @@
 README.md
 AGENTS.md
+CLAUDE.md
 flake.nix
 flake.lock
 {{- if ne .chezmoi.os "windows" }}
