@@ -43,6 +43,17 @@ in
           image_path: fslabel(OMARCHY_EFI):/EFI/limine/limine_x64.efi
     '';
   };
+
+  # The Asmedia ASM107x hub on usb1 (1-5) regularly has a downstream device fail
+  # to enumerate ("device descriptor read/64, error -110"); the kernel retries for
+  # ~65s and the initrd udev worker handling usb1 stays stuck for the duration, so
+  # switch-root waits out the full 90s stop timeout. Cap it -- stage 2 re-triggers
+  # udev, so nothing is lost by killing the doomed worker early.
+  boot.initrd.systemd.services.systemd-udevd = {
+    overrideStrategy = "asDropin";
+    serviceConfig.TimeoutStopSec = "15s";
+  };
+
   nix.gc = {
     automatic = true;
     dates = "weekly";
