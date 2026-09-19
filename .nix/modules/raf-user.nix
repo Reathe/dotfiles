@@ -11,6 +11,7 @@
     description = "raf";
     extraGroups = [
       "wheel"
+      "input" # evdev access for voxtype's push-to-talk hotkey watcher
     ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINoK0Yz0b6ktXjUpbt9gtMwFI5jDHNrXfhUWzKekBvar bachourian@gmail.com"
@@ -70,6 +71,8 @@
         claude-monitor
         chromium
         google-chrome
+        voxtype-vulkan
+        cava
       ]);
   };
 
@@ -99,6 +102,7 @@
 
     dms-shell = {
       enable = true;
+      package = unstable.dms-shell;
 
       systemd = {
         enable = true; # Systemd service for auto-start
@@ -126,6 +130,7 @@
     displayManager = {
       dms-greeter = {
         enable = true;
+        package = unstable.dms-greeter;
         compositor = {
           name = "niri"; # Or "hyprland" or "sway"
           customConfig = ''
@@ -196,4 +201,14 @@
   };
   security.polkit.enable = true; # polkit
   security.pam.services.greetd.enableGnomeKeyring = true; # unlock keyring on login (greetd, not dms-greeter, does the actual user auth)
+
+  systemd.user.services.voxtype = {
+    description = "Voxtype push-to-talk voice-to-text daemon";
+    wantedBy = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
+    serviceConfig = {
+      ExecStart = "${unstable.voxtype-vulkan}/bin/voxtype";
+      Restart = "on-failure";
+    };
+  };
 }

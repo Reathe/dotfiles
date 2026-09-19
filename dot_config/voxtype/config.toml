@@ -1,0 +1,24 @@
+# Voxtype configuration.
+# Fine-tune interactively with `voxtype configure` — it edits this file for you.
+state_file = "auto"
+
+[hotkey]
+# niri has no key-release bind, so push-to-talk (record while held) has to
+# come from voxtype's own evdev watcher instead of a compositor keybind.
+enabled = true
+key = "PAUSE"
+mode = "push_to_talk"
+
+[audio]
+device = "default"
+sample_rate = 16000
+max_duration_secs = 60
+
+[whisper]
+model = "large-v3-turbo" # multilingual, needed for French; fast thanks to the Vulkan GPU build
+language = "auto" # auto-detects between English/French per utterance
+translate = false
+
+[output]
+mode = "type"
+fallback_to_clipboard = true
