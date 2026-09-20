@@ -45,3 +45,102 @@ export def nshi [...packages: string] {
   }
 }
 {{- end }}
+
+# When a terminal hosting a zellij session dies abruptly, the server can
+# re-serialize that session after its panes are already gone, leaving a
+# session-layout.kdl whose tabs hold only the tab-bar and status-bar plugins.
+# Attaching to such a session finds nothing selectable to focus and exits
+# immediately. These commands put a terminal pane back into those tabs.
+
+# Read the default cwd out of a layout's new_tab_template, if it has one.
+def zj-layout-cwd [lines: list<string>] {
+  mut inside = false
+  for l in $lines {
+    if ($l =~ '^    new_tab_template') { $inside = true; continue }
+    if $inside {
+      if ($l =~ '^    \}$') { break }
+      let found = ($l | parse --regex '^        pane cwd="(?<cwd>[^"]*)"')
+      if ($found | is-not-empty) { return ($found | first | get cwd) }
+    }
+  }
+  null
+}
+
+# Repair a single `tab ... { ... }` block, or return it untouched.
+def zj-fix-tab [block: list<string>, cwd: any] {
+  # A tab with floating panes can be legitimately empty when tiled.
+  if ($block | any {|l| $l =~ '^        floating_panes'}) { return $block }
+
+  let panes = ($block | where {|l| $l =~ '^        pane'} | length)
+  let plugins = ($block | where {|l| $l =~ '^            plugin location='} | length)
+  let others = ($block | where {|l| ($l =~ '^            plugin location=') and (not ($l =~ 'zellij:(tab-bar|status-bar)'))} | length)
+
+  # A tab built around some other plugin (session-manager, strider, ...) has no
+  # terminal pane by design -- never touch it.
+  if $others > 0 { return $block }
+  if ($panes - $plugins) != 0 { return $block }
+
+  let inject = (if $cwd == null { "        pane" } else { $'        pane cwd="($cwd)"' })
+  let size = ($block | length)
+
+  mut at = -1
+  for i in 0..<($size - 1) {
+    if (($block | get $i) =~ '^        pane') and (($block | get ($i + 1)) =~ 'plugin location="zellij:status-bar"') {
+      $at = $i
+      break
+    }
+  }
+
+  if $at >= 0 {
+    # Put the terminal pane back and return the status bar to a single row.
+    ($block | first $at)
+    | append $inject
+    | append "        pane size=1 borderless=true {"
+    | append ($block | skip ($at + 1))
+  } else {
+    ($block | first ($size - 1)) | append $inject | append ($block | last)
+  }
+}
+
+def zj-fix-layout [lines: list<string>] {
+  let cwd = (zj-layout-cwd $lines)
+  mut out = []
+  mut block = []
+  mut in_tab = false
+  for l in $lines {
+    if (not $in_tab) and ($l =~ '^    tab ') {
+      $in_tab = true
+      $block = [$l]
+      continue
+    }
+    if $in_tab {
+      $block = ($block | append $l)
+      if ($l =~ '^    \}$') {
+        $out = ($out | append (zj-fix-tab $block $cwd))
+        $block = []
+        $in_tab = false
+      }
+      continue
+    }
+    $out = ($out | append $l)
+  }
+  if $in_tab { $out = ($out | append $block) }
+  $out
+}
+
+# Repair every serialized zellij session that lost its terminal panes.
+# Safe to run on every shell start: it only rewrites files it actually changes.
+export def "zellij repair-sessions" [] {
+  let cache = ($env.XDG_CACHE_HOME? | default ([$nu.home-dir .cache] | path join))
+  let base = ([$cache zellij] | path join)
+  if ($base | path exists) {
+    for file in (glob $"($base)/contract_version_*/session_info/*/session-layout.kdl") {
+      try {
+        let original = (open --raw $file | decode utf-8)
+        let fixed = ((zj-fix-layout ($original | lines)) | str join "\n")
+        let fixed = (if ($original | str ends-with "\n") { $fixed + "\n" } else { $fixed })
+        if $fixed != $original { $fixed | save -f $file }
+      }
+    }
+  }
+}

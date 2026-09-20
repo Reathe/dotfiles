@@ -35,5 +35,6 @@ source $"($nu.cache-dir)/.zoxide.nu"
 use ~/.config/nushell/custom-commands.nu *
 
 if $env.ZELLIJ? == null {
+  zellij repair-sessions
   zellij --layout welcome attach --create welcome
 }
