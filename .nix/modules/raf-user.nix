@@ -94,11 +94,6 @@
       # here, NOT in environment.systemPackages
       stylua
     ];
-    bash.interactiveShellInit = ''
-      if ! [ "$TERM" = "dumb" ] && [ -z "$BASH_EXECUTION_STRING" ]; then
-        exec nu
-      fi
-    '';
 
     dms-shell = {
       enable = true;
