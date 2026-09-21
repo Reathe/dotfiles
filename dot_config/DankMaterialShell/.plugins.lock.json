@@ -1,0 +1,13 @@
+{
+  "lockfileVersion": 1,
+  "plugins": {
+    "voxTypeOsd": {
+      "repo": "https://github.com/irisblur17/dms-voxtype-osd",
+      "commit": "80fbcdbf375d56e090bf560b58ec774b7ef756b4"
+    },
+    "voxtype": {
+      "repo": "https://github.com/psyreactor/dms-voxtype",
+      "commit": "3e763839028e6a763661a6967f3076dd8f12edf3"
+    }
+  }
+}

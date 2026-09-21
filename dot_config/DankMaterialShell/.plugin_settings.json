@@ -1,0 +1,25 @@
+{
+  "voxtype": {
+    "enabled": true,
+    "iconTheme": "nerd-font",
+    "refreshInterval": 1
+  },
+  "voxtypeActivityOverlay": {
+    "enabled": true,
+    "visualizerSensitivity": 180,
+    "visualizerMode": "waveform"
+  },
+  "voxtypeOverlay": {
+    "enabled": true
+  },
+  "voxTypeOsd": {
+    "enabled": true
+  },
+  "dmsThemeSync": {
+    "enabled": false,
+    "folderColorBaseThemeDark": "",
+    "folderColorBaseThemeLight": "",
+    "folderColorBaseTheme": "",
+    "qtSyncMode": "auto"
+  }
+}

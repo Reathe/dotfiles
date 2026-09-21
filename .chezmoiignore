@@ -26,6 +26,7 @@ AppData*
 .config/ghostty
 .config/kanata*
 .config/niri
+.config/DankMaterialShell
 .config/voxtype
 *.sh
 {{- end }}
