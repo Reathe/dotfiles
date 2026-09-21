@@ -23,24 +23,37 @@ in
   boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.systemd-boot.extraEntries = {
     "omarchy.conf" = ''
-      title Omarchy (Limine)
-      efi   /EFI/limine/limine.efi
+      title Omarchy
+      efi   /EFI/omarchy/refind_x64.efi
       sort-key 10
     '';
     "revios.conf" = ''
-      title ReviOS
+      title Windows (ReviOS)
       efi   /EFI/Microsoft/Boot/bootmgfw.efi
       sort-key 05
     '';
   };
+  # systemd-boot can only load EFI binaries from its own ESP and Omarchy's is on the
+  # other disk, so rEFInd bridges to its UKI, booting it immediately with no menu.
+  # rEFInd leaves signature checks to the firmware. Limine and GRUB don't work here:
+  # whenever the SecureBoot variable is set, Limine demands a blake2b hash for every
+  # path (the UKI's changes on each Omarchy kernel update), and GRUB refuses to
+  # chainload anything without shim.
   boot.loader.systemd-boot.extraFiles = {
-    "EFI/limine/limine.efi" = "${pkgs.limine}/share/limine/BOOTX64.EFI";
-    "EFI/limine/limine.conf" = pkgs.writeText "limine.conf" ''
-      timeout: 0
+    "EFI/omarchy/refind_x64.efi" = "${pkgs.refind}/share/refind/refind_x64.efi";
+    "EFI/omarchy/refind.conf" = pkgs.writeText "refind.conf" ''
+      timeout -1
+      use_nvram false
+      textonly
+      hideui all
+      scanfor manual
+      default_selection Omarchy
 
-      /Omarchy
-          protocol: efi_chainload
-          image_path: fslabel(OMARCHY_EFI):/EFI/limine/limine_x64.efi
+      menuentry "Omarchy" {
+          volume OMARCHY_EFI
+          loader /EFI/Linux/omarchy_linux.efi
+          options "cryptdevice=UUID=5babe784-4c25-42fd-ba8c-0e02ef0ec6b1:omarchy_root root=/dev/mapper/omarchy_root zswap.enabled=0 rootflags=subvol=@ rw rootfstype=btrfs resume=/dev/mapper/omarchy_root resume_offset=1931309 initramfs_async=0 quiet splash loglevel=0 systemd.show_status=false rd.udev.log_level=0 vt.global_cursor_default=0"
+      }
     '';
   };
 
@@ -51,7 +64,7 @@ in
   # udev, so nothing is lost by killing the doomed worker early.
   boot.initrd.systemd.services.systemd-udevd = {
     overrideStrategy = "asDropin";
-    serviceConfig.TimeoutStopSec = "15s";
+    serviceConfig.TimeoutStopSec = "30s";
   };
 
   nix.gc = {
