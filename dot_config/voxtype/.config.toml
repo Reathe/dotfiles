@@ -16,7 +16,7 @@ max_duration_secs = 60
 
 [whisper]
 model = "large-v3-turbo" # multilingual, needed for French; fast thanks to the Vulkan GPU build
-language = "auto" # auto-detects between English/French per utterance
+language = "auto"        # auto-detects between English/French per utterance
 translate = false
 
 [output]

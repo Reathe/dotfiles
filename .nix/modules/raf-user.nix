@@ -202,6 +202,11 @@
     wantedBy = [ "graphical-session.target" ];
     partOf = [ "graphical-session.target" ];
     serviceConfig = {
+      # voxtype scans /dev/input/ once at startup and never rescans. kanata-desktop.service
+      # (a system service) grabs the physical keyboard exclusively and re-emits through a
+      # virtual "kanata" device, so voxtype must see that device in its initial scan — otherwise
+      # once kanata later grabs the keyboard, the PAUSE hotkey stops reaching voxtype for good.
+      ExecStartPre = "${pkgs.bash}/bin/bash -c 'for i in $(seq 1 100); do [ -e /run/kanata-desktop/desktop ] && exit 0; sleep 0.1; done; exit 0'";
       ExecStart = "${unstable.voxtype-vulkan}/bin/voxtype";
       Restart = "on-failure";
     };
