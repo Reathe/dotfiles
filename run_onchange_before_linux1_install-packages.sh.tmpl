@@ -19,6 +19,9 @@ nixos) ;;
 *) flake_host="nixos" ;;
 esac
 sudo nixos-rebuild switch --flake path:{{ .chezmoi.sourceDir }}#"$flake_host"
+{{- else if or (eq .chezmoi.osRelease.id "omarchy") (eq .chezmoi.osRelease.id "arch") (eq .chezmoi.osRelease.idLike "arch") -}}
+# Arch Linux / Omarchy - packages are managed natively and via mise
+exit 0
 {{- else -}}
 # Package List Hash {{ include ".chezmoidata/packages.yaml" | sha256sum }}
 # install curl if needed

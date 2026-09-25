@@ -1,3 +1,10 @@
+# Dynamic theme colors
+{{- if eq .chezmoi.osRelease.name "NixOS" }}
+theme = dankcolors
+{{- else if eq .chezmoi.osRelease.id "omarchy" }}
+config-file = ?"~/.local/state/omarchy/current/theme/ghostty.conf"
+{{- end }}
+
 # Font Configuration
 font-size = 12
 
@@ -48,5 +55,5 @@ keybind = shift+enter=text:\n
 gtk-single-instance = true
 mouse-scroll-multiplier = 0.3
 
-# Dank color generation
-theme = dankcolors
+# Fix general slowness on Hyprland
+async-backend = epoll
