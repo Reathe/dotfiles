@@ -14,6 +14,7 @@ AppData*
 {{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.name "NixOS")}}
 {{- /* Ignore on NixOS */}}
 .config/kanata
+.config/omarchy
 {{ else }}
 {{- /* Ignore on non-NixOS Linux */}}
 .config/opencode
@@ -28,5 +29,6 @@ AppData*
 .config/niri
 .config/DankMaterialShell
 .config/voxtype
+.config/omarchy
 *.sh
 {{- end }}
