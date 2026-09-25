@@ -1,0 +1,22 @@
+{{ if and (eq .chezmoi.os "linux") (ne .chezmoi.osRelease.name "NixOS") -}}
+
+#!{{ lookPath "bash" }}
+# Installs the tools listed in ~/.config/mise (named "1_" so it runs before the other after-scripts).
+{{ if eq .FORCE_RUN_ONCHANGE "true" -}}
+# random string to force run the script {{ randAlphaNum 50 }}
+{{- end }}
+# mise config hash: {{ include "dot_config/mise/.config.toml" | sha256sum }}
+set -e
+if [ "$INSTALL_PACKAGES" = "false" ]; then
+  echo "Package installation is disabled: INSTALL_PACKAGES = 'false'"
+  exit 0
+fi
+
+# Omarchy ships mise; elsewhere install it to ~/.local/bin
+if ! command -v mise >/dev/null 2>&1; then
+  curl -fsSL https://mise.run | sh
+  export PATH="$HOME/.local/bin:$PATH"
+fi
+
+mise install --yes
+{{- end -}}

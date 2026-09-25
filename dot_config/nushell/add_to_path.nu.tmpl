@@ -3,16 +3,16 @@ use std/util "path add"
 
 {{- if eq .chezmoi.os "windows" }}
 # Windows only
+path add ($env.LOCALAPPDATA | path join mise shims)
 {{ else if eq .chezmoi.os "linux" }}
 # Linux
-$env.PATH ++= [(uv python dir --bin)]
 {{- if eq .chezmoi.osRelease.name "NixOS" }}
 # NixOS
 {{ else }}
-# Not NixOS
-path add /home/linuxbrew/.linuxbrew/bin
-path add /home/linuxbrew/.linuxbrew/sbin
+# Not NixOS (mise shims first: uv below comes from mise)
+path add ($env.HOME | path join .local/share/mise/shims)
 {{ end -}}
+$env.PATH ++= [(uv python dir --bin)]
 {{ end -}}
 # Always
 $env.PATH = ($env.PATH | uniq -i)

@@ -256,9 +256,8 @@
             {
                 "guid": "{47302f9c-1ac4-566c-aa3e-8cf29889d6ab}",
                 "hidden": false,
-                "icon": "C:\\Users\\Raf\\AppData\\Local\\Programs\\nu\\nu.ico",
-                "name": "Nushell",
-                "source": "nu"
+                "commandline": "mise.exe x nushell -- nu",
+                "name": "Nushell"
             },
             {
                 "commandline": "ssh nixvm",

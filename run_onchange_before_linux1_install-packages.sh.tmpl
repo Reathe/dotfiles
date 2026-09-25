@@ -1,11 +1,9 @@
-{{ if eq .chezmoi.os "linux" -}}
+{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.name "NixOS") -}}
 
 #!{{ lookPath "bash" }}
 {{ if eq .FORCE_RUN_ONCHANGE "true" -}}
 # random string to force run the script {{ randAlphaNum 50 }}
 {{- end }}
-
-{{- if eq .chezmoi.osRelease.name "NixOS" }}
 # nix files hash: {{ include "flake.lock" | sha256sum }}
 # nix files hash: {{ include "flake.nix" | sha256sum }}
 # nix files hash: {{ include ".chezmoitemplates/kanata.kbd" | sha256sum }}
@@ -19,28 +17,4 @@ nixos) ;;
 *) flake_host="nixos" ;;
 esac
 sudo nixos-rebuild switch --flake path:{{ .chezmoi.sourceDir }}#"$flake_host"
-{{- else if or (eq .chezmoi.osRelease.id "omarchy") (eq .chezmoi.osRelease.id "arch") (eq .chezmoi.osRelease.idLike "arch") -}}
-# Arch Linux / Omarchy - packages are managed natively and via mise
-exit 0
-{{- else -}}
-# Package List Hash {{ include ".chezmoidata/packages.yaml" | sha256sum }}
-# install curl if needed
-{{ if contains "debian" .chezmoi.osRelease.idLike }}
-sudo apt install curl git build-essential
-{{ end -}}
-
-# install brew if needed
-if ! command -v brew 2>&1 >/dev/null; then
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  echo >>~/.bashrc
-  echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>~/.bashrc
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-fi
-
-# install brew taps
-brew tap {{ range .packages.linux.brewtap -}}{{ . }} {{ end }}
-# install individual packages
-brew install {{ range .packages.linux.brew -}}{{ . }} {{ end }}
-{{- end -}}
-
 {{- end -}}

@@ -30,6 +30,11 @@ source ($nu.default-config-dir | path join 'add_alias.nu')
 mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
 
+# mise completions (mise has no native nu output; `usage` generates it from mise's CLI spec)
+if (which mise usage | length) == 2 {
+  usage generate completion nu mise --usage-cmd "mise usage" | save -f ($nu.data-dir | path join "vendor/autoload/mise.nu")
+}
+
 source $"($nu.cache-dir)/carapace.nu"
 source $"($nu.cache-dir)/.zoxide.nu"
 use ~/.config/nushell/custom-commands.nu *
