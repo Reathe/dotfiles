@@ -1,0 +1,40 @@
+# Global mise tools, on every machine that uses mise (not NixOS).
+# Live file: ~/.config/mise/config.toml is a symlink to this, so `mise use -g` edits it in place.
+# Per-OS tools use mise's `os = [...]` filter (no build for the other OS, or bootstrapped elsewhere).
+[tools]
+bat = "latest"
+carapace = "latest"
+chezmoi = "latest"
+claude = "latest"
+codex = "latest"
+fd = "latest"
+fzf = "latest"
+gh = "latest"
+"github:Cretezy/lazyjj" = "latest"
+"github:LGUG2Z/komorebi" = { version = "latest", os = ["windows"] }
+"github:LGUG2Z/whkd" = { version = "latest", os = ["windows"] }
+"github:jtroo/kanata" = "latest"
+"github:wezterm/wezterm" = { version = "latest", os = ["windows"] }
+go = "latest"
+jjui = "latest"
+jujutsu = "latest"
+lazygit = "latest"
+neovim = "latest"
+node = "latest"
+nushell = "latest"
+"npm:@bitwarden/cli" = "latest"
+"npm:@xai-official/grok" = "latest"
+opencode = "latest"
+"pipx:browser-use" = "latest"
+ripgrep = "latest"
+rust = "latest"
+starship = "latest"
+tlrc = "latest"
+tree-sitter = "latest"
+usage = "latest"
+uv = "latest"
+yazi = "latest"
+zellij = "latest"
+zoxide = "latest"
+
+[settings.upgrade]

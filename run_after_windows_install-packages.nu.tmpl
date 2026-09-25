@@ -1,11 +1,15 @@
 {{ if eq .chezmoi.os "windows" -}}
 use std/log
+# mise may have been installed during this apply
+use ~/.config/nushell/custom-commands.nu refreshpath
+refreshpath
 log debug "Checking if Kanata is set to run on startup"
 # Making kanata run on startup by placing link to its .exe in startup folder
 let startupFolder = ($env.APPDATA | path join "Microsoft\\Windows\\Start Menu\\Programs\\Startup\\Kanata")
 
 if not ($startupFolder | path exists) {
-  let kanataPath = (which {{ .kanataExe }} | get path | get 0 | str replace -a \ \\)
+  # kanata is installed by mise; link the real exe, not a mise shim
+  let kanataPath = (mise which {{ .kanataExe }} | str trim | str replace -a \ \\)
   log info $"setting kanata in startup folder ($kanataPath)"
   cmd /c mklink $startupFolder $kanataPath
 } else {

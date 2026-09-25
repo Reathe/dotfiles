@@ -43,11 +43,33 @@ changes a `nixos-rebuild switch` (or `build`) that succeeds.
    `flake.nix` start with a dot or are listed in `.chezmoiignore`, chezmoi never copies them into
    `$HOME`; they are consumed *in place* from the source dir by `nixos-rebuild --flake path:<sourceDir>`.
 
-The two paths are joined by `run_onchange_before_linux1_install-packages.sh.tmpl`: on NixOS it embeds
+The two paths are joined by `run_onchange_before_linux1_install-packages.sh.tmpl` (NixOS only): it embeds
 `sha256sum` of `flake.lock`, `flake.nix`, `.chezmoitemplates/kanata.kbd` and every file under `.nix/`
 as comments, so **editing any Nix file changes the script's content hash and `chezmoi apply` re-runs
-`nixos-rebuild switch` automatically**. On non-NixOS Linux the same script installs Homebrew packages
-from `.chezmoidata/packages.yaml` (hashed the same way); Windows has a parallel `run_onchange_before_windows1_*.bat.tmpl` using winget/choco.
+`nixos-rebuild switch` automatically**.
+
+### Packages outside NixOS: mise
+
+Everywhere else (Arch/Omarchy, other Linux, Windows) CLI tools come from **mise**, configured in
+`dot_config/mise/`:
+
+- `.config.toml` — the single tool list. `~/.config/mise/config.toml` is a symlink to it (the
+  `symlink_*` trick below), so `mise use -g <tool>` edits the repo file directly. Platform-specific
+  tools use mise's own `os = ["linux"]` filter, not chezmoi templating (the file is not a template,
+  and some entries contain mise's own `{{ version }}` syntax). Some tools duplicate Omarchy's pacman
+  packages on purpose, to keep one list everywhere.
+- The whole `.config/mise` is ignored on NixOS.
+
+`run_onchange_after_1_mise-install.{sh,bat}.tmpl` hash that file and run `mise install` (the `1_`
+prefix makes them run before the other after-scripts). On Windows,
+`run_onchange_before_windows1_install-packages.bat.tmpl` still uses winget/choco, but only for GUI
+apps, the C compiler, fonts, git and mise itself. Nushell comes from mise too: on Windows chezmoi's `nu`
+interpreter and the Windows Terminal profile both run `mise x nushell -- nu`; that list is written inline in the script. Rule: anything mise can
+install goes in `.config.toml`, including Windows-only tools (`os = ["windows"]`).
+
+kanata comes from mise (`github:jtroo/kanata`), whose zip has no plain `kanata` binary: on Linux
+`dot_config/systemd/user/kanata.service` runs `kanata_linux_x64` from the mise install dir, on Windows
+the startup link targets `mise which <kanataExe>`.
 
 ### Nix layout
 
@@ -94,8 +116,9 @@ and `run_after_gh_auth.nu.tmpl`. On non-NixOS a `read-source-state` hook
 
 - New root-level docs/metadata that should not land in `$HOME` must be added to `.chezmoiignore`
   (as `README.md`, `AGENTS.md`, `CLAUDE.md` and `flake.nix` already are).
-- Nushell is the default shell; scripts use `#!{{ lookPath "nu" }}` and `# vim: ft=nu:`. Aliases go in
+- Nushell is the default shell; scripts use `#!/usr/bin/env nu` (not `lookPath`: nu may not exist yet when templates render) and `# vim: ft=nu:`. Aliases go in
   `dot_config/nushell/add_alias.nu.tmpl`, functions in `custom-commands.nu.tmpl`.
 - Neovim is a LazyVim setup: config in `dot_config/nvim/lua/config/`, plugin specs one file per concern
   in `dot_config/nvim/lua/plugins/`.
-- Windows package lists live in `.chezmoidata/packages.yaml`; NixOS packages live in `.nix/`, not there.
+- CLI tools go in `dot_config/mise/` (not NixOS); NixOS packages live in `.nix/`; Windows GUI/system
+  apps go in the winget list in `run_onchange_before_windows1_install-packages.bat.tmpl`.

@@ -15,6 +15,8 @@ AppData*
 {{- /* Ignore on NixOS */}}
 .config/kanata
 .config/omarchy
+.config/mise
+.config/systemd/user/kanata.service
 {{ else }}
 {{- /* Ignore on non-NixOS Linux */}}
 .config/opencode
@@ -26,6 +28,7 @@ AppData*
 !.config/zellij/plugins
 .config/ghostty
 .config/kanata*
+.config/systemd
 .config/niri
 .config/DankMaterialShell
 .config/voxtype

@@ -11,7 +11,7 @@ VCS using jj.
 ## Project Structure & Module Organization
 
 This repository is a Chezmoi source directory for personal dotfiles, storing configs for the tools used.
-Top-level files such as [`.chezmoi.yaml.tmpl`](/home/raf/.local/share/chezmoi/.chezmoi.yaml.tmpl) and [`.chezmoidata/packages.yaml`](/home/raf/.local/share/chezmoi/.chezmoidata/packages.yaml) drive templating and package lists. Managed files follow Chezmoi naming rules: `dot_config/` maps to `~/.config/`, `dot_ssh/` maps to `~/.ssh/`, `private_*` marks secret material, `symlink_*` creates symlinks, and `*.tmpl` follow go templates rules with chezmoi variables. Automation scripts are named as `run_*`, with variations like `after` or `before`, meaning after or before applying the config.
+Top-level files such as [`.chezmoi.yaml.tmpl`](/home/raf/.local/share/chezmoi/.chezmoi.yaml.tmpl) drives templating; `dot_config/mise/` holds the CLI tool list (installed by mise outside NixOS), and `.nix/` the NixOS packages. Managed files follow Chezmoi naming rules: `dot_config/` maps to `~/.config/`, `dot_ssh/` maps to `~/.ssh/`, `private_*` marks secret material, `symlink_*` creates symlinks, and `*.tmpl` follow go templates rules with chezmoi variables. Automation scripts are named as `run_*`, with variations like `after` or `before`, meaning after or before applying the config.
 
 ## Build, Test, and Development Commands
 
