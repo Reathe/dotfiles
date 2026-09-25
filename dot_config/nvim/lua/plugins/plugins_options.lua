@@ -39,6 +39,8 @@ return {
     ---@class PluginLspOpts
     opts = {
       servers = {
+        -- mason builds nil from source, so only auto-install where cargo exists (NixOS)
+        nil_ls = { mason = vim.fn.executable("cargo") == 1 },
         powershell_es = {
           settings = {
             powershell = {
