@@ -4,6 +4,10 @@ AGENTS.md
 CLAUDE.md
 flake.nix
 flake.lock
+{{- if not (stat "/usr/share/omarchy") }}
+{{- /* Ignore outside Omarchy */}}
+.local/share/applications/windows-vm.desktop
+{{- end }}
 {{- if ne .chezmoi.os "windows" }}
 {{- /* Ignore on non-Windows (Linux/NixOS) */}}
 AppData*

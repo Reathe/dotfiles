@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Windows
+Comment=Start Windows VM via Docker and connect with RDP
+# The VM container sets the setgid bit on ~/Windows while it runs, and
+# omarchy-windows-vm then refuses to start again: its `chmod 0700` keeps setgid
+# on a directory, so its exact-700 check fails. Clear the bit first.
+Exec=uwsm app -- sh -c "chmod g-s ~/Windows; exec omarchy-windows-vm launch"
+Icon=windows
+Terminal=false
+Type=Application
+Categories=System;Virtualization;
