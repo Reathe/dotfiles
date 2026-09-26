@@ -258,7 +258,7 @@ plugins {
     about location="zellij:about"
     autolock location="file:~/.config/zellij/plugins/zellij-autolock.wasm" {
         is_enabled true
-        triggers "nvim|vim|fzf|git|jj|lazyjj|lazygit"
+        triggers "nvim|vim|fzf|git|jj|jjui|lazygit"
         reaction_seconds "0.3"
     }
     compact-bar location="zellij:compact-bar"
