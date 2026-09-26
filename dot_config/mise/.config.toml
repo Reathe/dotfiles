@@ -1,5 +1,7 @@
 # Global mise tools, on every machine that uses mise (not NixOS).
 # Live file: ~/.config/mise/config.toml is a symlink to this, so `mise use -g` edits it in place.
+# Versions are pinned in .mise.lock (same symlink trick), so every machine gets the same ones.
+# Update: `GITHUB_TOKEN=$(gh auth token) mise lock -g --bump`.
 # Per-OS tools use mise's `os = [...]` filter (no build for the other OS, or bootstrapped elsewhere).
 [tools]
 bat = "latest"
@@ -26,7 +28,6 @@ nushell = "latest"
 "npm:@bitwarden/cli" = "latest"
 opencode = "latest"
 pnpm = "latest"
-"pipx:browser-use" = "latest"
 ripgrep = "latest"
 rust = "latest"
 starship = "latest"

@@ -58,9 +58,18 @@ Everywhere else (Arch/Omarchy, other Linux, Windows) CLI tools come from **mise*
   tools use mise's own `os = ["linux"]` filter, not chezmoi templating (the file is not a template,
   and some entries contain mise's own `{{ version }}` syntax). Some tools duplicate Omarchy's pacman
   packages on purpose, to keep one list everywhere.
+- `.mise.lock` — pins every tool to an exact version with per-platform (`linux-x64`,
+  `windows-x64`) URLs and checksums, symlinked to `~/.config/mise/mise.lock` the same way, so all
+  machines install the same versions. `"latest"` in `.config.toml` only matters when re-locking:
+  `GITHUB_TOKEN=$(gh auth token) mise lock -g --bump`. `.mise/locks/` holds the npm
+  dependency locks it generates. Installs run `mise install --locked`, so they never rewrite it.
+  An older mise cannot read a newer lockfile format, so the Windows script runs
+  `mise self-update` first (winget lags behind).
+- Optional, per-machine tools stay out of mise entirely: a
+  tool in a machine-local mise config would also need a lock entry, or `mise install --locked` fails.
 - The whole `.config/mise` is ignored on NixOS.
 
-`run_onchange_after_1_mise-install.{sh,bat}.tmpl` hash that file and run `mise install` (the `1_`
+`run_onchange_after_1_mise-install.{sh,bat}.tmpl` hash both files and run `mise install` (the `1_`
 prefix makes them run before the other after-scripts). On Windows,
 `run_onchange_before_windows1_install-packages.bat.tmpl` still uses winget/choco, but only for GUI
 apps, the C compiler, fonts, git and mise itself. Nushell comes from mise too: on Windows chezmoi's `nu`

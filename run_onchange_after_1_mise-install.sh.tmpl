@@ -6,6 +6,7 @@
 # random string to force run the script {{ randAlphaNum 50 }}
 {{- end }}
 # mise config hash: {{ include "dot_config/mise/.config.toml" | sha256sum }}
+# mise lock hash: {{ include "dot_config/mise/.mise.lock" | sha256sum }}
 set -e
 if [ "$INSTALL_PACKAGES" = "false" ]; then
   echo "Package installation is disabled: INSTALL_PACKAGES = 'false'"
@@ -18,5 +19,5 @@ if ! command -v mise >/dev/null 2>&1; then
   export PATH="$HOME/.local/bin:$PATH"
 fi
 
-mise install --yes
+mise install --yes --locked
 {{- end -}}
