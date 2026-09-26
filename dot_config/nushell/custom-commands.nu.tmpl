@@ -46,6 +46,59 @@ export def nshi [...packages: string] {
 }
 {{- end }}
 
+{{- if stat "/usr/share/omarchy" }}
+
+# Snapshots of the Omarchy Windows VM, which lives in ~/.windows on btrfs.
+# A snapshot is a reflink copy: instant, and it shares extents with the live VM
+# until they diverge. btrfs only clones between files with the same No_COW (+C)
+# flag: data.img has it, the small firmware files do not, and the flag can only
+# be set on an empty file -- so pre-create the snapshot's data.img with it.
+
+def winvm-dir [name?: string] {
+  $nu.home-dir | path join (if $name == null { ".windows" } else { $".windows-($name)" })
+}
+
+# Copying the disk while QEMU writes to it would give a corrupt image. The
+# container publishes the web viewer on 8006 for as long as it is up; checking
+# for a qemu process instead would also match unrelated VMs.
+def winvm-assert-stopped [] {
+  if (^ss -Hltn "sport = :8006" | str trim | is-not-empty) {
+    error make {msg: "Windows VM is running, stop it first: omarchy windows vm stop"}
+  }
+}
+
+# Snapshot the stopped Windows VM to ~/.windows-<name>
+export def "winvm save" [name: string = "base", --force (-f)] {
+  winvm-assert-stopped
+  let dst = (winvm-dir $name)
+  if ($dst | path exists) and (not $force) {
+    error make {msg: $"($dst) already exists, use --force to overwrite it"}
+  }
+  mkdir $dst
+  let img = ($dst | path join data.img)
+  if not ($img | path exists) {
+    touch $img
+    ^chattr +C $img
+  }
+  ^cp -a --reflink=always $"(winvm-dir)/." $"($dst)/"
+}
+
+# Reset the stopped Windows VM to the snapshot ~/.windows-<name>
+export def "winvm reset" [name: string = "base"] {
+  winvm-assert-stopped
+  let src = (winvm-dir $name)
+  if not ($src | path exists) {
+    error make {msg: $"no snapshot named ($name), see: winvm list"}
+  }
+  ^cp -a --reflink=always $"($src)/." $"(winvm-dir)/"
+}
+
+# List Windows VM snapshots
+export def "winvm list" [] {
+  glob (winvm-dir "*") | each {|dir| $dir | path basename | str replace ".windows-" "" }
+}
+{{- end }}
+
 # When a terminal hosting a zellij session dies abruptly, the server can
 # re-serialize that session after its panes are already gone, leaving a
 # session-layout.kdl whose tabs hold only the tab-bar and status-bar plugins.
