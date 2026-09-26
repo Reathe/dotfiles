@@ -14,6 +14,11 @@ if /I "%INSTALL_PACKAGES%"=="false" (
 :: mise may have been installed by winget during this same apply, so PATH is not refreshed yet
 where mise >nul 2>nul || set "PATH=%LOCALAPPDATA%\Microsoft\WinGet\Links;%PATH%"
 
+:: Put the mise shims on the persistent user PATH, so tools resolve outside an activated shell
+:: (whkd running komorebic, startup shortcuts, GUI apps). setx would truncate PATH at 1024 chars.
+powershell -NoProfile -Command "$s = $env:LOCALAPPDATA + '\mise\shims'; $p = [Environment]::GetEnvironmentVariable('Path', 'User'); if (($p -split ';') -notcontains $s) { [Environment]::SetEnvironmentVariable('Path', $s + ';' + $p, 'User') }"
+set "PATH=%LOCALAPPDATA%\mise\shims;%PATH%"
+
 @echo on
 mise install --yes
 mise exec -- uv python install --default --preview

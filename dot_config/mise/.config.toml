@@ -10,11 +10,12 @@ codex = "latest"
 fd = "latest"
 fzf = "latest"
 gh = "latest"
-"github:Cretezy/lazyjj" = "latest"
 "github:LGUG2Z/komorebi" = { version = "latest", os = ["windows"] }
 "github:LGUG2Z/whkd" = { version = "latest", os = ["windows"] }
 "github:jtroo/kanata" = "latest"
-"github:wezterm/wezterm" = { version = "latest", os = ["windows"] }
+"github:tweag/topiary" = "latest"
+# "latest" is the 2024 stable release; nightly is the maintained build
+"github:wezterm/wezterm" = { version = "nightly", os = ["windows"] }
 go = "latest"
 jjui = "latest"
 jujutsu = "latest"
@@ -23,8 +24,8 @@ neovim = "latest"
 node = "latest"
 nushell = "latest"
 "npm:@bitwarden/cli" = "latest"
-"npm:@xai-official/grok" = "latest"
 opencode = "latest"
+pnpm = "latest"
 "pipx:browser-use" = "latest"
 ripgrep = "latest"
 rust = "latest"
@@ -35,6 +36,7 @@ usage = "latest"
 uv = "latest"
 yazi = "latest"
 zellij = "latest"
+zig = "latest"
 zoxide = "latest"
 
 [settings.upgrade]

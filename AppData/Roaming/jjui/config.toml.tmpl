@@ -1,0 +1,5 @@
+{{- /* jjui reads %APPDATA%\jjui on Windows (os.UserConfigDir), not XDG_CONFIG_HOME */ -}}
+{{ include "dot_config/jjui/config.toml" }}
+# askpass is on by default but not implemented on Windows: jjui exits at startup
+[askpass]
+enabled = false
