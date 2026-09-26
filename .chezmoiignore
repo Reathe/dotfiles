@@ -16,6 +16,7 @@ AppData*
 .config/kanata
 .config/omarchy
 .config/mise
+.config/hypr
 .config/systemd/user/kanata.service
 {{ else }}
 {{- /* Ignore on non-NixOS Linux */}}
@@ -33,5 +34,6 @@ AppData*
 .config/DankMaterialShell
 .config/voxtype
 .config/omarchy
+.config/hypr
 *.sh
 {{- end }}
