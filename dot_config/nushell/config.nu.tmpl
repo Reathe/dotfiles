@@ -39,6 +39,19 @@ source $"($nu.cache-dir)/carapace.nu"
 source $"($nu.cache-dir)/.zoxide.nu"
 use ~/.config/nushell/custom-commands.nu *
 
+# Per-project tools, loaded on cd
+{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.name "NixOS") }}
+# NixOS: direnv (+ nix-direnv) loads the project's .envrc, e.g. `use flake`
+$env.config.hooks.pre_prompt ++= [{ ||
+  if (which direnv | is-empty) { return }
+  direnv export json | from json | default {} | load-env
+  if ($env.PATH | describe) == "string" { $env.PATH = $env.PATH | split row (char esep) }
+}]
+{{- else }}
+# mise: the project's mise.toml / .tool-versions (after $env.config, which would drop its hooks)
+use ($nu.cache-dir | path join mise.nu)
+{{- end }}
+
 if $env.ZELLIJ? == null {
   zellij repair-sessions
   zellij --layout welcome attach --create welcome

@@ -42,7 +42,6 @@
         topiary
         jujutsu
         fzf
-        direnv
         vesktop
         jjui
         plex-desktop
@@ -82,6 +81,10 @@
       cowork.kvmUsers = [ "raf" ]; # /dev/kvm access for Cowork's micro-VM
     };
     niri.enable = true;
+    direnv = {
+      enable = true; # per-project envs from .envrc (hooked into nushell in config.nu)
+      nix-direnv.enable = true; # cached `use flake` / `use nix`
+    };
     amnezia-vpn.enable = true;
     steam = {
       enable = true;
