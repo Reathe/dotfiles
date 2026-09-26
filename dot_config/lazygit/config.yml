@@ -1,0 +1,4 @@
+# Without an explicit preset lazygit guesses the editor from $VISUAL/$EDITOR and
+# falls back to `vim` when it can't, which isn't installed.
+os:
+  editPreset: nvim

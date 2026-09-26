@@ -40,3 +40,7 @@ end
 
 -- needed because is set to unnamedplus by LazyVim
 vim.o.clipboard = ""
+
+-- lazygit renders its nvim-remote edit command in nushell syntax when NU_VERSION is
+-- set (inherited from the nu that launched nvim), but runs it with bash
+vim.env.NU_VERSION = nil
