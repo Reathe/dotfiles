@@ -2,14 +2,17 @@
 # file being shown, so fall back to picking one of the revision's changed files.
 [[actions]]
 name = "open_in_nvim"
-lua = """
+lua = '''
 local file = context.file()
 if not file then
   local change_id = context.change_id()
   if not change_id then
     error("no file or revision selected")
   end
-  local out, err = jj({ "diff", "--name-only", "--ignore-working-copy", "-r", change_id })
+  local out, err = jj({
+    "log", "--no-graph", "--ignore-working-copy", "-r", change_id,
+    "-T", 'diff.files().map(|f| f.path() ++ "\\n").join("")',
+  })
   if err then
     error(err)
   end
@@ -25,8 +28,21 @@ if not file then
     end
   end
 end
-exec_shell("nvim '" .. file .. "'")
-"""
+-- paths are relative to the repo root, not the cwd
+local path = jj({ "root" }):gsub("%s+$", "") .. "/" .. file
+local server = os.getenv("NVIM")
+if server then
+  -- inside nvim (lazyjui): wipe the jjui terminal buffer (closes the float, kills
+  -- jjui) and edit the file there
+  local keys = "<C-\\><C-n>:bwipeout! | edit " .. path:gsub(" ", "\\ ") .. "<CR>"
+  local _, err = jj({ "util", "exec", "--", "nvim", "--server", server, "--remote-send", keys })
+  if err then
+    error(err)
+  end
+  return
+end
+exec_shell("nvim '" .. path .. "'")
+'''
 
 [[bindings]]
 action = "open_in_nvim"
