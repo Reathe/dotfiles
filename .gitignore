@@ -1,0 +1,3 @@
+# voxtype writes backups next to its config; only config.toml is tracked
+dot_config/.voxtype/*
+!dot_config/.voxtype/config.toml
