@@ -14,3 +14,6 @@ carapace _carapace nushell | save --force $"($nu.cache-dir)/carapace.nu"
 
 # zoxide better cd
 zoxide init --cmd cd nushell | save -f $"($nu.cache-dir)/.zoxide.nu"
+
+# mise activation: per-project tools from mise.toml/.tool-versions on cd (`use`d in config.nu; no mise on NixOS)
+if (which mise | is-not-empty) { mise activate nu | save -f ($nu.cache-dir | path join mise.nu) }
