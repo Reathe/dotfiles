@@ -24,7 +24,7 @@ sudo nixos-rebuild switch --flake /home/raf/.local/share/chezmoi#nixos   # alias
 Formatting (every hand-written file should be formatted; skip generated ones):
 
 ```bash
-stylua dot_config/nvim                                                  # uses dot_config/nvim/stylua.toml
+stylua dot_config/.nvim                                                 # uses dot_config/.nvim/stylua.toml
 topiary format dot_config/nushell/*.nu dot_config/topiary/queries/nu.scm
 nixfmt .nix/**/*.nix && statix check .nix                               # nix files
 ```
@@ -93,9 +93,12 @@ Platform differences are expressed in three places — check all three when addi
 Several configs need to stay editable live and be valid for their tool's own schema/LSP:
 `dot_config/jj/symlink_config.toml.tmpl` renders to a symlink pointing back at
 `<sourceDir>/dot_config/jj/.config.toml`. The target starts with `.`, so chezmoi ignores it as source
-state — the file in `$HOME` *is* the file in the repo. Same pattern for zellij, nvim's `.lazyvim.json`
-/ `.lazy-lock.json`, and the Windows Terminal / jj / zellij AppData entries. **Edit the dot-prefixed
-file, not the `symlink_*.tmpl`.**
+state — the file in `$HOME` *is* the file in the repo. Same pattern for zellij and the Windows
+Terminal / jj / zellij AppData entries. **Edit the dot-prefixed file, not the `symlink_*.tmpl`.**
+
+The same trick works for whole directories: `dot_config/symlink_nvim.tmpl` makes `~/.config/nvim`
+a symlink to `<sourceDir>/dot_config/.nvim`, so files nvim creates, deletes or rewrites (e.g.
+`lazy-lock.json`) change the repo directly. Nothing inside such a directory is templated.
 
 ### Shared template fragments
 
@@ -118,7 +121,7 @@ and `run_after_gh_auth.nu.tmpl`. On non-NixOS a `read-source-state` hook
   (as `README.md`, `AGENTS.md`, `CLAUDE.md` and `flake.nix` already are).
 - Nushell is the default shell; scripts use `#!/usr/bin/env nu` (not `lookPath`: nu may not exist yet when templates render) and `# vim: ft=nu:`. Aliases go in
   `dot_config/nushell/add_alias.nu.tmpl`, functions in `custom-commands.nu.tmpl`.
-- Neovim is a LazyVim setup: config in `dot_config/nvim/lua/config/`, plugin specs one file per concern
-  in `dot_config/nvim/lua/plugins/`.
+- Neovim is a LazyVim setup: config in `dot_config/.nvim/lua/config/`, plugin specs one file per concern
+  in `dot_config/.nvim/lua/plugins/`.
 - CLI tools go in `dot_config/mise/` (not NixOS); NixOS packages live in `.nix/`; Windows GUI/system
   apps go in the winget list in `run_onchange_before_windows1_install-packages.bat.tmpl`.
