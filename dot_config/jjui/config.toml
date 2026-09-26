@@ -1,0 +1,39 @@
+# Open the selected file in nvim. In the diff view jjui doesn't expose the
+# file being shown, so fall back to picking one of the revision's changed files.
+[[actions]]
+name = "open_in_nvim"
+lua = """
+local file = context.file()
+if not file then
+  local change_id = context.change_id()
+  if not change_id then
+    error("no file or revision selected")
+  end
+  local out, err = jj({ "diff", "--name-only", "--ignore-working-copy", "-r", change_id })
+  if err then
+    error(err)
+  end
+  local files = split_lines(out)
+  if #files == 0 then
+    error("revision has no changed files")
+  elseif #files == 1 then
+    file = files[1]
+  else
+    file = choose({ options = files, title = "Open in nvim" })
+    if not file then
+      return
+    end
+  end
+end
+exec_shell("nvim '" .. file .. "'")
+"""
+
+[[bindings]]
+action = "open_in_nvim"
+scope = "revisions.details"
+key = "e"
+
+[[bindings]]
+action = "open_in_nvim"
+scope = "diff"
+key = "e"
