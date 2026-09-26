@@ -21,5 +21,5 @@ For templates (files ending in .tmpl or special chezmoi files/directories), use 
 - `chezmoi apply --init` renders and applies the current source state.
 - `chezmoi execute-template --file path/to/file.tmpl` checks template output without writing files.
 - In general, every file should be formatted using the appropriate tool when possible, except for auto-generated files.
-  - `stylua dot_config/nvim` formats the Neovim Lua config using the repo’s `stylua.toml`.
+  - `stylua dot_config/.nvim` formats the Neovim Lua config using the repo’s `stylua.toml`.
   - `topiary format dot_config/nushell/*.nu dot_config/topiary/queries/nu.scm` formats Nushell and Topiary grammar files when touched.
