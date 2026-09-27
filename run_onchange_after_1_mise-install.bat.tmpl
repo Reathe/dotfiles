@@ -22,6 +22,8 @@ set "PATH=%LOCALAPPDATA%\mise\shims;%PATH%"
 @echo on
 mise install --yes
 mise exec -- uv python install --default --preview
+:: uv doesn't put its python bin dir (~/.local/bin) on PATH itself
+mise exec -- uv python update-shell
 @echo off
 
 echo mise install done: errorlevel=%errorlevel%
