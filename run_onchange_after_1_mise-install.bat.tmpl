@@ -20,7 +20,7 @@ powershell -NoProfile -Command "$s = $env:LOCALAPPDATA + '\mise\shims'; $p = [En
 set "PATH=%LOCALAPPDATA%\mise\shims;%PATH%"
 
 @echo on
-mise install --yes
+mise install --yes || exit /b 1
 mise exec -- uv python install --default --preview
 :: uv doesn't put its python bin dir (~/.local/bin) on PATH itself
 mise exec -- uv python update-shell
