@@ -16,8 +16,10 @@ gh = "latest"
 "github:LGUG2Z/whkd" = { version = "latest", os = ["windows"] }
 "github:jtroo/kanata" = "latest"
 "github:tweag/topiary" = "latest"
-# "latest" is the 2024 stable release; nightly is the maintained build
-"github:wezterm/wezterm" = { version = "nightly", os = ["windows"] }
+# "latest" is the 2024 stable release; nightly is the maintained build, but upstream replaces it
+# daily, so it's mirrored as a release in Reathe/dotfiles. Update: upload a newer nightly zip as
+# release wezterm-<version> (WezTerm-windows-<version>.zip), then bump the version here and relock.
+"http:wezterm" = { version = "20260917-114457-b09b56c2", url = "https://github.com/Reathe/dotfiles/releases/download/wezterm-{{version}}/WezTerm-windows-{{version}}.zip", checksum = "sha256:7e94289b786133529fc0bffa6631b34c90bbcad906f92a30c7a21bdf52de93e8", os = ["windows"] }
 go = "latest"
 jjui = "latest"
 jujutsu = "latest"
@@ -28,6 +30,8 @@ nushell = "latest"
 "npm:@bitwarden/cli" = "latest"
 opencode = "latest"
 pnpm = "latest"
+# Windows only: Linux keeps the system python, which /usr/bin scripts expect first on PATH
+python = { version = "latest", os = ["windows"] }
 ripgrep = "latest"
 rust = "latest"
 starship = "latest"
