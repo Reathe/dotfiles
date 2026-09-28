@@ -41,7 +41,10 @@ return {
       servers = {
         -- mason builds nil from source, and its build.rs runs `nix`: only auto-install where both exist (NixOS)
         nil_ls = { mason = vim.fn.executable("cargo") == 1 and vim.fn.executable("nix") == 1 },
+        -- lspconfig starts it in pwsh (PowerShell 7); Windows only ships powershell.exe (5.1), which it also supports
         powershell_es = {
+          enabled = vim.fn.executable("pwsh") == 1 or vim.fn.executable("powershell") == 1,
+          shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell",
           settings = {
             powershell = {
               codeFormatting = { Preset = "OTBS" }, -- One True Brace Style
