@@ -23,7 +23,14 @@ background and read the log while it runs:
 ```bash
 nu .tests/windows.nu run            # stops the VM at the end
 nu .tests/windows.nu run --keep     # leaves it running, to debug afterwards
+nu .tests/windows.nu run --view     # also opens the VM's web viewer in the browser
 ```
+
+Once the VM is up, the run prints the viewer link (http://127.0.0.1:8006, login
+with the VM user); give it to the user. The setup and apply steps run in a
+visible, titled PowerShell window on the VM desktop (an elevated scheduled task
+in the logged-on session), echoing each command before it runs, so the user can
+watch them there while the output streams into the logs below.
 
 The first output line is the results dir, `~/.local/state/winvm/runs/<timestamp>/`:
 

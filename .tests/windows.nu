@@ -156,6 +156,61 @@ def screenshot [out: path] {
   (^scp ...(ssh-opts) $"(vm-target):winvm-shot.png" $out | complete).exit_code == 0
 }
 
+# Run a PowerShell script in a visible window on the VM's desktop, as a
+# scheduled task in the logged-on session (like the screenshot), so it can be
+# watched in the viewer; its output streams into $log on the host. The task is
+# elevated (RunLevel Highest), as the ssh session was, so installers never stop
+# at a UAC prompt. The script file deletes itself once loaded: it may hold
+# secrets. Returns the script's exit code.
+def vm-visible [title: string, script: string, log: path, --timeout: duration = 90min] {
+  let body = $"Remove-Item -LiteralPath $PSCommandPath
+$Host.UI.RawUI.WindowTitle = '($title)'
+$ProgressPreference = 'SilentlyContinue'
+& {
+($script)
+} *>&1 | % { \"$_\" } | Tee-Object -FilePath \"$HOME\\winvm-step.log\"
+\"winvm-exit=$LASTEXITCODE\" | Tee-Object -Append -FilePath \"$HOME\\winvm-step.log\"
+Start-Sleep 5
+"
+  let b64 = ($body | encode utf-8 | encode base64)
+  let started = (vm-ps $"
+    Remove-Item \"$HOME\\winvm-step.log\" -ErrorAction SilentlyContinue
+    $text = [Text.Encoding]::UTF8.GetString\([Convert]::FromBase64String\('($b64)'\)\)
+    [IO.File]::WriteAllText\(\"$HOME\\winvm-step.ps1\", $text, [Text.UTF8Encoding]::new\($true\)\)
+    $a = New-ScheduledTaskAction -Execute powershell.exe -Argument \"-NoProfile -ExecutionPolicy Bypass -File `\"$HOME\\winvm-step.ps1`\"\"
+    $p = New-ScheduledTaskPrincipal -UserId $env:USERNAME -LogonType Interactive -RunLevel Highest
+    Register-ScheduledTask -TaskName winvm-step -Action $a -Principal $p -Force | Out-Null
+    Start-ScheduledTask -TaskName winvm-step
+  ")
+  if $started.exit_code != 0 {
+    $started.stdout + $started.stderr | save -f $log
+    return (-1)
+  }
+
+  # Poll the VM-side log; the last line may still be half written, so it is
+  # only taken once the exit marker shows the script is done.
+  "" | save -f $log
+  let deadline = (date now) + $timeout
+  mut seen = 0
+  loop {
+    let r = (vm-ps $"$l = \"$HOME\\winvm-step.log\"; if \(Test-Path $l\) { Get-Content $l | Select-Object -Skip ($seen) }")
+    let new = ($r.stdout | lines | each {|l| $l | str trim -r -c "\r" })
+    let done = ($new | any {|l| $l starts-with "winvm-exit=" })
+    let take = if $done { $new } else { $new | drop 1 }
+    if ($take | is-not-empty) { $take | str join "\n" | $in + "\n" | save -a $log }
+    $seen += ($take | length)
+    if $done {
+      vm-ps "Unregister-ScheduledTask -TaskName winvm-step -Confirm:$false" | ignore
+      return ($take | parse "winvm-exit={code}" | get 0.code | str trim | into int)
+    }
+    if (date now) > $deadline {
+      print -e $"timed out after ($timeout): ($title)"
+      return (-1)
+    }
+    sleep 5sec
+  }
+}
+
 # One-time setup: test key, and the script that enables OpenSSH in the VM.
 def "main setup" [] {
   mkdir (state-dir)
@@ -195,6 +250,7 @@ def "main screenshot" [out: path = "winvm-shot.png"] {
 def "main run" [
   --snapshot: string = "clean" # ~/.windows-<snapshot> to start from
   --keep # leave the VM running afterwards
+  --view # open the VM's web viewer in the browser
 ] {
   let snap = ($nu.home-dir | path join $".windows-($snapshot)")
   if not ($snap | path exists) { error make {msg: $"no snapshot ($snap)"} }
@@ -212,15 +268,20 @@ def "main run" [
   vm-start
   wait-ssh
   print $"VM up at (vm-ip)"
+  let viewer = "http://127.0.0.1:8006"
+  print $"watch it: ($viewer | ansi link) \(log in with the VM user\)"
+  if $view { ^xdg-open $viewer | complete | ignore }
 
   ^scp ...(ssh-opts) ($out | path join source.tar) $"(vm-target):dotfiles.tar"
-  let prep = (vm-ps $"
-    $src = \"$HOME\\.local\\share\\chezmoi\"
-    New-Item -ItemType Directory -Force $src | Out-Null
-    tar -xf \"$HOME\\dotfiles.tar\" -C $src
-    winget install twpayne.chezmoi -s winget --accept-package-agreements --accept-source-agreements -h --disable-interactivity
-  ")
-  $prep.stdout + $prep.stderr | save -f ($out | path join prepare.log)
+  print "> tar -xf dotfiles.tar; winget install twpayne.chezmoi (log: prepare.log)"
+  vm-visible "winvm: prepare" r#'
+$src = "$HOME\.local\share\chezmoi"
+Write-Host "> tar -xf dotfiles.tar -C $src" -ForegroundColor Cyan
+New-Item -ItemType Directory -Force $src | Out-Null
+tar -xf "$HOME\dotfiles.tar" -C $src
+Write-Host "> winget install twpayne.chezmoi" -ForegroundColor Cyan
+winget install twpayne.chezmoi -s winget --accept-package-agreements --accept-source-agreements -h --disable-interactivity
+'# ($out | path join prepare.log) | ignore
 
   # Secrets come from the host's own chezmoi config, for this apply only: the env
   # var skips the init prompt, and the value never reaches a log or file. mise's
@@ -231,15 +292,13 @@ def "main run" [
   }
   let bws_ps = $"$env:BWS_ACCESS_TOKEN = '($bws.stdout | str trim)'"
 
-  print "chezmoi init --apply (log: apply.log)"
+  print "> chezmoi init --apply (log: apply.log)"
   let apply_log = ($out | path join apply.log)
-  let apply_ps = (encode-ps $"($bws_ps)\n($PS_PATH)\n($PS_CHEZMOI)\n& $chezmoi init --apply --no-tty 2>&1 | % { \"$_\" }\n\"winvm-exit=$LASTEXITCODE\"")
-  # nu loses the exit code of a redirected external, so the script prints it last.
-  do -i { ^ssh ...(ssh-opts) (vm-target) $"powershell -NoProfile -NonInteractive -EncodedCommand ($apply_ps)" o+e> $apply_log }
-  let apply_exit = (
-    open --raw $apply_log | decode utf-8 | lines | parse "winvm-exit={code}"
-    | get -o 0.code | default "-1" | str trim | into int
-  )
+  let apply_exit = (vm-visible "winvm: chezmoi init --apply" $"($bws_ps)
+($PS_PATH)
+($PS_CHEZMOI)
+Write-Host '> chezmoi init --apply --no-tty' -ForegroundColor Cyan
+& $chezmoi init --apply --no-tty" $apply_log)
 
   print "checks"
   let checks_raw = (vm-ps $"($PS_PATH)\n($PS_CHEZMOI)\n($PS_CHECKS)")
