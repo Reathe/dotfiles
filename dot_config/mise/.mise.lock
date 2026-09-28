@@ -176,21 +176,6 @@ checksum = "sha256:1580da0aca0a3b6a71d28fef97ff2d5b012186f54c396cb9105a537c7f6d0
 url = "https://github.com/topiary/topiary/releases/download/v0.7.3/topiary-cli-x86_64-pc-windows-msvc.zip"
 url_api = "https://api.github.com/repos/topiary/topiary/releases/assets/334665196"
 
-[[tools."github:wezterm/wezterm"]]
-version = "nightly"
-backend = "github:wezterm/wezterm"
-specifiers = ["nightly"]
-
-[tools."github:wezterm/wezterm"."platforms.linux-x64"]
-checksum = "sha256:e2ae0d0513a5e8b1eee80f112f675a30c9c2a3423494037cc590dae1e0f91b41"
-url = "https://github.com/wezterm/wezterm/releases/download/nightly/wezterm-nightly.Debian10.tar.xz"
-url_api = "https://api.github.com/repos/wezterm/wezterm/releases/assets/272199590"
-
-[tools."github:wezterm/wezterm"."platforms.windows-x64"]
-checksum = "sha256:d26bbcb22b0e26a601a23a3f443810ffe2b769f67b09b3d47da945c355e3c812"
-url = "https://github.com/wezterm/wezterm/releases/download/nightly/WezTerm-windows-nightly.zip"
-url_api = "https://api.github.com/repos/wezterm/wezterm/releases/assets/592086273"
-
 [[tools.go]]
 version = "1.27.1"
 backend = "core:go"
@@ -203,6 +188,19 @@ url = "https://dl.google.com/go/go1.27.1.linux-amd64.tar.gz"
 [tools.go."platforms.windows-x64"]
 checksum = "sha256:a3911b5e0e1b1053f25ed0675f4c1c6aad1e2bfcf253df2b9be4caabd2edd95d"
 url = "https://dl.google.com/go/go1.27.1.windows-amd64.zip"
+
+[[tools."http:wezterm"]]
+version = "20260917-114457-b09b56c2"
+backend = "http:wezterm"
+specifiers = ["20260917-114457-b09b56c2"]
+
+[tools."http:wezterm"."platforms.linux-x64"]
+checksum = "sha256:7e94289b786133529fc0bffa6631b34c90bbcad906f92a30c7a21bdf52de93e8"
+url = "https://github.com/Reathe/dotfiles/releases/download/wezterm-20260917-114457-b09b56c2/WezTerm-windows-20260917-114457-b09b56c2.zip"
+
+[tools."http:wezterm"."platforms.windows-x64"]
+checksum = "sha256:7e94289b786133529fc0bffa6631b34c90bbcad906f92a30c7a21bdf52de93e8"
+url = "https://github.com/Reathe/dotfiles/releases/download/wezterm-20260917-114457-b09b56c2/WezTerm-windows-20260917-114457-b09b56c2.zip"
 
 [[tools.jjui]]
 version = "0.10.11"
@@ -324,6 +322,21 @@ provenance = "github-attestations"
 checksum = "sha256:8152a1c9d14d38fb1cd98a211bcc48e4ae0c921ad918c52ffce19c222268f8b8"
 url = "https://github.com/pnpm/pnpm/releases/download/v12.6.0/pnpm-win32-x64.zip"
 url_api = "https://api.github.com/repos/pnpm/pnpm/releases/assets/581813237"
+provenance = "github-attestations"
+
+[[tools.python]]
+version = "3.14.7"
+backend = "core:python"
+specifiers = ["latest"]
+
+[tools.python."platforms.linux-x64"]
+checksum = "sha256:bd0d0568ccded07bbf1c87727230dc5dd0187e706a87da23c4de78388a229b78"
+url = "https://github.com/astral-sh/python-build-standalone/releases/download/20260924/cpython-3.14.7+20260924-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz"
+provenance = "github-attestations"
+
+[tools.python."platforms.windows-x64"]
+checksum = "sha256:1493fc4185edf84bbd4305c15c5fbac2d4fcd4ddd7eb6273903669a5d3106178"
+url = "https://github.com/astral-sh/python-build-standalone/releases/download/20260924/cpython-3.14.7+20260924-x86_64-pc-windows-msvc-install_only_stripped.tar.gz"
 provenance = "github-attestations"
 
 [[tools.ripgrep]]
