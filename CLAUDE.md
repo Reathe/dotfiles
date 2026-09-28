@@ -71,7 +71,7 @@ Everywhere else (Arch/Omarchy, other Linux, Windows) CLI tools come from **mise*
 
 `run_onchange_after_1_mise-install.{sh,bat}.tmpl` hash both files and run `mise install` (the `1_`
 prefix makes them run before the other after-scripts). On Windows,
-`run_onchange_before_windows1_install-packages.bat.tmpl` still uses winget/choco, but only for GUI
+`run_onchange_before_windows1_install-packages.bat.tmpl` still uses winget, but only for GUI
 apps, the C compiler, fonts, git and mise itself. Nushell comes from mise too: on Windows chezmoi's `nu`
 interpreter and the Windows Terminal profile both run `mise x nushell -- nu`; that list is written inline in the script. Rule: anything mise can
 install goes in `.config.toml`, including Windows-only tools (`os = ["windows"]`).

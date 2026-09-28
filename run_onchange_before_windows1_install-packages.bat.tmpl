@@ -19,19 +19,14 @@ echo install winget packages
 :: jdx.mise: installs everything else (see run_onchange_after_1_mise-install)
 :: git.git: mise needs git itself
 :: BrechtSanders.WinLibs: C compiler for tree-sitter
+:: DEVCOM.JetBrainsMonoNerdFont: the Windows Terminal font (machine-wide MSI, elevates)
 @echo on
-winget install jdx.mise git.git BrechtSanders.WinLibs.POSIX.UCRT -s winget --accept-package-agreements --accept-source-agreements -h --disable-interactivity
+winget install jdx.mise git.git BrechtSanders.WinLibs.POSIX.UCRT DEVCOM.JetBrainsMonoNerdFont -s winget --accept-package-agreements --accept-source-agreements -h --disable-interactivity
 
 {{ if eq .INSTALL_EXTRAS "true" -}}
 winget install AntibodySoftware.WizTree voidtools.Everything Microsoft.VisualStudioCode Zen-Team.Zen-Browser -s winget --accept-package-agreements --accept-source-agreements -h --disable-interactivity
 {{ end -}}
 
-winget install Chocolatey.Chocolatey -s winget --accept-package-agreements --accept-source-agreements -h --disable-interactivity
-@echo off
-
-echo install choco packages
-@echo on
-"C:\ProgramData\chocolatey\choco.exe" install -y nerd-fonts-jetbrainsmono
 @echo off
 
 echo Install done: errorlevel=%errorlevel%

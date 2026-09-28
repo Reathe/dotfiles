@@ -1,6 +1,6 @@
 ---
 name: test-windows
-description: Test these dotfiles on a fresh Windows by applying the current jj working copy in the Omarchy Windows VM, then checking and fixing the result. Use when asked to test, verify or debug the Windows side of the dotfiles (winget/choco/mise installs, AppData configs, Windows Terminal, symlinks, run_*_windows scripts), or before pushing changes that touch Windows paths.
+description: Test these dotfiles on a fresh Windows by applying the current jj working copy in the Omarchy Windows VM, then checking and fixing the result. Use when asked to test, verify or debug the Windows side of the dotfiles (winget/mise installs, AppData configs, Windows Terminal, symlinks, run_*_windows scripts), or before pushing changes that touch Windows paths.
 ---
 
 # Test the dotfiles on Windows
