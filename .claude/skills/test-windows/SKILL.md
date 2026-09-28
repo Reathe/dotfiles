@@ -12,9 +12,8 @@ the current jj working copy (`@`, uncommitted edits included) with
 Only works on the Omarchy machine, which has the VM. The host's
 `BWS_ACCESS_TOKEN` is read from its chezmoi config and passed to the apply as an
 env var, so secrets (`~/.ssh/id_ed25519`, `gh auth`) are tested too; the run stops
-if the host has none. The host's `gh auth token` is passed to the apply as `GITHUB_TOKEN`,
-because mise's GitHub API calls exceed the anonymous limit (60/h) otherwise; a
-"gh is not logged in" warning means runs will hit that limit.
+if the host has none. mise's GitHub API calls are authenticated with the GitHub
+token from Bitwarden, as on a real machine (the anonymous limit is 60/h).
 
 ## Run
 
@@ -84,4 +83,4 @@ open it during a run (http://127.0.0.1:8006 is safe to watch from), then rerun.
   it yourself.
 
 Never read or print `~/.config/windows/credentials` beyond `USERNAME`, and never
-print `BWS_ACCESS_TOKEN` or `GITHUB_TOKEN`: the script passes them itself.
+print `BWS_ACCESS_TOKEN`: the script passes it itself.

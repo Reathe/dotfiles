@@ -20,6 +20,10 @@ where mise >nul 2>nul || set "PATH=%LOCALAPPDATA%\Microsoft\WinGet\Links;%PATH%"
 powershell -NoProfile -Command "$s = $env:LOCALAPPDATA + '\mise\shims'; $p = [Environment]::GetEnvironmentVariable('Path', 'User'); if (($p -split ';') -notcontains $s) { [Environment]::SetEnvironmentVariable('Path', $s + ';' + $p, 'User') }"
 set "PATH=%LOCALAPPDATA%\mise\shims;%PATH%"
 
+:: Authenticated GitHub API calls: the anonymous limit (60/h) can fail a fresh install, and gh
+:: (which would provide a token) is itself installed here. Same token run_after_gh_auth logs in with.
+set "GITHUB_TOKEN={{ (bitwardenSecrets "90a30c12-3351-49be-9e4c-b3e400e715ef" (env "BWS_ACCESS_TOKEN" | default "")).value }}"
+
 @echo on
 :: winget ships mise releases late, and an older mise cannot read a lockfile written by a newer one.
 :: Retried: a GitHub hiccup here leaves the old mise, which then fails every locked install.
