@@ -69,16 +69,20 @@ def vm-stop [] {
 }
 
 # Start without RDP. Omarchy pins ~/.windows and ~/Windows into root-owned
-# anchors; after a reboot only its privileged launch recreates them, and a bare
-# `compose up` would then hand Docker empty directories.
+# anchors, which a reboot removes; a bare `compose up` would then hand Docker
+# empty directories. Its privileged `up` recreates them and starts the VM: one
+# polkit prompt per boot. It refuses unless ~/Windows is exactly 700, and the
+# container leaves setgid on it (2777), which its own chmod 0700 keeps.
 def vm-start [] {
   let base = $"/var/lib/omarchy/windows/mounts/users/(^id -u | str trim)"
-  for m in [storage shared] {
-    if (^findmnt -n $"($base)/($m)" | complete).exit_code != 0 {
-      error make {msg: "VM mounts are not pinned (reboot?): start the VM once with the Windows launcher, stop it, then retry"}
-    }
+  let pinned = ([storage shared] | all {|m| (^findmnt -n $"($base)/($m)" | complete).exit_code == 0 })
+  if $pinned {
+    ^docker-compose -f $COMPOSE up -d
+  } else {
+    print "VM folders not set up since boot: pinning them (asks for your password once)"
+    ^chmod g-s ($nu.home-dir | path join Windows)
+    ^pkexec /usr/bin/omarchy-windows-vm __priv up
   }
-  ^docker-compose -f $COMPOSE up -d
 }
 
 def wait-ssh [timeout: duration = 5min] {
