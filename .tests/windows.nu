@@ -11,8 +11,7 @@
 #
 # Needs sudoless Docker (docker group) and a snapshot ~/.windows-clean taken
 # after `setup` (winvm save clean). The host's BWS_ACCESS_TOKEN (from its chezmoi
-# config) and `gh auth token` (as GITHUB_TOKEN, for mise's GitHub API calls) are
-# passed to the apply only. Results go to ~/.local/state/winvm/runs/<timestamp>/.
+# config) is passed to the apply only. Results go to ~/.local/state/winvm/runs/<timestamp>/.
 
 const COMPOSE = "/var/lib/omarchy/windows/docker-compose.yml"
 const CONTAINER = "omarchy-windows"
@@ -219,19 +218,9 @@ def "main run" [
   ")
   $prep.stdout + $prep.stderr | save -f ($out | path join prepare.log)
 
-  # mise resolves tool versions through the GitHub API, whose anonymous limit
-  # (60/h per IP) one fresh install nearly uses up. Borrow the host's gh login
-  # for this apply only: it goes in the ssh command, never into a log or file.
-  let gh = (^gh auth token | complete)
-  let token_ps = if $gh.exit_code == 0 {
-    $"$env:GITHUB_TOKEN = '($gh.stdout | str trim)'"
-  } else {
-    print "warning: gh is not logged in, mise will use the anonymous GitHub API limit"
-    ""
-  }
-
-  # Secrets come from the host's own chezmoi config, passed the same way: the
-  # env var skips the init prompt, and the value never reaches a log or file.
+  # Secrets come from the host's own chezmoi config, for this apply only: the env
+  # var skips the init prompt, and the value never reaches a log or file. mise's
+  # GITHUB_TOKEN comes from Bitwarden through it, as on a real machine.
   let bws = (^chezmoi execute-template "{{ .BWS_ACCESS_TOKEN }}" | complete)
   if $bws.exit_code != 0 or ($bws.stdout | str trim | is-empty) {
     error make {msg: "no BWS_ACCESS_TOKEN in the host's chezmoi config"}
@@ -240,7 +229,7 @@ def "main run" [
 
   print "chezmoi init --apply (log: apply.log)"
   let apply_log = ($out | path join apply.log)
-  let apply_ps = (encode-ps $"($token_ps)\n($bws_ps)\n($PS_PATH)\n($PS_CHEZMOI)\n& $chezmoi init --apply --no-tty 2>&1 | % { \"$_\" }\n\"winvm-exit=$LASTEXITCODE\"")
+  let apply_ps = (encode-ps $"($bws_ps)\n($PS_PATH)\n($PS_CHEZMOI)\n& $chezmoi init --apply --no-tty 2>&1 | % { \"$_\" }\n\"winvm-exit=$LASTEXITCODE\"")
   # nu loses the exit code of a redirected external, so the script prints it last.
   do -i { ^ssh ...(ssh-opts) (vm-target) $"powershell -NoProfile -NonInteractive -EncodedCommand ($apply_ps)" o+e> $apply_log }
   let apply_exit = (
