@@ -73,9 +73,10 @@ open it during a run (http://127.0.0.1:8006 is safe to watch from), then rerun.
 
 ## When it cannot start
 
-- **"VM mounts are not pinned"**: the machine rebooted. Ask the user to start
-  the VM once with the Windows launcher (it asks for their password), stop it,
-  then retry.
+- **"VM folders not set up since boot"**: the machine rebooted, so the run asks
+  for the user's password once (a polkit dialog on their desktop) to recreate
+  the VM's folder mounts. Tell the user to expect it; if they dismiss it, the run
+  fails and needs to be started again.
 - **ssh never answers**: the snapshot may lack OpenSSH. Ask the user to redo the
   setup: `nu .tests/windows.nu setup`, then follow what it prints.
 - **permission denied on the Docker socket**: sudoless Docker is off. That is
