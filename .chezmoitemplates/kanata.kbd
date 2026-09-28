@@ -8,7 +8,7 @@
 )
 
 (defsrc
-  caps a s d f j k l ; scrlck esc
+  caps a s d f j k l ; scrlck
 )
 
 (defvar
@@ -20,8 +20,7 @@
 (defalias
   swlayer (tap-hold 0 400 scrlck (switch
     ((base-layer normal)) (layer-switch homerow) break
-    ((base-layer homerow)) (layer-switch mad) break
-    ((base-layer mad)) (layer-switch normal) break
+    ((base-layer homerow)) (layer-switch normal) break
   ))
   caps (tap-hold 0 400 esc caps)
   a (tap-hold $tap-time $long-hold-time a lmet)
@@ -35,13 +34,9 @@
 )
 
 (deflayer (homerow icon "./icons/homerow.png")
-  @caps @a @s @d @f @j @k @l @; @swlayer _
+  @caps @a @s @d @f @j @k @l @; @swlayer
 )
 
 (deflayer (normal icon "./icons/kanata-icon-empty.png")
-  _  _  _  _  _  _  _  _  _  @swlayer _
-)
-
-(deflayer (mad icon "./icons/kanata-icon.png")
-  @caps @a @s @d @f @j @k @l @; @swlayer `
+  _  _  _  _  _  _  _  _  _  @swlayer
 )
