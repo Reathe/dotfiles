@@ -1,0 +1,19 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- /* Merges the notion-kanban hooks into ~/.claude/settings.json, leaving every other setting and hook as Claude Code wrote it. */ -}}
+{{- $settings := dict -}}
+{{- if .chezmoi.stdin | trim -}}
+{{-   $settings = fromJson .chezmoi.stdin -}}
+{{- end -}}
+{{- $script := joinPath .chezmoi.homeDir ".claude/hooks/notion-kanban.nu" -}}
+{{- range $event := list "Stop" "SessionEnd" -}}
+{{-   $kept := list -}}
+{{-   range (dig "hooks" $event (list) $settings) -}}
+{{-     if not (contains "notion-kanban.nu" (toJson .)) -}}
+{{-       $kept = append $kept . -}}
+{{-     end -}}
+{{-   end -}}
+{{-   $command := printf "%s --stdin %s %s" (lookPath "nu") $script (ternary "stop" "end" (eq $event "Stop")) -}}
+{{-   $kept = append $kept (dict "hooks" (list (dict "type" "command" "command" $command "timeout" 30))) -}}
+{{-   $settings = setValueAtPath (printf "hooks.%s" $event) $kept $settings -}}
+{{- end -}}
+{{- toPrettyJson $settings }}

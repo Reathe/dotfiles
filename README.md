@@ -40,6 +40,7 @@
 | Windows desktop | [komorebi](https://github.com/LGUG2Z/komorebi) + whkd tiling window manager, GlazeWM |
 | Keyboard | [kanata](https://github.com/jtroo/kanata) (home-row mods, layers) |
 | Secrets | Bitwarden Secrets Manager |
+| AI tooling | Claude Code hook that keeps a Notion kanban per project in sync (`dot_claude/hooks/notion-kanban.nu`) |
 
 ## Installation
 
@@ -98,6 +99,7 @@ sudo nixos-rebuild switch --flake ~/.local/share/chezmoi#nixos
 │   └── modules/              # Shared system (common.nix) and user (raf-user.nix) modules
 ├── dot_config/               # → ~/.config (nvim, nushell, zellij, jj, niri, wezterm, ghostty, …)
 ├── dot_ssh/                  # → ~/.ssh (keys rendered from Bitwarden)
+├── dot_claude/               # → ~/.claude (hooks merged into settings.json, Linux only)
 ├── AppData/, dot_glzr/       # Windows-only targets
 └── run_*                     # Install / setup scripts run by chezmoi
 ```

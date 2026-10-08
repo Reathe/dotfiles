@@ -30,5 +30,7 @@ AppData*
 .config/DankMaterialShell
 .config/voxtype
 .config/omarchy
+.claude/hooks/notion-kanban.nu
+.claude/settings.json
 *.sh
 {{- end }}

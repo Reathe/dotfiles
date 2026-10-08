@@ -99,3 +99,5 @@ and `run_after_gh_auth.nu.tmpl`. On non-NixOS a `read-source-state` hook
 - Neovim is a LazyVim setup: config in `dot_config/nvim/lua/config/`, plugin specs one file per concern
   in `dot_config/nvim/lua/plugins/`.
 - Windows package lists live in `.chezmoidata/packages.yaml`; NixOS packages live in `.nix/`, not there.
+- `~/.claude/settings.json` is owned by Claude Code itself; `dot_claude/modify_settings.json` is a chezmoi
+  modify-template that only merges our hooks into it. Add hook scripts under `dot_claude/hooks/`.
