@@ -156,9 +156,21 @@
         {
           "id": "focusedWindow",
           "enabled": true
+        },
+        {
+          "id": "voxtype",
+          "enabled": true
         }
       ],
       "centerWidgets": [
+        {
+          "id": "runningApps",
+          "enabled": true,
+          "runningAppsCompactMode": true,
+          "runningAppsGroupByApp": false,
+          "runningAppsCurrentWorkspace": true,
+          "runningAppsCurrentMonitor": false
+        },
         {
           "id": "music",
           "enabled": true
@@ -174,6 +186,16 @@
       ],
       "rightWidgets": [
         {
+          "id": "privacyIndicator",
+          "enabled": true
+        },
+        {
+          "id": "keyboard_layout_name",
+          "enabled": true,
+          "keyboardLayoutNameShowIcon": true,
+          "keyboardLayoutNameCompactMode": true
+        },
+        {
           "id": "systemTray",
           "enabled": true
         },
@@ -186,8 +208,9 @@
           "enabled": true
         },
         {
-          "id": "battery",
-          "enabled": true
+          "id": "cpuUsage",
+          "enabled": true,
+          "minimumWidth": true
         },
         {
           "id": "controlCenterButton",
