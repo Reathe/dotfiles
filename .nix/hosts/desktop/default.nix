@@ -132,6 +132,14 @@ in
     RestartSec = "5s";
   };
 
+  # Sunshine game-stream host for Moonlight clients; web UI at https://localhost:47990.
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    capSysAdmin = true; # required for KMS capture under Wayland
+    openFirewall = true;
+  };
+
   # Install firefox.
   programs.firefox.enable = true;
 
