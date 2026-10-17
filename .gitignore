@@ -1,3 +1,6 @@
 # voxtype writes backups next to its config; only config.toml is tracked
 dot_config/.voxtype/*
 !dot_config/.voxtype/config.toml
+# DankMaterialShell's matugen writes these through the ~/.config/nvim symlink; per-machine, regenerated
+dot_config/.nvim/colors/dms.lua
+dot_config/.nvim/lua/lualine/themes/dms.lua
