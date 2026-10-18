@@ -146,8 +146,27 @@ in
   services.sunshine = {
     enable = true;
     autoStart = true;
-    capSysAdmin = true; # required for KMS capture under Wayland
     openFirewall = true;
+    # Unpinned, it tries the xdg portal first, whose RemoteDesktop session fails with nobody at the
+    # screen to approve it, and then hangs before listening. KMS capture fails on the NVIDIA card.
+    settings.capture = "wlr";
+    # niri renders on the AMD iGPU, which can't bind NVIDIA dmabufs for screencopy (black stream),
+    # so capture and encode there too (VAAPI): NVENC would copy every frame through RAM, as this
+    # build lacks CUDA. By PCI path, since card/renderD numbers shift between boots.
+    settings.encoder = "vaapi";
+    settings.adapter_name = "/dev/dri/by-path/pci-0000:11:00.0-render";
+  };
+  # NVENC dlopens libcuda from the driver dir, which isn't in sunshine's RUNPATH. This is also why
+  # capSysAdmin stays off: its setcap wrapper makes the loader ignore LD_LIBRARY_PATH.
+  systemd.user.services.sunshine.environment.LD_LIBRARY_PATH = "/run/opengl-driver/lib";
+  # Sunshine needs a connected display to capture, so force the Samsung's port (HDMI-A-2, NVIDIA)
+  # on with a generated 1080p60 EDID: it stays "connected" when the monitor is off or unplugged.
+  hardware.display = {
+    edid.modelines."1080p60" = "148.50 1920 2008 2052 2200 1080 1084 1089 1125 +hsync +vsync";
+    outputs."HDMI-A-2" = {
+      edid = "1080p60.bin";
+      mode = "e";
+    };
   };
 
   # Install firefox.
