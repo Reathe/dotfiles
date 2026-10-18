@@ -21,5 +21,8 @@
     "folderColorBaseThemeLight": "",
     "folderColorBaseTheme": "",
     "qtSyncMode": "auto"
+  },
+  "kanataLayer": {
+    "enabled": true
   }
 }

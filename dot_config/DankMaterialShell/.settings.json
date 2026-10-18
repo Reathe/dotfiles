@@ -190,10 +190,8 @@
           "enabled": true
         },
         {
-          "id": "keyboard_layout_name",
-          "enabled": true,
-          "keyboardLayoutNameShowIcon": true,
-          "keyboardLayoutNameCompactMode": true
+          "id": "kanataLayer",
+          "enabled": true
         },
         {
           "id": "systemTray",
@@ -284,9 +282,8 @@
           "enabled": true
         },
         {
-          "id": "keyboard_layout_name",
-          "enabled": true,
-          "keyboardLayoutNameCompactMode": true
+          "id": "kanataLayer",
+          "enabled": true
         },
         {
           "id": "voxtype",

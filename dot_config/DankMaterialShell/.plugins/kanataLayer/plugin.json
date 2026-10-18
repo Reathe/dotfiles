@@ -1,0 +1,17 @@
+{
+    "id": "kanataLayer",
+    "name": "Kanata Layer",
+    "description": "Show the active kanata layer, read from kanata's TCP server",
+    "version": "1.0.0",
+    "author": "Reathe",
+    "type": "widget",
+    "capabilities": [
+        "dankbar-widget"
+    ],
+    "component": "./KanataLayer.qml",
+    "icon": "keyboard",
+    "permissions": [
+        "process",
+        "settings_read"
+    ]
+}

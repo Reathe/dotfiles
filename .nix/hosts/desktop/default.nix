@@ -126,6 +126,8 @@ in
   services.kanata = {
     enable = true;
     keyboards.desktop.configFile = ../../../.chezmoitemplates/kanata.kbd;
+    # TCP server for the DMS kanataLayer bar widget (same port as the non-NixOS kanata.service).
+    keyboards.desktop.port = 5829;
   };
   systemd.services.kanata-desktop.serviceConfig = {
     Restart = "on-failure";
