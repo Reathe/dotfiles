@@ -134,14 +134,7 @@
       "enabled": true,
       "position": 0,
       "screenPreferences": [
-        {
-          "name": "DP-6",
-          "model": "HP 24x"
-        },
-        {
-          "name": "HDMI-A-2",
-          "model": "SAMSUNG"
-        }
+        "all"
       ],
       "showOnLastDisplay": false,
       "leftWidgets": [
@@ -154,15 +147,9 @@
           "enabled": true
         },
         {
-          "id": "focusedWindow",
-          "enabled": true
-        },
-        {
           "id": "voxtypeSetup",
           "enabled": true
-        }
-      ],
-      "centerWidgets": [
+        },
         {
           "id": "runningApps",
           "enabled": true,
@@ -170,7 +157,9 @@
           "runningAppsGroupByApp": false,
           "runningAppsCurrentWorkspace": true,
           "runningAppsCurrentMonitor": false
-        },
+        }
+      ],
+      "centerWidgets": [
         {
           "id": "music",
           "enabled": true
@@ -181,7 +170,7 @@
         },
         {
           "id": "weather",
-          "enabled": true
+          "enabled": false
         }
       ],
       "rightWidgets": [
@@ -198,20 +187,16 @@
           "enabled": true
         },
         {
-          "id": "clipboard",
+          "id": "cpuUsage",
+          "enabled": true,
+          "minimumWidth": false
+        },
+        {
+          "id": "controlCenterButton",
           "enabled": true
         },
         {
           "id": "notificationButton",
-          "enabled": true
-        },
-        {
-          "id": "cpuUsage",
-          "enabled": true,
-          "minimumWidth": true
-        },
-        {
-          "id": "controlCenterButton",
           "enabled": true
         }
       ],
