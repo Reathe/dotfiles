@@ -212,6 +212,9 @@
       ExecStartPre = "${pkgs.bash}/bin/bash -c 'for i in $(seq 1 100); do [ -e /run/kanata-desktop/desktop ] && exit 0; sleep 0.1; done; exit 0'";
       ExecStart = "${unstable.voxtype-vulkan}/bin/voxtype";
       Restart = "on-failure";
+      # back off so a transient failure (e.g. config missing mid `chezmoi apply`) doesn't hit
+      # the default 5-starts-in-10s limit and leave the daemon dead until a manual restart
+      RestartSec = 5;
     };
   };
 }
