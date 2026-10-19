@@ -1,0 +1,17 @@
+{
+    "id": "voxtypeSetup",
+    "name": "Voxtype (click for setup)",
+    "description": "The upstream voxtype widget; clicking it opens voxtype configure",
+    "version": "1.0.0",
+    "author": "Reathe",
+    "type": "widget",
+    "capabilities": [
+        "dankbar-widget"
+    ],
+    "component": "./VoxtypeSetup.qml",
+    "icon": "mic",
+    "permissions": [
+        "process",
+        "settings_read"
+    ]
+}

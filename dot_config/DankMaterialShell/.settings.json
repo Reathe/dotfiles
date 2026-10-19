@@ -158,7 +158,7 @@
           "enabled": true
         },
         {
-          "id": "voxtype",
+          "id": "voxtypeSetup",
           "enabled": true
         }
       ],
@@ -286,7 +286,7 @@
           "enabled": true
         },
         {
-          "id": "voxtype",
+          "id": "voxtypeSetup",
           "enabled": true
         }
       ],

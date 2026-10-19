@@ -1,5 +1,5 @@
 {
-  "voxtype": {
+  "voxtypeSetup": {
     "enabled": true,
     "iconTheme": "nerd-font",
     "refreshInterval": 1
