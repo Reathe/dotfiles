@@ -54,6 +54,7 @@
         libreoffice
         yazi
         kdePackages.dolphin
+        pulseaudio # pactl only (pipewire-pulse is the server): the voxtype bar widget's mic bars need it
         inputs.nix-software-center.packages.${pkgs.stdenv.hostPlatform.system}.nix-software-center
       ])
       ++ (with unstable; [

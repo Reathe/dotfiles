@@ -12,9 +12,6 @@
   "voxtypeOverlay": {
     "enabled": true
   },
-  "voxTypeOsd": {
-    "enabled": true
-  },
   "dmsThemeSync": {
     "enabled": false,
     "folderColorBaseThemeDark": "",
