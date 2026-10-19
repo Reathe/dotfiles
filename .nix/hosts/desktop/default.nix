@@ -108,6 +108,14 @@ in
   };
   hardware.xone.enable = true; # support for the xbox controller USB dongle
 
+  # Let the browser (WebHID) open the MAD60's hidraw nodes so hub.f.gg can configure it.
+  # uaccess must be tagged before 73-seat-late.rules, so this can't go in extraRules (99-local).
+  services.udev.packages = [
+    (pkgs.writeTextDir "lib/udev/rules.d/70-madlions.rules" ''
+      KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="373b", TAG+="uaccess"
+    '')
+  ];
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
