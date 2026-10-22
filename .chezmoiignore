@@ -25,6 +25,7 @@ AppData*
 {{ else }}
 {{- /* Ignore on non-NixOS Linux */}}
 .config/opencode
+.config/television
 {{ end -}}
 {{ else }}
 {{- /* Ignore on Windows */}}
@@ -39,5 +40,6 @@ AppData*
 .config/voxtype
 .config/omarchy
 .config/hypr
+.config/television
 *.sh
 {{- end }}

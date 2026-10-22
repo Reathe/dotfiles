@@ -128,7 +128,6 @@ binds {
     Print { screenshot; }
     XF86Launch1 { screenshot; }
     Mod+Shift+E { quit; }
-    Super+S allow-inhibiting=false hotkey-overlay-title="nixpkgs search firefox" repeat=false { spawn "sh" "-c" "firefox --new-tab https://search.nixos.org"; }
     Super+T hotkey-overlay-title="Launch Terminal" { spawn "ghostty" "-e" "nu"; }
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
     Mod+Shift+Slash { show-hotkey-overlay; }

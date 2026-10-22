@@ -21,7 +21,6 @@
         # NixOS 26.05 (stable). Move a package to the unstable block below to use nixos-unstable instead.
         git
         ghostty
-        carapace
         zoxide
         starship
         tlrc
@@ -42,6 +41,9 @@
         topiary
         jujutsu
         fzf
+        nh
+        nix-search-tv
+        television
         vesktop
         jjui
         plex-desktop
@@ -60,6 +62,7 @@
         # nixos-unstable. Move a package here to get the unstable version instead of 26.05.
         neovim
         nushell
+        carapace # unstable to match nushell: 26.05's carapace emits a completer nushell deprecated
         lazygit
         zellij
         antigravity-ide

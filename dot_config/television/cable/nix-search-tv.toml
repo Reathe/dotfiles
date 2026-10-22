@@ -1,0 +1,10 @@
+[metadata]
+name = "nix-search-tv"
+description = "Search nixpkgs packages and NixOS options"
+requirements = ["nix-search-tv"]
+
+[source]
+command = "nix-search-tv print"
+
+[preview]
+command = "nix-search-tv preview '{}'"

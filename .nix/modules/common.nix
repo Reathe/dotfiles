@@ -36,6 +36,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = [ ];
+  # link packages' nushell completions (e.g. nh's) into the profiles nushell autoloads from
+  environment.pathsToLink = [ "/share/nushell" ];
 
   nix.settings.experimental-features = [
     "nix-command"
