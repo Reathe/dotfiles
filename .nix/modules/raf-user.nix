@@ -41,7 +41,6 @@
         topiary
         jujutsu
         fzf
-        nh
         nix-search-tv
         television
         vesktop
@@ -57,6 +56,9 @@
         yazi
         kdePackages.dolphin
         pulseaudio # pactl only (pipewire-pulse is the server): the voxtype bar widget's mic bars need it
+        nh
+        jellyfin-desktop
+        libnotify
       ])
       ++ (with unstable; [
         # nixos-unstable. Move a package here to get the unstable version instead of 26.05.
@@ -65,12 +67,9 @@
         carapace # unstable to match nushell: 26.05's carapace emits a completer nushell deprecated
         lazygit
         zellij
-        antigravity-ide
-        antigravity-cli
         opencode
         codex
         claude-code
-        claude-monitor
         chromium
         google-chrome
         voxtype-vulkan
