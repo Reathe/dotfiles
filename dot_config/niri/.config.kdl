@@ -306,6 +306,13 @@ window-rule {
     default-column-width { fixed 1000; }
     default-window-height { fixed 700; }
 }
+// package details and installs, opened from the DMS launcher's nixPackages plugin
+window-rule {
+    match app-id=r#"^dev\.nixpkgs\.launcher$"#
+    open-floating true
+    default-column-width { fixed 1000; }
+    default-window-height { fixed 700; }
+}
 window-rule {
     match app-id=r#"^steam$"# title=r#"^notificationtoasts_\d+_desktop$"#
     default-floating-position x=10 y=10 relative-to="bottom-right"

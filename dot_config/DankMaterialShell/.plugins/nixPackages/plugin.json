@@ -1,0 +1,20 @@
+{
+    "id": "nixPackages",
+    "name": "Nix packages",
+    "description": "Search nixpkgs (stable and unstable), show a package's details, install it into or uninstall it from raf-user.nix",
+    "version": "1.0.0",
+    "author": "Reathe",
+    "icon": "package_2",
+    "type": "launcher",
+    "capabilities": [
+        "command-execution"
+    ],
+    "component": "./NixPackagesLauncher.qml",
+    "trigger": "nx",
+    "permissions": [
+        "process",
+        "settings_read",
+        "settings_write"
+    ],
+    "settings": "./NixPackagesSettings.qml"
+}

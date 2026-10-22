@@ -21,5 +21,8 @@
   },
   "kanataLayer": {
     "enabled": true
+  },
+  "nixPackages": {
+    "enabled": true
   }
 }

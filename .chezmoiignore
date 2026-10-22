@@ -26,6 +26,7 @@ AppData*
 {{- /* Ignore on non-NixOS Linux */}}
 .config/opencode
 .config/television
+.config/DankMaterialShell/plugins/nixPackages
 {{ end -}}
 {{ else }}
 {{- /* Ignore on Windows */}}
