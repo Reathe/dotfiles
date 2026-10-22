@@ -2,13 +2,22 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    nix-software-center.url = "github:snowfallorg/nix-software-center";
-    claude-desktop.url = "github:nmcbride/claude-desktop-nix";
+    nix-software-center = {
+      url = "github:snowfallorg/nix-software-center";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    claude-desktop = {
+      url = "github:nmcbride/claude-desktop-nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
