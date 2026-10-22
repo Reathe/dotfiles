@@ -55,7 +55,6 @@
         yazi
         kdePackages.dolphin
         pulseaudio # pactl only (pipewire-pulse is the server): the voxtype bar widget's mic bars need it
-        inputs.nix-software-center.packages.${pkgs.stdenv.hostPlatform.system}.nix-software-center
       ])
       ++ (with unstable; [
         # nixos-unstable. Move a package here to get the unstable version instead of 26.05.

@@ -10,10 +10,6 @@
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    nix-software-center = {
-      url = "github:snowfallorg/nix-software-center";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
     claude-desktop = {
       url = "github:nmcbride/claude-desktop-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
