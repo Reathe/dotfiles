@@ -1,0 +1,1 @@
+{ "name": "jj-log", "version": "0.3.0", "description": "Pane beside the chat listing jj commits: click one to expand its details, Explain asks Claude about it in /btw", "types": "./types/index.d.ts" }
