@@ -1,0 +1,2 @@
+# The hosts set options one dotted path per line (boot.loader..., services.x...), on purpose.
+disabled = ["repeated_keys"]

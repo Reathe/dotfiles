@@ -26,7 +26,7 @@ Formatting (every hand-written file should be formatted; skip generated ones):
 ```bash
 stylua dot_config/.nvim                                                 # uses dot_config/.nvim/stylua.toml
 topiary format dot_config/nushell/*.nu dot_config/topiary/queries/nu.scm
-nixfmt .nix/**/*.nix && statix check .nix                               # nix files
+nix fmt && nix flake check                                              # nix files: nixfmt, then statix (.nix/statix.toml) + host eval
 ```
 
 "Testing" a change mostly means `chezmoi diff` / `chezmoi execute-template`, and for NixOS changes a

@@ -25,6 +25,7 @@
     }:
     let
       system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
       unstable = import nixpkgs-unstable {
         config = {
           allowUnfree = true;
@@ -46,6 +47,13 @@
         };
     in
     {
+      # `nix fmt` formats every tracked .nix file; `nix flake check` lints .nix (and evaluates the hosts)
+      formatter.${system} = pkgs.nixfmt-tree;
+      checks.${system}.statix = pkgs.runCommand "statix" { } ''
+        ${pkgs.statix}/bin/statix check --config ${./.nix} ${./.nix}
+        touch $out
+      '';
+
       nixosConfigurations = {
         nixos = mkHost [
           inputs.claude-desktop.nixosModules.default
