@@ -17,9 +17,13 @@ run)
     case $a in '' | *[!A-Za-z0-9_.+:-]*) echo "Refusing odd argument: $a"; read -r _; exit 1 ;; esac
   done
   log=$(mktemp --tmpdir nixpkg.XXXXXX.log)
+  # One window at a time: two overlapping rebuilds can activate a system built before the other's edit.
+  # The lock is held for the script line only (-o: not by its children), so the notification below never holds it.
+  lock=${XDG_RUNTIME_DIR:-/tmp}/nixpkg.lock
+  flock -n "$lock" true || echo "Waiting for the other Nix packages window to close…"
   # script(1) keeps the terminal a terminal (sudo prompt, nvim, nix's progress) and records only output;
   # SHELL=/bin/sh because it runs the line with $SHELL, which may be nu
-  SHELL=/bin/sh script -qefc "nu '$dir/nixpkg.nu' $*" "$log"
+  SHELL=/bin/sh flock -o "$lock" script -qefc "nu '$dir/nixpkg.nu' $*" "$log"
   rc=$?
   if [ $rc -eq 0 ] || [ $rc -eq 130 ]; then
     rm -f "$log"
