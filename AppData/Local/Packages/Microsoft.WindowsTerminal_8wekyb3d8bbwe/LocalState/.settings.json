@@ -204,11 +204,6 @@
             [
                 {
                     "icon": null,
-                    "profile": "{b76e976c-c895-4d87-8a25-b85968aa470d}",
-                    "type": "profile"
-                },
-                {
-                    "icon": null,
                     "profile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                     "type": "profile"
                 },
@@ -258,15 +253,6 @@
                 "hidden": false,
                 "commandline": "mise.exe x nushell zellij -- nu %USERPROFILE%\\.config\\nushell\\start-zellij.nu",
                 "name": "Nushell"
-            },
-            {
-                "commandline": "ssh nixvm",
-                "guid": "{b76e976c-c895-4d87-8a25-b85968aa470d}",
-                "hidden": false,
-                "icon": "\u2744\ufe0f",
-                "name": "NixOS VM",
-                "startingDirectory": "~",
-                "tabTitle": "NixOS"
             },
             {
                 "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
