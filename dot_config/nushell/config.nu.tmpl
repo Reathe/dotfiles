@@ -56,8 +56,3 @@ $env.config.hooks.pre_prompt ++= [{ ||
 # mise: the project's mise.toml / .tool-versions (after $env.config, which would drop its hooks)
 use ($nu.cache-dir | path join mise.nu)
 {{- end }}
-
-if $env.ZELLIJ? == null {
-  zellij repair-sessions
-  zellij --layout welcome attach --create welcome
-}

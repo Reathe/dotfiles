@@ -128,7 +128,7 @@ binds {
     Print { screenshot; }
     XF86Launch1 { screenshot; }
     Mod+Shift+E { quit; }
-    Super+T hotkey-overlay-title="Launch Terminal" { spawn "ghostty" "-e" "nu"; }
+    Super+T hotkey-overlay-title="Launch Terminal" { spawn "ghostty"; }
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
     Mod+Shift+Slash { show-hotkey-overlay; }
     Mod+Tab repeat=false { toggle-overview; }

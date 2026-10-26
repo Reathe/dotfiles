@@ -78,7 +78,7 @@ Everywhere else (Arch/Omarchy, other Linux, Windows) CLI tools come from **mise*
 prefix makes them run before the other after-scripts). On Windows,
 `run_onchange_before_windows1_install-packages.bat.tmpl` still uses winget, but only for GUI
 apps, the C compiler, fonts, git and mise itself. Nushell comes from mise too: on Windows chezmoi's `nu`
-interpreter and the Windows Terminal profile both run `mise x nushell -- nu`; that list is written inline in the script. Rule: anything mise can
+interpreter runs `mise x nushell -- nu` (the Windows Terminal profile `mise x nushell zellij -- nu`); that list is written inline in the script. Rule: anything mise can
 install goes in `.config.toml`, including Windows-only tools (`os = ["windows"]`).
 
 kanata comes from mise (`github:jtroo/kanata`), whose zip has no plain `kanata` binary: on Linux
@@ -141,6 +141,8 @@ For the same reason a new token can't come from the env: `chezmoi init --prompt`
   (as `README.md`, `AGENTS.md`, `CLAUDE.md` and `flake.nix` already are).
 - Nushell is the default shell; scripts use `#!/usr/bin/env nu` (not `lookPath`: nu may not exist yet when templates render) and `# vim: ft=nu:`. Aliases go in
   `dot_config/nushell/add_alias.nu.tmpl`, functions in `custom-commands.nu.tmpl`.
+- Terminals (ghostty, Windows Terminal, WezTerm) run `dot_config/nushell/start-zellij.nu`, which repairs dead
+  sessions and execs zellij, whose panes run nu. config.nu starts no zellij, so plain `nu` stays a plain shell.
 - Neovim is a LazyVim setup: config in `dot_config/.nvim/lua/config/`, plugin specs one file per concern
   in `dot_config/.nvim/lua/plugins/`.
 - CLI tools go in `dot_config/mise/` (not NixOS); NixOS packages live in `.nix/`; Windows GUI/system

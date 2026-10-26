@@ -9,7 +9,7 @@ if wezterm.target_triple == "x86_64-pc-windows-msvc" then
 	config.ssh_backend = "Ssh2"
 end
 config.prefer_egl = true
-config.default_prog = { "nu" }
+config.default_prog = { "nu", wezterm.home_dir .. "/.config/nushell/start-zellij.nu" }
 config.color_scheme = "Catppuccin Mocha"
 config.window_background_opacity = 0.8
 config.win32_system_backdrop = "Acrylic"

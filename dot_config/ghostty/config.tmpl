@@ -5,6 +5,10 @@ theme = dankcolors
 config-file = ?"~/.local/state/omarchy/current/theme/ghostty.conf"
 {{- end }}
 
+# Every window starts zellij, whose panes run nu (-e still overrides it). Omarchy's session finds both through
+# mise's shims. If the launcher fails (no zellij yet, an env.nu error), bash rather than a window that closes at once.
+command = shell:nu ~/.config/nushell/start-zellij.nu || exec bash
+
 # Font Configuration
 font-size = 12
 
