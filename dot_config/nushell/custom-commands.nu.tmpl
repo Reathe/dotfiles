@@ -20,22 +20,15 @@ export def --env refreshpath [] {
 }
 
 {{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.name "NixOS") }}
-export def nsh [...packages: string] {
+# nix shell with packages from nixos-unstable, unfree allowed; --insecure also allows ones marked insecure
+export def nsh [...packages: string, --insecure (-i)] {
   let refs = $packages | each {|package| $"nixpkgs/nixos-unstable#($package)" }
-  with-env { NIXPKGS_ALLOW_UNFREE: "1" } {
+  with-env { NIXPKGS_ALLOW_UNFREE: "1", NIXPKGS_ALLOW_INSECURE: (if $insecure { "1" } else { "0" }) } {
     ^nix shell --impure ...$refs
   }
 }
 
-export def nshi [...packages: string] {
-  let refs = $packages | each {|package| $"nixpkgs/nixos-unstable#($package)" }
-  with-env {
-    NIXPKGS_ALLOW_UNFREE: "1"
-    NIXPKGS_ALLOW_INSECURE: "1"
-  } {
-    ^nix shell --impure ...$refs
-  }
-}
+export alias nshi = nsh --insecure
 {{- end }}
 
 {{- if stat "/usr/share/omarchy" }}
