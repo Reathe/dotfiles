@@ -4,3 +4,5 @@ dot_config/.voxtype/*
 # DankMaterialShell's matugen writes these through the ~/.config/nvim symlink; per-machine, regenerated
 dot_config/.nvim/colors/dms.lua
 dot_config/.nvim/lua/lualine/themes/dms.lua
+# a Nix fetcher cache (fetcher-cache-v4.sqlite) was committed from here once; it is machine-local
+.nix/.nix-cache/
