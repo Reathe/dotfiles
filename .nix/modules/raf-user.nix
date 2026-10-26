@@ -181,10 +181,6 @@
     variables = {
       TERMINAL = "ghostty";
     };
-
-    shells = [
-      pkgs.nushell
-    ];
   };
 
   environment.etc."xdg/kdeglobals".text = ''
