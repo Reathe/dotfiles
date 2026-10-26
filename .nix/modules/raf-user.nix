@@ -41,6 +41,7 @@
         topiary
         jujutsu
         fzf
+        stylua
         nix-search-tv
         television
         vesktop
@@ -56,7 +57,6 @@
         yazi
         kdePackages.dolphin
         pulseaudio # pactl only (pipewire-pulse is the server): the voxtype bar widget's mic bars need it
-        nh
         jellyfin-desktop
         libnotify
       ])
@@ -78,6 +78,14 @@
   };
 
   programs = {
+    nh = {
+      enable = true;
+      flake = "/home/raf/.local/share/chezmoi"; # NH_FLAKE, so `nh os switch` needs no path
+      clean = {
+        enable = true; # replaces nix.gc
+        extraArgs = "--keep-since 30d --keep 5";
+      };
+    };
     claude-desktop = {
       enable = true;
       cowork.kvmUsers = [ "raf" ]; # /dev/kvm access for Cowork's micro-VM
@@ -94,11 +102,6 @@
       dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
       localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
     };
-    nix-ld.libraries = with pkgs; [
-      # Add any missing dynamic libraries for unpackaged programs
-      # here, NOT in environment.systemPackages
-      stylua
-    ];
 
     dms-shell = {
       enable = true;
@@ -166,10 +169,7 @@
   environment = {
     systemPackages =
       (with pkgs; [
-        git
-        neovim
         uv
-        ghostty
         xwayland-satellite # xwayland support
         papirus-icon-theme
         phinger-cursors

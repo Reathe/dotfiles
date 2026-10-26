@@ -18,7 +18,7 @@ VCS is **jj** colocated with git (`git status` shows detached HEAD — that is n
 chezmoi diff                                   # preview what applying would change in $HOME
 chezmoi apply --init                            # render + apply (alias `cma`); re-reads .chezmoi.yaml.tmpl
 chezmoi execute-template --file path/to/x.tmpl  # render one template to stdout, no writes
-sudo nixos-rebuild switch --flake /home/raf/.local/share/chezmoi#nixos   # alias `nrs`
+nh os switch                                   # alias `nrs`; same as sudo nixos-rebuild switch --flake <sourceDir>#nixos, plus a package diff
 ```
 
 Formatting (every hand-written file should be formatted; skip generated ones):

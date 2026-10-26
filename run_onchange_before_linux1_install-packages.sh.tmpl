@@ -16,5 +16,10 @@ case "$flake_host" in
 nixos) ;;
 *) flake_host="nixos" ;;
 esac
-sudo nixos-rebuild switch --flake path:{{ .chezmoi.sourceDir }}#"$flake_host"
+# nh shows a package diff; plain nixos-rebuild on a fresh install that has no nh yet
+if command -v nh >/dev/null; then
+	nh os switch path:{{ .chezmoi.sourceDir }} -H "$flake_host"
+else
+	sudo nixos-rebuild switch --flake path:{{ .chezmoi.sourceDir }}#"$flake_host"
+fi
 {{- end -}}
