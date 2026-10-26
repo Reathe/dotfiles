@@ -3,7 +3,6 @@ alias vi = vim
 alias cat = bat
 alias cm = chezmoi
 alias zj = zellij
-alias zjc = zj --layout chezmoi attach --create --force-run-commands chezmoi
 alias sshp = ssh -D 1080 -N
 
 {{- /* For platform specific aliases to add */ -}}
@@ -16,8 +15,10 @@ alias kanata = {{ .kanataExe }}
 {{- if eq .chezmoi.os "linux" }}
 alias cma = chezmoi apply --init
 alias sudopath = sudo --preserve-env=PATH env
-alias kanata = kanata_linux_x64
 {{- if eq .chezmoi.osRelease.name "NixOS" }}
 alias nrs = nh os switch
+{{- else }}
+# mise's kanata zip has no plain `kanata`; on NixOS kanata is the system service's
+alias kanata = kanata_linux_x64
 {{- end }}
 {{ end -}}
