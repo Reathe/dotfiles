@@ -81,7 +81,7 @@ in
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = true;
-    open = false;
+    open = true; # NVIDIA's recommendation from Turing on; this card is Ampere. Older generations in the boot menu.
   };
   hardware.graphics.enable = true;
 
