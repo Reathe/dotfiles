@@ -12,6 +12,7 @@
     extraGroups = [
       "wheel"
       "input" # evdev access for voxtype's push-to-talk hotkey watcher
+      "gamemode" # gamemode's polkit rule lets this group change the CPU governor without a password
     ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINoK0Yz0b6ktXjUpbt9gtMwFI5jDHNrXfhUWzKekBvar bachourian@gmail.com"
@@ -102,6 +103,7 @@
       dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
       localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
     };
+    gamemode.enable = true; # per game in Steam: launch options `gamemoderun %command%`
 
     dms-shell = {
       enable = true;

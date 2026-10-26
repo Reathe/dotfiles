@@ -39,15 +39,20 @@
   # link packages' nushell completions (e.g. nh's) into the profiles nushell autoloads from
   environment.pathsToLink = [ "/share/nushell" ];
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-  # unfree CUDA builds (ollama-cuda) that cache.nixos.org doesn't carry; checked after it (priority 50 vs 40)
-  nix.settings.substituters = [ "https://cache.nixos-cuda.org" ];
-  nix.settings.trusted-public-keys = [
-    "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
-  ];
+  nix = {
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      # unfree CUDA builds (ollama-cuda) that cache.nixos.org doesn't carry; checked after it (priority 50 vs 40)
+      substituters = [ "https://cache.nixos-cuda.org" ];
+      trusted-public-keys = [
+        "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+      ];
+    };
+    optimise.automatic = true; # hard-link identical store files, daily (caught up after a night powered off)
+  };
 
   # Enable the OpenSSH daemon.
   services.openssh = {

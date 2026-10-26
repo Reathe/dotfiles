@@ -102,6 +102,11 @@ in
   };
   hardware.xone.enable = true; # support for the xbox controller USB dongle
 
+  # compressed swap in RAM, used before the swapfile (higher priority)
+  zramSwap.enable = true;
+  # SSD, peripheral and board firmware through fwupdmgr
+  services.fwupd.enable = true;
+
   # Let the browser (WebHID) open the MAD60's hidraw nodes so hub.f.gg can configure it.
   # uaccess must be tagged before 73-seat-late.rules, so this can't go in extraRules (99-local).
   services.udev.packages = [
