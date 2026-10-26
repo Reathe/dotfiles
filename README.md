@@ -19,8 +19,8 @@
   touching the flake.
 - **Automatic rebuilds.** The install script embeds the hashes of every Nix file. Editing the system config
   and running `chezmoi apply` triggers `nixos-rebuild switch` by itself.
-- **Automated package installs elsewhere:** **winget** and **Chocolatey** on Windows, **Homebrew** on
-  non-NixOS Linux, all from one list in `.chezmoidata/packages.yaml`.
+- **Automated package installs elsewhere:** **mise** installs the CLI tools on Windows and non-NixOS Linux,
+  from one list in `dot_config/mise/` pinned by a lockfile; **winget** adds the Windows GUI apps.
 - **No secrets in the repo.** SSH keys and tokens are fetched at apply time from **Bitwarden Secrets
   Manager** (`bws`), using a single access token that is prompted for once.
 - **Live-editable configs.** Tools that rewrite their own config (Neovim lock files, jj, zellij, Windows
@@ -66,8 +66,7 @@ On first run you will be asked for a `BWS_ACCESS_TOKEN` (Bitwarden Secrets Manag
 in the environment. chezmoi then:
 
 1. installs the `bws` CLI if needed (non-NixOS),
-2. installs packages (`nixos-rebuild switch` on NixOS, winget/choco on Windows, Homebrew on other Linux
-   distributions),
+2. installs packages (`nh os switch` on NixOS, mise elsewhere, plus winget for Windows GUI apps),
 3. renders the templates (pulling secrets from Bitwarden) and writes the config files into `$HOME`,
 4. authenticates the GitHub CLI.
 
@@ -90,13 +89,12 @@ sudo nixos-rebuild switch --flake ~/.local/share/chezmoi#nixos
 .
 ├── .chezmoi.yaml.tmpl        # chezmoi config: secret prompt, per-OS hooks & interpreters
 ├── .chezmoiignore            # Templated: which files exist on which OS / distro
-├── .chezmoidata/packages.yaml# Package lists (Windows winget/choco, Linux Homebrew)
 ├── .chezmoitemplates/        # Shared fragments (e.g. the kanata keyboard layout)
 ├── flake.nix, flake.lock     # NixOS flake (nixpkgs stable + unstable)
 ├── .nix/
 │   ├── hosts/<host>/         # Per-machine NixOS config + hardware
 │   └── modules/              # Shared system (common.nix) and user (raf-user.nix) modules
-├── dot_config/               # → ~/.config (nvim, nushell, zellij, jj, niri, wezterm, ghostty, …)
+├── dot_config/               # → ~/.config (nvim, nushell, zellij, jj, niri, wezterm, ghostty, mise tool list, …)
 ├── dot_ssh/                  # → ~/.ssh (keys rendered from Bitwarden)
 ├── AppData/                  # Windows-only targets
 └── run_*                     # Install / setup scripts run by chezmoi

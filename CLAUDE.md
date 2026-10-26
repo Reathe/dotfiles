@@ -2,7 +2,7 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-See also `AGENTS.md`, which holds the same repo guidelines in the shared agent format.
+`AGENTS.md` only points other agents here, so this is the one file to keep current.
 
 ## What this repository is
 
@@ -45,9 +45,10 @@ changes a `nixos-rebuild switch` (or `build`) that succeeds.
    so Nix reads it as `git+file` and copies only tracked files, not `.jj` or `.claude/worktrees`).
 
 The two paths are joined by `run_onchange_before_linux1_install-packages.sh.tmpl` (NixOS only): it embeds
-`sha256sum` of `flake.lock`, `flake.nix`, `.chezmoitemplates/kanata.kbd` and every file under `.nix/`
-as comments, so **editing any Nix file changes the script's content hash and `chezmoi apply` re-runs
-`nixos-rebuild switch` automatically**.
+`sha256sum` of `flake.lock`, `flake.nix`, `.chezmoitemplates/kanata.kbd` and each `.nix/` file as
+comments, so **editing any of them changes the script's content hash and `chezmoi apply` re-runs the
+rebuild automatically**. The files are listed one by one: **a new `.nix` file needs its own hash line**,
+or edits to it alone won't trigger a rebuild.
 
 ### Packages outside NixOS: mise
 
