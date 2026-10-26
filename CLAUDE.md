@@ -132,6 +132,7 @@ Secrets come from Bitwarden Secrets Manager. `.chezmoi.yaml.tmpl` prompts once f
 **Never print a rendered `.chezmoi.yaml.tmpl`, or any template that calls `bitwardenSecrets`**: the output
 holds the secret. A dummy `BWS_ACCESS_TOKEN=… ` does not help: chezmoi sets the existing config's
 `scriptEnv` over the shell's variables, so `env "BWS_ACCESS_TOKEN"` still returns the real token.
+For the same reason a new token can't come from the env: `chezmoi init --prompt` asks for it again.
 
 ## Conventions
 
