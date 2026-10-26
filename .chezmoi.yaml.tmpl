@@ -2,11 +2,9 @@
 {{- if not $BWS_ACCESS_TOKEN -}}
 {{-   $BWS_ACCESS_TOKEN = promptStringOnce . "BWS_ACCESS_TOKEN" "Write your BWS_ACCESS_TOKEN" -}}
 {{- end -}}
+# scriptEnv overrides the shell's variables, so the scripts' switches stay out of it and are set per run:
+# INSTALL_PACKAGES=false, BWS_REINSTALL=true, BWS_SHOW_INSTALLER=true chezmoi apply
 scriptEnv:
-  INSTALL_PACKAGES: "true"
-  # BitwardenSecrets
-  BWS_REINSTALL: "false"
-  BWS_SHOW_INSTALLER: "false"
   BWS_ACCESS_TOKEN: {{ $BWS_ACCESS_TOKEN | quote }}
 
 data:
