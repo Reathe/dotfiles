@@ -12,7 +12,6 @@ flake.lock
 {{- /* Ignore on non-Windows (Linux/NixOS) */}}
 AppData*
 *.bat
-.glzr
 .config/komorebi
 .config/whkdrc
 {{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.name "NixOS")}}

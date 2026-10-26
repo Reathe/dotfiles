@@ -37,7 +37,7 @@
 | Terminal & multiplexer | Ghostty, WezTerm, Windows Terminal, [Zellij](https://zellij.dev/) |
 | Version control | [Jujutsu (jj)](https://github.com/jj-vcs/jj) colocated with git, lazygit, GitHub CLI |
 | Linux desktop | [niri](https://github.com/YaLTeR/niri) scrolling Wayland compositor with DankMaterialShell, greetd |
-| Windows desktop | [komorebi](https://github.com/LGUG2Z/komorebi) + whkd tiling window manager, GlazeWM |
+| Windows desktop | [komorebi](https://github.com/LGUG2Z/komorebi) + whkd tiling window manager |
 | Keyboard | [kanata](https://github.com/jtroo/kanata) (home-row mods, layers) |
 | Secrets | Bitwarden Secrets Manager |
 
@@ -98,7 +98,7 @@ sudo nixos-rebuild switch --flake ~/.local/share/chezmoi#nixos
 │   └── modules/              # Shared system (common.nix) and user (raf-user.nix) modules
 ├── dot_config/               # → ~/.config (nvim, nushell, zellij, jj, niri, wezterm, ghostty, …)
 ├── dot_ssh/                  # → ~/.ssh (keys rendered from Bitwarden)
-├── AppData/, dot_glzr/       # Windows-only targets
+├── AppData/                  # Windows-only targets
 └── run_*                     # Install / setup scripts run by chezmoi
 ```
 

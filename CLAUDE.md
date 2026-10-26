@@ -36,7 +36,7 @@ changes a `nixos-rebuild switch` (or `build`) that succeeds.
 
 ### Two apply paths, one tree
 
-1. **chezmoi path** — `dot_config/` → `~/.config/`, `dot_ssh/` → `~/.ssh/`, `AppData/` and `dot_glzr/`
+1. **chezmoi path** — `dot_config/` → `~/.config/`, `dot_ssh/` → `~/.ssh/`, `AppData/`
    → Windows-only targets. Standard chezmoi attributes apply: `private_*`, `readonly_*`, `symlink_*`,
    `*.tmpl`, `run_*`.
 2. **Nix path** — `flake.nix` + `.nix/` define `nixosConfigurations.nixos`. Because `.nix/` and
