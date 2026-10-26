@@ -3,7 +3,7 @@ $timeoutSeconds = 6 * 60;
 $startTime = Get-Date;
 
 Write-Host "Waiting for 'chezmoi' command to become available (timeout: $timeoutSeconds seconds)..." -ForegroundColor Cyan;
-$wingetLinks ="$env:LOCALAPPDATA\Microsoft\WinGet\Links ";
+$wingetLinks ="$env:LOCALAPPDATA\Microsoft\WinGet\Links";
 $chmoi = "$wingetLinks\chezmoi.exe";
 
 
