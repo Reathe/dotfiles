@@ -29,8 +29,11 @@ topiary format dot_config/nushell/*.nu dot_config/topiary/queries/nu.scm
 nixfmt .nix/**/*.nix && statix check .nix                               # nix files
 ```
 
-There are no tests. "Testing" a change means `chezmoi diff` / `chezmoi execute-template`, and for NixOS
-changes a `nixos-rebuild switch` (or `build`) that succeeds.
+"Testing" a change mostly means `chezmoi diff` / `chezmoi execute-template`, and for NixOS changes a
+`nixos-rebuild switch` (or `build`) that succeeds. A few pieces have tests, each printing `ok` or failing:
+`nu .tests/zellij-repair.nu` (zellij session repair), `nu test-apply.nu` in
+`dot_config/DankMaterialShell/.plugins/nixPackages/` (its raf-user.nix edits), and `claude plugin test` for
+the jj-log mod (on a copy with `dot_claude-plugin` renamed to `.claude-plugin`).
 
 ## Architecture
 
@@ -122,9 +125,13 @@ Edit the shared fragment, not the per-OS wrappers.
 
 Secrets come from Bitwarden Secrets Manager. `.chezmoi.yaml.tmpl` prompts once for `BWS_ACCESS_TOKEN`
 (or takes it from the env) and exports it via `scriptEnv`; templates then call
-`bitwardenSecrets "<uuid>" (env "BWS_ACCESS_TOKEN")` — see `dot_ssh/private_readonly_id_ed25519.tmpl`
-and `run_after_gh_auth.nu.tmpl`. On non-NixOS a `read-source-state` hook
-(`.install-pw-manager.sh` / `.ps1`) installs the `bws` CLI first.
+`bitwardenSecrets "<uuid>" (env "BWS_ACCESS_TOKEN")` — see `dot_ssh/private_readonly_id_ed25519.tmpl`;
+`run_after_gh_auth.nu` instead fetches its token with `bws` when it runs. On non-NixOS a
+`read-source-state` hook (`.install-pw-manager.sh` / `.ps1`) installs the `bws` CLI first.
+
+**Never print a rendered `.chezmoi.yaml.tmpl`, or any template that calls `bitwardenSecrets`**: the output
+holds the secret. A dummy `BWS_ACCESS_TOKEN=… ` does not help: chezmoi sets the existing config's
+`scriptEnv` over the shell's variables, so `env "BWS_ACCESS_TOKEN"` still returns the real token.
 
 ## Conventions
 
