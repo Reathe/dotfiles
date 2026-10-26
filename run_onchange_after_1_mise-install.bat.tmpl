@@ -21,8 +21,13 @@ powershell -NoProfile -Command "$s = $env:LOCALAPPDATA + '\mise\shims'; $p = [En
 set "PATH=%LOCALAPPDATA%\mise\shims;%PATH%"
 
 :: Authenticated GitHub API calls: the anonymous limit (60/h) can fail a fresh install, and gh
-:: (which would provide a token) is itself installed here. Same token run_after_gh_auth logs in with.
-set "GITHUB_TOKEN={{ (bitwardenSecrets "90a30c12-3351-49be-9e4c-b3e400e715ef" (env "BWS_ACCESS_TOKEN" | default "")).value }}"
+:: (which would provide a token) is itself installed here. Same token run_after_gh_auth logs in with, fetched
+:: when this runs rather than rendered in, so `chezmoi cat` and `apply -v` don't print it. Before @echo on.
+for /f "usebackq delims=" %%t in (`powershell -NoProfile -Command "(bws secret get 90a30c12-3351-49be-9e4c-b3e400e715ef -c no | ConvertFrom-Json).value"`) do set "GITHUB_TOKEN=%%t"
+if not defined GITHUB_TOKEN (
+    echo Could not read the GitHub token with bws
+    exit /b 1
+)
 
 @echo on
 :: winget ships mise releases late, and an older mise cannot read a lockfile written by a newer one.

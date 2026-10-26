@@ -1,9 +1,10 @@
 #!/usr/bin/env nu
 # vim: ft=nu:
 
-# Define the result outside or capture the output of the try block
+# The token is fetched when this runs (BWS_ACCESS_TOKEN comes from scriptEnv), not rendered in:
+# `chezmoi diff` and `apply -v` print a script's rendered text
 let res = try {
-  '{{ (bitwardenSecrets "90a30c12-3351-49be-9e4c-b3e400e715ef" (env "BWS_ACCESS_TOKEN" | default "")).value }}'
+  bws secret get 90a30c12-3351-49be-9e4c-b3e400e715ef | from json | get value
   | gh auth login --with-token -p ssh -h github.com
   | complete
 } catch {|err|

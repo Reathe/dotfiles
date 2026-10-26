@@ -125,8 +125,9 @@ Edit the shared fragment, not the per-OS wrappers.
 
 Secrets come from Bitwarden Secrets Manager. `.chezmoi.yaml.tmpl` prompts once for `BWS_ACCESS_TOKEN`
 (or takes it from the env) and exports it via `scriptEnv`; templates then call
-`bitwardenSecrets "<uuid>" (env "BWS_ACCESS_TOKEN")` — see `dot_ssh/private_readonly_id_ed25519.tmpl`;
-`run_after_gh_auth.nu` instead fetches its token with `bws` when it runs. On non-NixOS a
+`bitwardenSecrets "<uuid>" (env "BWS_ACCESS_TOKEN")` — see `dot_ssh/private_readonly_id_ed25519.tmpl`.
+Scripts never call `bitwardenSecrets`: `chezmoi diff`, `cat` and `apply -v` print a rendered script, so
+they fetch secrets with `bws` when they run (`run_after_gh_auth.nu`, the mise-install scripts). On non-NixOS a
 `read-source-state` hook (`.install-pw-manager.sh` / `.ps1`) installs the `bws` CLI first.
 
 **Never print a rendered `.chezmoi.yaml.tmpl`, or any template that calls `bitwardenSecrets`**: the output
