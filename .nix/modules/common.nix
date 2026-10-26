@@ -47,8 +47,13 @@
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
+    openFirewall = false; # reachable over Tailscale only, below
     settings = {
       PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false; # else PAM still asks for the password through it
+      PermitRootLogin = "no";
     };
   };
+  # not trustedInterfaces: that would open every port to the tailnet
+  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 22 ];
 }
