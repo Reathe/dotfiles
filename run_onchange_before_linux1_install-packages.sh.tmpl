@@ -11,15 +11,11 @@
 # nix files hash: {{ include ".nix/modules/raf-user.nix" | sha256sum }}
 # nix files hash: {{ include ".nix/hosts/desktop/default.nix" | sha256sum }}
 # nix files hash: {{ include ".nix/hosts/desktop/hardware-configuration.nix" | sha256sum }}
-flake_host="$(hostname)"
-case "$flake_host" in
-nixos) ;;
-*) flake_host="nixos" ;;
-esac
-# nh shows a package diff; plain nixos-rebuild on a fresh install that has no nh yet
+# nh shows a package diff; plain nixos-rebuild on a fresh install that has no nh yet.
+# A plain path is read as git+file, by root too: only tracked files are copied to the store, not .jj or worktrees.
 if command -v nh >/dev/null; then
-	nh os switch path:{{ .chezmoi.sourceDir }} -H "$flake_host"
+	nh os switch {{ .chezmoi.sourceDir }} -H nixos
 else
-	sudo nixos-rebuild switch --flake path:{{ .chezmoi.sourceDir }}#"$flake_host"
+	sudo nixos-rebuild switch --flake {{ .chezmoi.sourceDir }}#nixos
 fi
 {{- end -}}

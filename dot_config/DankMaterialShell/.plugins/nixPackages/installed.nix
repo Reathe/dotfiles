@@ -7,7 +7,9 @@
   refs ? null,
 }:
 let
-  f = builtins.getFlake "path:${src}";
+  # git+file copies only tracked files; getFlake takes a bare path as path:, which copies .jj and every worktree
+  # (a test copy without .git still needs path:)
+  f = builtins.getFlake (if builtins.pathExists "${src}/.git" then "git+file://${src}" else "path:${src}");
   inherit (f.inputs.nixpkgs) lib;
   pkgsFrom =
     flake:

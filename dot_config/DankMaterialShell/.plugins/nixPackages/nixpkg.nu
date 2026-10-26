@@ -146,7 +146,8 @@ def "main show" [attr: string] {
 # again meanwhile (an edit in nvim, another install): restoring would wipe that. Else show which packages changed.
 def rebuild [file: string, before: string, after: string, done: string] {
   let old = ^readlink -f /run/current-system | str trim
-  let ok = try { sudo nixos-rebuild switch --flake $"path:(src)#nixos"; true } catch { false }
+  # a plain path: git+file (only tracked files) in a git repo, root included; path: in a test copy without .git
+  let ok = try { sudo nixos-rebuild switch --flake $"(src)#nixos"; true } catch { false }
   let name = $file | path basename
   if $ok {
     print "" "Version changes:"
@@ -219,7 +220,7 @@ def "main update" [list: string] {
   let lock = src | path join flake.lock
   let before = open --raw $lock
   print $"Updating ($input)…"
-  nix flake update $input --flake $"path:(src)"
+  nix flake update $input --flake (src)
   let after = open --raw $lock
   if $after == $before {
     print "Already up to date."

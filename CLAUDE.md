@@ -41,7 +41,8 @@ changes a `nixos-rebuild switch` (or `build`) that succeeds.
    `*.tmpl`, `run_*`.
 2. **Nix path** — `flake.nix` + `.nix/` define `nixosConfigurations.nixos`. Because `.nix/` and
    `flake.nix` start with a dot or are listed in `.chezmoiignore`, chezmoi never copies them into
-   `$HOME`; they are consumed *in place* from the source dir by `nixos-rebuild --flake path:<sourceDir>`.
+   `$HOME`; they are consumed *in place* from the source dir by `nh os switch <sourceDir>` (a plain path,
+   so Nix reads it as `git+file` and copies only tracked files, not `.jj` or `.claude/worktrees`).
 
 The two paths are joined by `run_onchange_before_linux1_install-packages.sh.tmpl` (NixOS only): it embeds
 `sha256sum` of `flake.lock`, `flake.nix`, `.chezmoitemplates/kanata.kbd` and every file under `.nix/`
