@@ -64,7 +64,7 @@ test('a commit opens to its files, a file to its diff, Explain runs /btw', async
   on('ui.open', () => ({ value: { isPlaced: true } }))
   on('session.start', (_, e) => ({ cwd: e.cwd }))
   on('process.run', (_, e) => {
-    const stdout = e.argv.includes('diff') ? DIFF : e.argv.includes('show') ? 'diff --git a/x b/x' : e.argv.includes('-r') ? META : LOG
+    const stdout = e.argv[0] === 'git' ? '/r/.git\n/r/.git\n' : e.argv.includes('diff') ? DIFF : e.argv.includes('show') ? 'diff --git a/x b/x' : e.argv.includes('-r') ? META : LOG
     return { value: { exitCode: 0, stdout, stderr: '', isStdoutTruncated: false, isStderrTruncated: false } } as never
   })
   on('command.run', (_, e) => {
@@ -97,6 +97,32 @@ test('a commit opens to its files, a file to its diff, Explain runs /btw', async
 
     await ui.press({ key: 'c-bbbbbbbb' })
     expect(await ui.find({ key: 'file-src/x.ts' })).toBeUndefined()
+    await ui.unmount()
+  }
+})
+
+test('in a git worktree it lists nothing, says why, and stays closed at start', async ($, on) => {
+  const opened: string[] = []
+  const ranJj: string[][] = []
+  on('command.register', () => ({ value: { command: 'jj' } }))
+  on('ui.open', (_, e) => {
+    opened.push(e.id)
+    return { value: { isPlaced: true } }
+  })
+  on('session.start', (_, e) => ({ cwd: e.cwd }))
+  on('process.run', (_, e) => {
+    if (e.argv[0] === 'jj') ranJj.push([...e.argv])
+    const stdout = e.argv[0] === 'git' ? '/r/.git/worktrees/wt\n/r/.git\n' : LOG
+    return { value: { exitCode: 0, stdout, stderr: '', isStdoutTruncated: false, isStderrTruncated: false } } as never
+  })
+  await $.session.start({ cwd: '/r/.claude/worktrees/wt', surface: 'desktop', isInteractive: true })
+  expect(opened).toEqual([])
+  expect(ranJj).toEqual([])
+
+  for (const surface of ['terminal', 'desktop'] as const) {
+    const ui = await $.ui.mount({ ...PANE, surface })
+    expect(await ui.find({ type: 'Text', text: /git worktree/ })).toBeDefined()
+    expect(await ui.find({ key: 'c-aaaaaaaa' })).toBeUndefined()
     await ui.unmount()
   }
 })

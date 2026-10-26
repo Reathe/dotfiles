@@ -27,12 +27,27 @@ function parseLog(stdout: string): JjCommit[] {
     })
 }
 
+// jj does not know git worktrees: from one inside a jj repo it walks up to the main checkout's .jj and
+// would list (and snapshot) that checkout instead. A linked worktree's git dir differs from the common one.
+async function isGitWorktree($: EngineInterface) {
+  const r = await $.process.run(['git', 'rev-parse', '--path-format=absolute', '--git-dir', '--git-common-dir']).catch(() => undefined)
+  if (r?.exitCode !== 0) return false
+  const [dir, common] = r.stdout.trim().split('\n')
+  return dir !== common
+}
+
+// true when the pane lists this checkout's commits
 async function refresh($: EngineInterface) {
+  if (await isGitWorktree($)) {
+    await update($, pane, p => ({ ...p, commits: [], expanded: '', detail: undefined, error: 'This is a git worktree: jj only sees the main checkout, so its commits are not listed here.' }))
+    return false
+  }
   const r = await jj($, ['log', '--no-graph', '-n', '30', '-T', LOG_TEMPLATE]).catch(err => ({ exitCode: 1, stdout: '', stderr: String(err) }))
   const ok = r.exitCode === 0
   const p = await update($, pane, p => ({ ...p, commits: ok ? parseLog(r.stdout) : [], error: ok ? '' : (r.stderr.trim().split('\n')[0] ?? 'jj failed') }))
   // A commit that is open shows its new diff after an edit.
   if (p.expanded !== '') await load($, p.expanded)
+  return ok
 }
 
 async function load($: EngineInterface, id: string) {
@@ -64,8 +79,8 @@ const open = ($: EngineInterface) => $.ui.open({ id: PANE, title: TITLE })
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
     await $.command.register({ name: 'jj', description: 'Open the jj commits pane' })
-    await refresh($).catch(() => {})
-    void open($)
+    // only where jj lists this checkout; /jj still opens it anywhere
+    if (await refresh($).catch(() => false)) void open($)
     return next(e)
   }).catch(($, e, next) => next(e))
 
