@@ -60,6 +60,13 @@
         pulseaudio # pactl only (pipewire-pulse is the server): the voxtype bar widget's mic bars need it
         jellyfin-desktop
         libnotify
+        # Windows apps: installers' Start Menu shortcuts become launcher entries, .exe files open with wine.
+        # Not staging: its winemenubuilder skipped them in testing ("no XDG-compliant desktop environment
+        # detected"); stable has no such check.
+        # nixpkgs bundles an older wine-mono than wine wants, so the first new prefix asks to download it
+        # (cached in ~/.cache/wine after that).
+        wineWow64Packages.stableFull
+        winetricks
       ])
       ++ (with unstable; [
         # nixos-unstable. Move a package here to get the unstable version instead of 26.05.
@@ -195,6 +202,8 @@
       pkgs.xdg-desktop-portal-gtk
     ];
   };
+  # .exe is typed as this now; wine.desktop only claims an alias of its parent type, which openers don't follow
+  xdg.mime.defaultApplications."application/vnd.microsoft.portable-executable" = "wine.desktop";
   security.polkit.enable = true; # polkit
   security.pam.services.greetd.enableGnomeKeyring = true; # unlock keyring on login (greetd, not dms-greeter, does the actual user auth)
 
