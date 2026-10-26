@@ -43,6 +43,11 @@
     "nix-command"
     "flakes"
   ];
+  # unfree CUDA builds (ollama-cuda) that cache.nixos.org doesn't carry; checked after it (priority 50 vs 40)
+  nix.settings.substituters = [ "https://cache.nixos-cuda.org" ];
+  nix.settings.trusted-public-keys = [
+    "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+  ];
 
   # Enable the OpenSSH daemon.
   services.openssh = {

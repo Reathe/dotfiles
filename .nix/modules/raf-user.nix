@@ -160,9 +160,7 @@
     };
     ollama = {
       enable = true;
-      package = unstable.ollama-cuda.override {
-        cudaArches = [ "86" ];
-      };
+      package = unstable.ollama-cuda; # not overridden, so cache.nixos-cuda.org has it (common.nix)
     };
   };
 
