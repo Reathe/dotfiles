@@ -129,16 +129,19 @@ def "main show" [attr: string] {
   if $inst != null {
     let other = if $inst == "stable" { "unstable" } else { "stable" }
     print $"(ansi green)Installed from the ($inst) list.(ansi reset)"
-    match (input $"[r]emove, [s]witch to ($l.channels | get $other), [u]pdate ($l.channels | get $inst) \(all its packages\), anything else to close: " | str trim | str lowercase) {
+    match (input $"[r]emove, [s]witch to ($l.channels | get $other), [u]pdate ($l.channels | get $inst) \(all its packages\), [t]ry ($l.channels | get $other) in a shell, anything else to close: " | str trim | str lowercase) {
       "r" => { main uninstall $attr }
       "s" => { main install $attr $other }
       "u" => { main update $inst }
+      "t" => { main try $attr $other }
     }
     return
   }
-  match (input $"Install? [s]table ($l.channels.stable), [u]nstable, anything else to close: " | str trim | str lowercase) {
+  match (input $"Install? [s]table ($l.channels.stable), [u]nstable; try in a shell: [ts] stable, [tu] unstable; anything else to close: " | str trim | str lowercase) {
     "s" => { main install $attr stable }
     "u" => { main install $attr unstable }
+    "ts" => { main try $attr stable }
+    "tu" => { main try $attr unstable }
   }
 }
 
@@ -214,9 +217,22 @@ def "main edit" [attr: string] {
 def "main install" [attr: string, list: string] { main apply $"($list):($attr)" }
 def "main uninstall" [attr: string] { main apply $"remove:($attr)" }
 
+def flake-input [list: string] {
+  match $list { "stable" => "nixpkgs", "unstable" => "nixpkgs-unstable", _ => { error make { msg: "list must be stable or unstable" } } }
+}
+
+# A throwaway nu with the package on PATH, from the flake.lock-pinned channel: nothing is installed
+def "main try" [attr: string, list: string] {
+  check-attr $attr
+  print $"($attr) from ($list), until you exit this shell."
+  with-env { NIXPKGS_ALLOW_UNFREE: "1" } {
+    nix shell --impure --inputs-from (src) $"(flake-input $list)#($attr)" --command nu
+  }
+}
+
 # Update one channel's flake input (every package from that list) and rebuild; flake.lock is restored if that fails
 def "main update" [list: string] {
-  let input = match $list { "stable" => "nixpkgs", "unstable" => "nixpkgs-unstable", _ => { error make { msg: "list must be stable or unstable" } } }
+  let input = flake-input $list
   let lock = src | path join flake.lock
   let before = open --raw $lock
   print $"Updating ($input)…"

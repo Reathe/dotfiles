@@ -19,16 +19,19 @@ run)
   log=$(mktemp --tmpdir nixpkg.XXXXXX.log)
   # One window at a time: two overlapping rebuilds can activate a system built before the other's edit.
   # The lock is held for the script line only (-o: not by its children), so the notification below never holds it.
+  # A try shell changes nothing and may stay open for long, so it neither waits nor blocks.
   lock=${XDG_RUNTIME_DIR:-/tmp}/nixpkg.lock
+  [ "$1" = try ] && lock=$(mktemp --tmpdir nixpkg-try.XXXXXX.lock)
   flock -n "$lock" true || echo "Waiting for the other Nix packages window to close…"
   # script(1) keeps the terminal a terminal (sudo prompt, nvim, nix's progress) and records only output;
   # SHELL=/bin/sh because it runs the line with $SHELL, which may be nu
   SHELL=/bin/sh flock -o "$lock" script -qefc "nu '$dir/nixpkg.nu' $*" "$log"
   rc=$?
+  [ "$1" = try ] && rm -f "$lock"
   if [ $rc -eq 0 ] || [ $rc -eq 130 ]; then
     rm -f "$log"
-    # nvim closing is the end of an edit, anything else leaves its output to read
-    [ "$1" = edit ] || [ $rc -eq 130 ] || { printf '\nPress Enter to close'; read -r _; }
+    # nvim closing is the end of an edit, leaving the shell the end of a try, anything else leaves its output to read
+    [ "$1" = edit ] || [ "$1" = try ] || [ $rc -eq 130 ] || { printf '\nPress Enter to close'; read -r _; }
     exit $rc
   fi
   prompt=$(nu "$dir/nixpkg.nu" report "$log" "$@")

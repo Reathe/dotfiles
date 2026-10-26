@@ -256,6 +256,11 @@ Item {
             if (p.unstable)
                 actions.push({ icon: "new_releases", text: "Install " + p.unstable + " now (" + channels.unstable + ")", closeLauncher: true, action: () => terminal(["install", p.attr, "unstable"]) })
         }
+        // each channel's version without installing it; for an installed package, the other channel's
+        for (const list of ["stable", "unstable"]) {
+            if (p[list] && p.installed !== list)
+                actions.push({ icon: "science", text: "Try " + p[list] + " in a shell (" + channels[list] + ")", closeLauncher: true, action: () => terminal(["try", p.attr, list]) })
+        }
         if (p.homepage)
             actions.push({ icon: "open_in_new", text: "Open homepage", closeLauncher: true, action: () => Qt.openUrlExternally(p.homepage) })
         actions.push({ icon: "content_copy", text: "Copy name", action: () => Quickshell.execDetached(["dms", "cl", "copy", p.attr]) })
