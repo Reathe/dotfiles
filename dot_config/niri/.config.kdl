@@ -339,6 +339,10 @@ window-rule {
 }
 debug {
     honor-xdg-activation-with-invalid-serial
+    // Render on the NVIDIA, which drives the display, whichever GPU firmware boots on: Sunshine
+    // captures and encodes there (.nix/hosts/desktop), and screencopy can't cross GPUs.
+    // Read only at niri startup.
+    render-drm-device "/dev/dri/by-path/pci-0000:01:00.0-render"
 }
 
 // Override to disable super+tab

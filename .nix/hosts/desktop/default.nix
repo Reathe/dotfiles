@@ -83,6 +83,31 @@ in
     powerManagement.enable = true;
     open = true; # NVIDIA's recommendation from Turing on; this card is Ampere. Older generations in the boot menu.
   };
+  # niri never returns freed VRAM to the driver (~1 GiB instead of ~100 MiB). The driver's own
+  # profiles fix this for other compositors but not niri; this is the fix from niri's wiki (Nvidia).
+  environment.etc."nvidia/nvidia-application-profiles-rc.d/50-limit-free-buffer-pool-in-wayland-compositors.json".text =
+    builtins.toJSON {
+      rules = [
+        {
+          pattern = {
+            feature = "procname";
+            matches = "niri";
+          };
+          profile = "Limit Free Buffer Pool On Wayland Compositors";
+        }
+      ];
+      profiles = [
+        {
+          name = "Limit Free Buffer Pool On Wayland Compositors";
+          settings = [
+            {
+              key = "GLVidHeapReuseRatio";
+              value = 0;
+            }
+          ];
+        }
+      ];
+    };
   hardware.graphics.enable = true;
 
   hardware.bluetooth = {
@@ -149,15 +174,14 @@ in
     # Unpinned, it tries the xdg portal first, whose RemoteDesktop session fails with nobody at the
     # screen to approve it, and then hangs before listening. KMS capture fails on the NVIDIA card.
     settings.capture = "wlr";
-    # niri renders on the AMD iGPU, which can't bind NVIDIA dmabufs for screencopy (black stream),
-    # so capture and encode there too (VAAPI): NVENC would copy every frame through RAM, as this
-    # build lacks CUDA. By PCI path, since card/renderD numbers shift between boots.
-    settings.encoder = "vaapi";
-    settings.adapter_name = "/dev/dri/by-path/pci-0000:11:00.0-render";
+    # Capture on the GPU niri renders on (the NVIDIA, pinned in its config.kdl, as it otherwise
+    # follows the boot GPU): screencopy can't bind another GPU's dmabufs (black stream). By PCI
+    # path, since card/renderD numbers shift between boots. Without CUDA, NVENC would copy every
+    # frame through RAM; the CUDA build also finds libcuda through its RUNPATH.
+    package = pkgs.sunshine.override { cudaSupport = true; };
+    settings.encoder = "nvenc";
+    settings.adapter_name = "/dev/dri/by-path/pci-0000:01:00.0-render";
   };
-  # NVENC dlopens libcuda from the driver dir, which isn't in sunshine's RUNPATH. This is also why
-  # capSysAdmin stays off: its setcap wrapper makes the loader ignore LD_LIBRARY_PATH.
-  systemd.user.services.sunshine.environment.LD_LIBRARY_PATH = "/run/opengl-driver/lib";
   # Sunshine needs a connected display to capture, so force the Samsung's port (HDMI-A-2, NVIDIA)
   # on with a generated 1080p60 EDID: it stays "connected" when the monitor is off or unplugged.
   hardware.display = {
