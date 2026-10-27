@@ -14,6 +14,7 @@
       url = "github:nmcbride/claude-desktop-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
   };
 
   outputs =
@@ -57,6 +58,7 @@
       nixosConfigurations = {
         nixos = mkHost [
           inputs.claude-desktop.nixosModules.default
+          inputs.nix-flatpak.nixosModules.nix-flatpak
           ./.nix/hosts/desktop
         ];
       };

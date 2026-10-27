@@ -60,6 +60,7 @@
         pulseaudio # pactl only (pipewire-pulse is the server): the voxtype bar widget's mic bars need it
         jellyfin-desktop
         libnotify
+        vinegar # Roblox Studio under Wine; the player is Sober (services.flatpak below)
         # Windows apps: installers' Start Menu shortcuts become launcher entries, .exe files open with wine.
         # Not staging: its winemenubuilder skipped them in testing ("no XDG-compliant desktop environment
         # detected"); stable has no such check.
@@ -169,6 +170,12 @@
       # use tailscale login
     };
     gnome.gnome-keyring.enable = true; # secret service
+    # nix-flatpak (flake.nix) installs these from Flathub at activation
+    flatpak = {
+      enable = true;
+      packages = [ "org.vinegarhq.Sober" ]; # Roblox player: ships only as a Flatpak
+      update.auto.enable = true; # weekly
+    };
     displayManager = {
       dms-greeter = {
         enable = true;
