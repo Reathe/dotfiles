@@ -114,7 +114,22 @@
 
     dms-shell = {
       enable = true;
-      package = unstable.dms-shell;
+      # Two `dms open` picker bugs left .exe files with no app to pick:
+      # - it types files by Go's built-in table, where .exe is application/octet-stream, which no app claims:
+      #   ask the freedesktop database for those instead
+      # - it looks hidden handlers (Wine's NoDisplay entry) up as "wine.desktop", but Quickshell's ids drop
+      #   ".desktop": use the picker's own normalized id
+      # If upstream changes either spot, --replace-fail stops the build: check whether the override is still needed.
+      package = unstable.dms-shell.overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + ''
+          substituteInPlace cmd/dms/commands_open.go \
+            --replace-fail '"net/url"' '"net/url"; "os/exec"' \
+            --replace-fail 'return mime.TypeByExtension(ext)' 'if t := mime.TypeByExtension(ext); t != "application/octet-stream" { return t }; out, _ := exec.Command("${pkgs.xdg-utils}/bin/xdg-mime", "query", "filetype", path).Output(); return strings.TrimSpace(string(out))'
+          chmod u+w ../quickshell/Modals/AppPickerModal.qml
+          substituteInPlace ../quickshell/Modals/AppPickerModal.qml \
+            --replace-fail 'DesktopEntries.byId(rawId)' 'DesktopEntries.byId(normId)'
+        '';
+      });
 
       systemd = {
         enable = true; # Systemd service for auto-start
