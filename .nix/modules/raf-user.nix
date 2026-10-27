@@ -66,7 +66,16 @@
         # nixpkgs bundles an older wine-mono than wine wants, so the first new prefix asks to download it
         # (cached in ~/.cache/wine after that).
         wineWow64Packages.stableFull
-        winetricks
+        # winetricks reads Wine's arch from the ELF header of `wine`, here a wrapper script, so it can't pick the
+        # wine for 64-bit prefixes; point it at the binary. Its 64-bit warnings can't be acted on: this Wine
+        # (new WoW64) makes no 32-bit prefixes.
+        (winetricks.overrideAttrs (old: {
+          postInstall = old.postInstall + ''
+            wrapProgram $out/bin/winetricks \
+              --set WINE_BIN ${wineWow64Packages.stableFull}/bin/.wine \
+              --set W_NO_WIN64_WARNINGS 1
+          '';
+        }))
       ])
       ++ (with unstable; [
         # nixos-unstable. Move a package here to get the unstable version instead of 26.05.
