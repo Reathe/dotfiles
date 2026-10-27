@@ -128,17 +128,23 @@
       #   ask the freedesktop database for those instead
       # - it looks hidden handlers (Wine's NoDisplay entry) up as "wine.desktop", but Quickshell's ids drop
       #   ".desktop": use the picker's own normalized id
-      # If upstream changes either spot, --replace-fail stops the build: check whether the override is still needed.
-      package = unstable.dms-shell.overrideAttrs (old: {
-        postPatch = (old.postPatch or "") + ''
-          substituteInPlace cmd/dms/commands_open.go \
-            --replace-fail '"net/url"' '"net/url"; "os/exec"' \
-            --replace-fail 'return mime.TypeByExtension(ext)' 'if t := mime.TypeByExtension(ext); t != "application/octet-stream" { return t }; out, _ := exec.Command("${pkgs.xdg-utils}/bin/xdg-mime", "query", "filetype", path).Output(); return strings.TrimSpace(string(out))'
-          chmod u+w ../quickshell/Modals/AppPickerModal.qml
-          substituteInPlace ../quickshell/Modals/AppPickerModal.qml \
-            --replace-fail 'DesktopEntries.byId(rawId)' 'DesktopEntries.byId(normId)'
-        '';
-      });
+      # If upstream changes either spot, --replace-fail stops the build; a fix made elsewhere would leave the patch
+      # applying silently, so a new version warns until checked: drop the override, or bump 1.6.3.
+      package =
+        pkgs.lib.warnIf (unstable.dms-shell.version != "1.6.3")
+          "dms-shell ${unstable.dms-shell.version}: check whether the open-with picker patch in raf-user.nix is still needed, then bump 1.6.3 there"
+          (
+            unstable.dms-shell.overrideAttrs (old: {
+              postPatch = (old.postPatch or "") + ''
+                substituteInPlace cmd/dms/commands_open.go \
+                  --replace-fail '"net/url"' '"net/url"; "os/exec"' \
+                  --replace-fail 'return mime.TypeByExtension(ext)' 'if t := mime.TypeByExtension(ext); t != "application/octet-stream" { return t }; out, _ := exec.Command("${pkgs.xdg-utils}/bin/xdg-mime", "query", "filetype", path).Output(); return strings.TrimSpace(string(out))'
+                chmod u+w ../quickshell/Modals/AppPickerModal.qml
+                substituteInPlace ../quickshell/Modals/AppPickerModal.qml \
+                  --replace-fail 'DesktopEntries.byId(rawId)' 'DesktopEntries.byId(normId)'
+              '';
+            })
+          );
 
       systemd = {
         enable = true; # Systemd service for auto-start
