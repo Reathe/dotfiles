@@ -56,7 +56,7 @@
         lmstudio
         libreoffice
         yazi
-        kdePackages.dolphin
+        nautilus
         pulseaudio # pactl only (pipewire-pulse is the server): the voxtype bar widget's mic bars need it
         jellyfin-desktop
         libnotify
@@ -190,10 +190,11 @@
     };
   };
 
-  environment.etc."xdg/kdeglobals".text = ''
-    [General]
-    TerminalApplication=ghostty
-  '';
+  services.gvfs.enable = true; # Nautilus's trash, phones and network places
+  programs.nautilus-open-any-terminal = {
+    enable = true;
+    terminal = "ghostty";
+  };
 
   xdg.portal = {
     enable = true;
