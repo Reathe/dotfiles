@@ -7,4 +7,8 @@ source env.nu # zellij itself keeps EDITOR, GIT_SSH and the PATH additions, as w
 use custom-commands.nu "zellij repair-sessions"
 
 zellij repair-sessions
-exec zellij --layout welcome attach --create welcome
+# The welcome screen is created apart: a client started with --layout gives that layout to every session it later
+# creates without one (Enter twice on the welcome screen), which then opens the welcome screen again.
+# It fails when another window already shows it; that one is attached to as well.
+zellij --layout welcome attach --create-background welcome | complete | ignore
+exec zellij attach welcome
